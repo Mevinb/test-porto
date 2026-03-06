@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { useInView } from 'motion/react';
-import { useRef, useState } from 'react';
-import { Mail, Linkedin, Github, Send, MapPin } from 'lucide-react';
+import { useRef } from 'react';
+import { Mail, Linkedin, Github, MapPin } from 'lucide-react';
 
 const CONTACT = {
   email: 'mevinbenty507@gmail.com',
@@ -12,23 +12,6 @@ const CONTACT = {
 export function Footer() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const subject = encodeURIComponent(`Portfolio inquiry from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-    );
-    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
-
-    setFormData({ name: '', email: '', message: '' });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   return (
     <footer id="contact" className="py-20 px-6 relative border-t border-indigo-500/10">
@@ -64,7 +47,7 @@ export function Footer() {
             </motion.p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
+          <div className="mb-16">
             {/* Contact Information */}
             <motion.div
               className="space-y-8"
@@ -119,7 +102,7 @@ export function Footer() {
                     <div className="p-2 bg-slate-800/50 border border-indigo-500/10 rounded-lg">
                       <MapPin size={20} />
                     </div>
-                    <span>Available for remote opportunities</span>
+                    <span>Thrissur, Kerala</span>
                   </motion.div>
                 </div>
               </div>
@@ -132,72 +115,6 @@ export function Footer() {
               </div>
             </motion.div>
 
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.5 }}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-indigo-500/10 rounded-lg text-slate-100 placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
-                    placeholder="John Doe"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-indigo-500/10 rounded-lg text-slate-100 placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
-                    placeholder="john@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
-                    Your Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-indigo-500/10 rounded-lg text-slate-100 placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none"
-                    placeholder="Tell me about your project..."
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  className="w-full px-8 py-4 bg-indigo-600 rounded-lg text-white font-medium shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02, boxShadow: '0 25px 50px rgba(99, 102, 241, 0.4)' }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Send Message</span>
-                  <Send size={18} />
-                </motion.button>
-              </form>
-            </motion.div>
           </div>
 
           {/* Footer Bottom */}

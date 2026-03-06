@@ -1,46 +1,47 @@
 import { motion } from 'motion/react';
 import { useInView } from 'motion/react';
 import { useRef } from 'react';
-import { Code, Shield, Layers, Wrench } from 'lucide-react';
+import { Code, Sparkles, Layers, Wrench } from 'lucide-react';
 
 const skillCategories = [
   {
     title: 'Backend',
     icon: Code,
     skills: [
-      { name: 'Flask', level: 90 },
-      { name: 'FastAPI', level: 85 },
-      { name: 'Node.js', level: 80 },
-      { name: 'Express.js', level: 80 },
+      { name: 'Flask' },
+      { name: 'FastAPI' },
+      { name: 'Node.js' },
+      { name: 'Express.js' },
     ],
   },
   {
-    title: 'Cybersecurity',
-    icon: Shield,
+    title: 'AI & Image Generation',
+    icon: Sparkles,
     skills: [
-      { name: 'PowerShell', level: 85 },
-      { name: 'Network Scanning', level: 90 },
-      { name: 'OSINT', level: 88 },
+      { name: 'Stable Diffusion' },
+      { name: 'ComfyUI' },
+      { name: 'LoRA Training' },
+      { name: 'Prompt Engineering' },
     ],
   },
   {
     title: 'Frontend & Languages',
     icon: Layers,
     skills: [
-      { name: 'React', level: 85 },
-      { name: 'Python', level: 95 },
-      { name: 'Java', level: 80 },
-      { name: 'Kotlin', level: 75 },
-      { name: 'C', level: 70 },
+      { name: 'React' },
+      { name: 'Python' },
+      { name: 'Java' },
+      { name: 'Kotlin' },
+      { name: 'C' },
     ],
   },
   {
     title: 'Tools',
     icon: Wrench,
     skills: [
-      { name: 'Docker', level: 85 },
-      { name: 'Git', level: 90 },
-      { name: 'PyInstaller', level: 80 },
+      { name: 'Docker' },
+      { name: 'Git' },
+      { name: 'PyInstaller' },
     ],
   },
 ];
@@ -79,7 +80,7 @@ export function About() {
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.3 }}
             >
-              A passionate software engineer with expertise spanning backend development, cybersecurity, and full-stack solutions.
+              A passionate software engineer with expertise spanning AI engineering, image generation workflows, and full-stack solutions.
             </motion.p>
           </div>
 
@@ -121,18 +122,7 @@ export function About() {
                         animate={isInView ? { opacity: 1, x: 0 } : {}}
                         transition={{ delay: 0.7 + idx * 0.1 + skillIdx * 0.05 }}
                       >
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-slate-300 font-medium">{skill.name}</span>
-                          <span className="text-slate-500 text-sm">{skill.level}%</span>
-                        </div>
-                        <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden border border-indigo-500/10">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-full"
-                            initial={{ width: 0 }}
-                            animate={isInView ? { width: `${skill.level}%` } : {}}
-                            transition={{ delay: 0.8 + idx * 0.1 + skillIdx * 0.05, duration: 0.8, ease: 'easeOut' }}
-                          />
-                        </div>
+                        <span className="text-slate-300 font-medium">{skill.name}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -145,3 +135,4 @@ export function About() {
     </section>
   );
 }
+

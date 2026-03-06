@@ -23,12 +23,12 @@ export function Hero() {
           transition={{ duration: 0.6 }}
         >
           <motion.p
-            className="text-indigo-400 text-sm font-medium tracking-wide uppercase mb-4"
+            className="text-indigo-400 text-base md:text-lg font-medium tracking-wide uppercase mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Software Engineer & Security Specialist
+            Software Engineer, AI & Image Generation Specialist
           </motion.p>
 
           <motion.h1
@@ -37,7 +37,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            Building secure, scalable systems and real-world engineering solutions
+            Building intelligent AI systems and high-quality image generation workflows
           </motion.h1>
 
           <motion.p
@@ -46,7 +46,7 @@ export function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Full-stack developer specializing in backend architecture, cybersecurity, and creating innovative solutions that solve complex problems.
+            Developer focused on AI engineering, generative imaging pipelines, and scalable full-stack solutions for real-world products.
           </motion.p>
 
           <motion.div
@@ -99,3 +99,4 @@ export function Hero() {
     </section>
   );
 }
+

@@ -225,7 +225,7 @@ export function Projects() {
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.3 }}
             >
-              A showcase of key repositories demonstrating expertise across backend, security, and AI development.
+              A showcase of key repositories demonstrating expertise across backend, AI, and image generation development.
             </motion.p>
           </div>
 
@@ -297,3 +297,4 @@ export function Projects() {
     </section>
   );
 }
+
