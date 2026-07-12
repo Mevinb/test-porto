@@ -1,137 +1,302 @@
-import { motion } from 'motion/react';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useInView } from 'motion/react';
-import { useRef } from 'react';
-import { Mail, Linkedin, Github, MapPin } from 'lucide-react';
+import { Mail, Linkedin, Github, MapPin, Copy, Check, Send } from 'lucide-react';
 
 const CONTACT = {
   email: 'mevinbenty507@gmail.com',
   github: 'https://github.com/Mevinb',
   linkedin: 'https://www.linkedin.com/in/mevin-benty-17305a322',
+  location: 'Thrissur, Kerala',
 };
 
 export function Footer() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const [copied, setCopied] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
+
+  const copyEmailToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+
+    setFormState('sending');
+    // Simulate API request
+    setTimeout(() => {
+      setFormState('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setFormState('idle'), 4000);
+    }, 1500);
+  };
 
   return (
-    <footer id="contact" className="py-20 px-6 relative border-t border-indigo-500/10">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#3730a3_0%,_transparent_50%)] opacity-5" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-20" />
+    <footer id="contact" ref={sectionRef} className="relative py-24 px-6 overflow-hidden border-t border-slate-900">
+      
+      {/* Background radial spotlight */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-t from-indigo-500/10 to-transparent blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center mb-16">
-            <motion.h2
-              className="text-4xl md:text-5xl font-bold mb-4 text-indigo-400"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
+        <div className="grid lg:grid-cols-12 gap-12 items-start mb-20">
+          
+          {/* Left Column: Title & Social details (Spans 5 cols) */}
+          <div className="lg:col-span-5 text-left">
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3"
             >
               Get In Touch
+            </motion.p>
+            
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mb-6"
+            >
+              Let's build something secure & intelligent.
             </motion.h2>
+
             <motion.p
-              className="text-slate-400 text-lg max-w-2xl mx-auto"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-slate-400 text-sm sm:text-base leading-relaxed mb-10"
             >
-              Have a project in mind or want to collaborate? Let's build something amazing together.
+              Whether you are looking to integrate generative image models, automate backend deployments, audit scripts, or just say hello—reach out and let's coordinate.
             </motion.p>
+
+            {/* Contact Quick-cards */}
+            <div className="space-y-4">
+              
+              {/* Copy-to-clipboard Email Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                onClick={copyEmailToClipboard}
+                className="group relative flex items-center justify-between p-4 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 hover:border-indigo-500/30 rounded-2xl cursor-pointer transition-all duration-300"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-indigo-400 group-hover:bg-indigo-950/30 transition-all">
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Email Address</div>
+                    <div className="text-xs sm:text-sm font-medium text-slate-200">{CONTACT.email}</div>
+                  </div>
+                </div>
+                
+                {/* Copy Status Icon */}
+                <div className="p-2 text-slate-500 group-hover:text-slate-300 transition-colors">
+                  <AnimatePresence mode="wait">
+                    {copied ? (
+                      <motion.div
+                        key="check"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.8, opacity: 0 }}
+                        className="text-emerald-400"
+                      >
+                        <Check size={16} />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="copy"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.8, opacity: 0 }}
+                      >
+                        <Copy size={16} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+
+              {/* Social Channels Row */}
+              <div className="grid grid-cols-2 gap-4">
+                
+                <motion.a
+                  href={CONTACT.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="group flex items-center gap-3 p-4 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 hover:border-slate-700/50 rounded-2xl transition-all duration-300 cursor-pointer"
+                >
+                  <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 group-hover:text-white transition-colors">
+                    <Github size={18} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">GitHub</div>
+                    <div className="text-xs font-semibold text-slate-300 group-hover:text-white transition-colors">@Mevinb</div>
+                  </div>
+                </motion.a>
+
+                <motion.a
+                  href={CONTACT.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="group flex items-center gap-3 p-4 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 hover:border-indigo-500/30 rounded-2xl transition-all duration-300 cursor-pointer"
+                >
+                  <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 group-hover:text-indigo-400 transition-colors">
+                    <Linkedin size={18} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">LinkedIn</div>
+                    <div className="text-xs font-semibold text-slate-300 group-hover:text-white transition-colors">Mevin Benty</div>
+                  </div>
+                </motion.a>
+              </div>
+
+              {/* Location Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="flex items-center gap-3 p-4 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-2xl select-none"
+              >
+                <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-500">
+                  <MapPin size={18} />
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Location</div>
+                  <div className="text-xs font-semibold text-slate-300">{CONTACT.location}</div>
+                </div>
+              </motion.div>
+            </div>
           </div>
 
-          <div className="mb-16">
-            {/* Contact Information */}
-            <motion.div
-              className="space-y-8"
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.4 }}
-            >
-              <div>
-                <h3 className="text-2xl font-semibold text-slate-100 mb-6">Contact Information</h3>
-                <div className="space-y-4">
-                  <motion.a
-                    href={`mailto:${CONTACT.email}`}
-                    className="flex items-center gap-3 text-slate-300 hover:text-indigo-400 transition-colors group"
-                    whileHover={{ x: 5 }}
-                  >
-                    <div className="p-2 bg-slate-800/50 border border-indigo-500/10 rounded-lg group-hover:bg-indigo-600/20 group-hover:border-indigo-500/30 transition-all">
-                      <Mail size={20} />
-                    </div>
-                    <span>{CONTACT.email}</span>
-                  </motion.a>
-
-                  <motion.a
-                    href={CONTACT.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-slate-300 hover:text-indigo-400 transition-colors group"
-                    whileHover={{ x: 5 }}
-                  >
-                    <div className="p-2 bg-slate-800/50 border border-indigo-500/10 rounded-lg group-hover:bg-indigo-600/20 group-hover:border-indigo-500/30 transition-all">
-                      <Linkedin size={20} />
-                    </div>
-                    <span>www.linkedin.com/in/mevin-benty-17305a322</span>
-                  </motion.a>
-
-                  <motion.a
-                    href={CONTACT.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-slate-300 hover:text-indigo-400 transition-colors group"
-                    whileHover={{ x: 5 }}
-                  >
-                    <div className="p-2 bg-slate-800/50 border border-indigo-500/10 rounded-lg group-hover:bg-indigo-600/20 group-hover:border-indigo-500/30 transition-all">
-                      <Github size={20} />
-                    </div>
-                    <span>github.com/Mevinb</span>
-                  </motion.a>
-
-                  <motion.div
-                    className="flex items-center gap-3 text-slate-300"
-                    whileHover={{ x: 5 }}
-                  >
-                    <div className="p-2 bg-slate-800/50 border border-indigo-500/10 rounded-lg">
-                      <MapPin size={20} />
-                    </div>
-                    <span>Thrissur, Kerala</span>
-                  </motion.div>
+          {/* Right Column: Interactive Glass Contact Form (Spans 7 cols) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-7 bg-slate-900/20 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-6 sm:p-8"
+          >
+            <h3 className="text-lg font-bold text-white mb-6 text-left">Send a Quick Message</h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-4 text-left">
+              
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="name" className="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1.5">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    disabled={formState !== 'idle'}
+                    placeholder="John Doe"
+                    className="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 rounded-xl text-slate-200 placeholder-slate-600 text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1.5">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    disabled={formState !== 'idle'}
+                    placeholder="john@example.com"
+                    className="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 rounded-xl text-slate-200 placeholder-slate-600 text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
+                  />
                 </div>
               </div>
 
               <div>
-                <h4 className="text-lg font-semibold text-slate-100 mb-4">Let's Connect</h4>
-                <p className="text-slate-400 leading-relaxed">
-                  I'm always interested in hearing about new projects, opportunities, and collaborations. Whether you have a question or just want to say hi, feel free to reach out!
-                </p>
+                <label htmlFor="message" className="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1.5">
+                  Message Details
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows={4}
+                  disabled={formState !== 'idle'}
+                  placeholder="Tell me about your project needs..."
+                  className="w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 rounded-xl text-slate-200 placeholder-slate-600 text-xs sm:text-sm font-medium outline-none transition-all resize-none disabled:opacity-50"
+                />
               </div>
-            </motion.div>
 
-          </div>
-
-          {/* Footer Bottom */}
-          <motion.div
-            className="pt-8 border-t border-indigo-500/10 text-center"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.7 }}
-          >
-            <p className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} Mevin Benty. All rights reserved.
-            </p>
-            <p className="text-slate-600 text-xs mt-2">
-              Built with React, Motion, and Tailwind CSS
-            </p>
+              <motion.button
+                type="submit"
+                disabled={formState !== 'idle'}
+                className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
+                whileTap={{ scale: 0.98 }}
+              >
+                {formState === 'idle' && (
+                  <>
+                    <span>Send Message</span>
+                    <Send size={14} />
+                  </>
+                )}
+                {formState === 'sending' && (
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" />
+                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-bounce [animation-delay:0.4s]" />
+                  </span>
+                )}
+                {formState === 'success' && (
+                  <span className="flex items-center gap-1.5 text-emerald-300">
+                    <Check size={14} />
+                    <span>Message Dispatched</span>
+                  </span>
+                )}
+              </motion.button>
+            </form>
           </motion.div>
-        </motion.div>
+        </div>
+
+        {/* Footer Base Details */}
+        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-center select-none">
+          <p className="text-[10px] sm:text-xs text-slate-500">
+            © {new Date().getFullYear()} Mevin Benty. All rights reserved.
+          </p>
+          <div className="flex items-center gap-1.5 text-[10px] text-slate-600">
+            <span>Powered by React</span>
+            <span className="w-1 h-1 rounded-full bg-slate-700" />
+            <span>Tailwind v4</span>
+            <span className="w-1 h-1 rounded-full bg-slate-700" />
+            <span>Framer Motion</span>
+          </div>
+        </div>
       </div>
     </footer>
   );

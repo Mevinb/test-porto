@@ -1,7 +1,7 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useInView } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, Shield, Cpu, Code, Globe } from 'lucide-react';
 
 type GitHubRepo = {
   name: string;
@@ -21,6 +21,7 @@ type PortfolioProject = {
   repoUrl: string;
   primaryUrl: string;
   primaryLabel: string;
+  category: 'AI & Vision' | 'Security & Systems' | 'Web Apps';
 };
 
 const GITHUB_REPOS_API = 'https://api.github.com/users/Mevinb/repos?per_page=100&sort=updated';
@@ -54,107 +55,205 @@ const PROJECT_SUMMARIES: Record<string, string> = {
     'A local, modular personal AI assistant built in Python for private and customizable AI workflows.',
 };
 
-// Fallback so the section stays populated if GitHub API is unavailable.
+function getCategoryForRepo(name: string): 'AI & Vision' | 'Security & Systems' | 'Web Apps' {
+  if (name === 'Reactorv3' || name === 'persona') {
+    return 'AI & Vision';
+  }
+  if (name === 'NetScan' || name === 'sn1per-win' || name === 'etlabshr') {
+    return 'Security & Systems';
+  }
+  return 'Web Apps';
+}
+
 const FALLBACK_PROJECTS: PortfolioProject[] = [
   {
     title: 'NetScan',
     description: PROJECT_SUMMARIES.NetScan,
-    tags: ['Python', 'Security', 'GitHub'],
+    tags: ['Python', 'Security', 'Scanner'],
     repoUrl: 'https://github.com/Mevinb/NetScan',
     primaryUrl: 'https://github.com/Mevinb/NetScan',
     primaryLabel: 'View Repository',
+    category: 'Security & Systems',
   },
   {
     title: 'db',
     description: PROJECT_SUMMARIES.db,
-    tags: ['TypeScript', 'Full Stack', 'GitHub'],
+    tags: ['TypeScript', 'Node.js', 'PostgreSQL'],
     repoUrl: 'https://github.com/Mevinb/db',
     primaryUrl: 'https://github.com/Mevinb/db',
     primaryLabel: 'View Repository',
+    category: 'Web Apps',
   },
   {
     title: 'Reactorv3',
     description: PROJECT_SUMMARIES.Reactorv3,
-    tags: ['Python', 'AI', 'GitHub'],
+    tags: ['Python', 'Stable Diffusion', 'Facial AI'],
     repoUrl: 'https://github.com/Mevinb/Reactorv3',
     primaryUrl: 'https://github.com/Mevinb/Reactorv3',
     primaryLabel: 'View Repository',
+    category: 'AI & Vision',
   },
   {
     title: 'cloudx',
     description: PROJECT_SUMMARIES.cloudx,
-    tags: ['TypeScript', 'Node.js', 'GitHub'],
+    tags: ['TypeScript', 'Express', 'React'],
     repoUrl: 'https://github.com/Mevinb/cloudx',
     primaryUrl: 'https://github.com/Mevinb/cloudx',
     primaryLabel: 'View Repository',
+    category: 'Web Apps',
   },
   {
     title: 'Riftory',
     description: PROJECT_SUMMARIES.Riftory,
-    tags: ['TypeScript', 'Web', 'GitHub'],
+    tags: ['TypeScript', 'Webpack', 'CSS'],
     repoUrl: 'https://github.com/Mevinb/Riftory',
     primaryUrl: 'https://github.com/Mevinb/Riftory',
     primaryLabel: 'View Repository',
+    category: 'Web Apps',
   },
   {
     title: 'sn1per-win',
     description: PROJECT_SUMMARIES['sn1per-win'],
-    tags: ['PowerShell', 'Security', 'GitHub'],
+    tags: ['PowerShell', 'Windows Sec', 'Auditing'],
     repoUrl: 'https://github.com/Mevinb/sn1per-win',
     primaryUrl: 'https://github.com/Mevinb/sn1per-win',
     primaryLabel: 'View Repository',
+    category: 'Security & Systems',
   },
   {
     title: 'etlabshr',
     description: PROJECT_SUMMARIES.etlabshr,
-    tags: ['Python', 'API', 'GitHub'],
+    tags: ['Python', 'Web API', 'Automation'],
     repoUrl: 'https://github.com/Mevinb/etlabshr',
     primaryUrl: 'https://github.com/Mevinb/etlabshr',
     primaryLabel: 'View Repository',
+    category: 'Security & Systems',
   },
   {
     title: 'persona',
     description: PROJECT_SUMMARIES.persona,
-    tags: ['Python', 'AI', 'GitHub'],
+    tags: ['Python', 'Local AI', 'Agent'],
     repoUrl: 'https://github.com/Mevinb/persona',
     primaryUrl: 'https://github.com/Mevinb/persona',
     primaryLabel: 'View Repository',
+    category: 'AI & Vision',
   },
 ];
 
-function buildTags(repo: GitHubRepo): string[] {
-  const tags: string[] = [];
+const CATEGORIES = ['All', 'AI & Vision', 'Security & Systems', 'Web Apps'] as const;
 
-  if (repo.language) {
-    tags.push(repo.language);
-  }
+function ProjectCard({
+  project,
+}: {
+  project: PortfolioProject;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
 
-  if (repo.homepage && repo.homepage.trim().length > 0) {
-    tags.push('Live');
-  }
-
-  tags.push('GitHub');
-  return [...new Set(tags)].slice(0, 4);
-}
-
-function mapRepoToProject(repo: GitHubRepo): PortfolioProject {
-  const hasHomepage = Boolean(repo.homepage && repo.homepage.trim().length > 0);
-  const summary = PROJECT_SUMMARIES[repo.name] || repo.description?.trim();
-
-  return {
-    title: repo.name,
-    description: summary || `A ${repo.language ?? 'software'} project by Mevin Benty.`,
-    tags: buildTags(repo),
-    repoUrl: repo.html_url,
-    primaryUrl: hasHomepage ? repo.homepage!.trim() : repo.html_url,
-    primaryLabel: hasHomepage ? 'View Live Project' : 'View Repository',
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
   };
+
+  const getCategoryIcon = () => {
+    switch (project.category) {
+      case 'AI & Vision':
+        return <Cpu size={16} className="text-pink-400" />;
+      case 'Security & Systems':
+        return <Shield size={16} className="text-indigo-400" />;
+      case 'Web Apps':
+        return <Code size={16} className="text-cyan-400" />;
+    }
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative overflow-hidden bg-slate-900/30 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-6 flex flex-col justify-between hover:bg-slate-900/60 hover:border-slate-700/50 transition-colors duration-300 h-full"
+    >
+      {/* Border hover spotlight glow */}
+      {isHovered && (
+        <div
+          className="pointer-events-none absolute -inset-px rounded-3xl transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, rgba(99, 102, 241, 0.15), transparent 80%)`,
+          }}
+        />
+      )}
+
+      <div className="relative z-10">
+        {/* Card Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-950 border border-slate-800 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+            {getCategoryIcon()}
+            <span>{project.category}</span>
+          </div>
+          
+          <motion.a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center p-2 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-indigo-500/50 hover:bg-indigo-950/20 text-slate-400 hover:text-indigo-400 transition-colors cursor-pointer"
+            whileHover={{ scale: 1.05, rotate: 10 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Github size={18} />
+          </motion.a>
+        </div>
+
+        {/* Title */}
+        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors duration-300">
+          {project.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+          {project.description}
+        </p>
+      </div>
+
+      <div className="relative z-10 mt-auto">
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[10px] px-2.5 py-1 rounded-lg bg-slate-950/40 border border-slate-800/80 text-slate-400 group-hover:text-slate-300 group-hover:border-slate-700/60 transition-colors"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Link Button */}
+        <motion.a
+          href={project.primaryUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 cursor-pointer"
+          whileHover={{ x: 3 }}
+        >
+          <span>{project.primaryLabel}</span>
+          <ExternalLink size={14} />
+        </motion.a>
+      </div>
+    </div>
+  );
 }
 
 export function Projects() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
   const [projects, setProjects] = useState<PortfolioProject[]>(FALLBACK_PROJECTS);
+  const [activeCategory, setActiveCategory] = useState<typeof CATEGORIES[number]>('All');
 
   useEffect(() => {
     let mounted = true;
@@ -176,7 +275,22 @@ export function Projects() {
 
         const githubProjects = CURATED_REPOSITORIES.map((name) => repoMap.get(name))
           .filter((repo): repo is GitHubRepo => Boolean(repo))
-          .map(mapRepoToProject);
+          .map((repo) => {
+            const hasHomepage = Boolean(repo.homepage && repo.homepage.trim().length > 0);
+            const summary = PROJECT_SUMMARIES[repo.name] || repo.description?.trim();
+            const category = getCategoryForRepo(repo.name);
+            const lang = repo.language ?? 'Software';
+
+            return {
+              title: repo.name,
+              description: summary || `A ${lang.toLowerCase()} project by Mevin Benty.`,
+              tags: [lang, hasHomepage ? 'Live' : 'GitHub'].slice(0, 3),
+              repoUrl: repo.html_url,
+              primaryUrl: hasHomepage ? repo.homepage!.trim() : repo.html_url,
+              primaryLabel: hasHomepage ? 'View Live Project' : 'View Repository',
+              category,
+            };
+          });
 
         if (mounted && githubProjects.length > 0) {
           setProjects(githubProjects);
@@ -195,106 +309,89 @@ export function Projects() {
     };
   }, []);
 
-  return (
-    <section id="projects" className="min-h-screen py-20 px-6 relative">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-30" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[100px]" />
-      </div>
+  const filteredProjects = projects.filter(
+    (project) => activeCategory === 'All' || project.category === activeCategory
+  );
 
+  return (
+    <section id="projects" ref={sectionRef} className="relative py-24 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center mb-16">
+        
+        {/* Header Block */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="max-w-xl text-left">
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3"
+            >
+              Showcase
+            </motion.p>
             <motion.h2
-              className="text-4xl md:text-5xl font-bold mb-4 text-indigo-400"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight"
             >
-              Featured Projects
+              Curated Repositories
             </motion.h2>
-            <motion.p
-              className="text-slate-400 text-lg max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.3 }}
-            >
-              A showcase of key repositories demonstrating expertise across backend, AI, and image generation development.
-            </motion.p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, idx) => (
+          {/* Dynamic Filter Navigation Tabs */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-950/60 border border-slate-800/80 rounded-2xl md:self-end"
+          >
+            {CATEGORIES.map((category) => {
+              const isActive = activeCategory === category;
+              return (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`relative px-4 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
+                    isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeFilterPill"
+                      className="absolute inset-0 bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-indigo-500/30 rounded-xl -z-10"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {category}
+                </button>
+              );
+            })}
+          </motion.div>
+        </div>
+
+        {/* Project Grid Container with layout animations */}
+        <motion.div 
+          layout 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
               <motion.div
                 key={project.title}
-                className="group relative bg-slate-900/50 backdrop-blur-sm border border-indigo-500/10 rounded-2xl p-6 overflow-hidden hover:border-indigo-500/30 transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.4 + idx * 0.1 }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
+                className="h-full"
               >
-                {/* Gradient Background on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                <div className="relative z-10">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-semibold text-slate-100 group-hover:text-indigo-400 transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    <motion.a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open ${project.title} repository`}
-                      className="text-slate-400 group-hover:text-indigo-400 transition-colors cursor-pointer"
-                      whileHover={{ scale: 1.2, rotate: 15 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Github size={24} />
-                    </motion.a>
-                  </div>
-
-                  <p className="text-slate-400 text-sm mb-4 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 bg-slate-800/80 border border-indigo-500/10 rounded-full text-xs text-slate-300 group-hover:border-indigo-500/30 group-hover:bg-indigo-950/30 transition-all"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <motion.a
-                    href={project.primaryUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-indigo-400 font-medium cursor-pointer"
-                    whileHover={{ x: 5 }}
-                  >
-                    <span>{project.primaryLabel}</span>
-                    <ExternalLink size={16} />
-                  </motion.a>
-                </div>
-
-                {/* Glow Effect */}
-                <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-indigo-600 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
+                <ProjectCard project={project} />
               </motion.div>
             ))}
-          </div>
+          </AnimatePresence>
         </motion.div>
+
       </div>
     </section>
   );
 }
-
