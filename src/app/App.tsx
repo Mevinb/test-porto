@@ -2,6 +2,7 @@ import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Projects } from './components/Projects';
+import { Events } from './components/Events';
 import { Footer } from './components/Footer';
 import { FluidBackground } from './components/FluidBackground';
 
@@ -16,6 +17,7 @@ export default function App() {
       <Hero />
       <About />
       <Projects />
+      <Events />
       <Footer />
     </div>
   );
