@@ -78,7 +78,7 @@ export function Hero() {
   }, [terminalIndex, currentLineCharIdx]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-12 px-6 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center relative z-10">
         
         {/* Left Column: Headline and Actions */}
@@ -102,9 +102,13 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6"
           >
-            Building Next-Gen{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 font-black">
-              AI Pipelines
+            Building{' '}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-500 font-black">
+              Next-Gen AI
+            </span>
+            <br className="hidden sm:block" />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-400 via-pink-400 to-rose-400 font-black">
+              Pipelines
             </span>{' '}
             and Secure Systems.
           </motion.h1>
@@ -183,34 +187,40 @@ export function Hero() {
         {/* Right Column: Terminal and Fluid Graphics Mockup */}
         <div className="lg:col-span-5 relative w-full flex items-center justify-center">
           
+          {/* Glow orb behind terminal */}
+          <div className="absolute -z-10 w-80 h-80 rounded-full bg-gradient-to-br from-indigo-500/20 via-purple-500/15 to-pink-500/10 blur-[70px]" />
+
           {/* Main Container glassmorphism block */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative w-full aspect-[4/3] sm:aspect-[1.4] bg-slate-950/70 backdrop-blur-xl border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+            className="relative w-full aspect-[4/3] sm:aspect-[1.4] bg-slate-950/80 backdrop-blur-xl border border-indigo-500/20 rounded-2xl shadow-2xl shadow-indigo-950/50 overflow-hidden flex flex-col ring-1 ring-indigo-500/10"
           >
             {/* Window bar */}
-            <div className="flex items-center justify-between px-4 py-3 bg-slate-900/50 border-b border-slate-800/80">
+            <div className="flex items-center justify-between px-4 py-3 bg-slate-900/70 border-b border-slate-800/80">
               <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <div className="w-3 h-3 rounded-full bg-rose-500" />
+                <div className="w-3 h-3 rounded-full bg-amber-500" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500" />
               </div>
-              <div className="text-slate-500 text-[10px] font-mono select-none">
+              <div className="text-slate-400 text-[10px] font-mono select-none">
                 mevin@reactor-vm:~
               </div>
               <div className="w-4 h-4" /> {/* Spacer */}
             </div>
 
             {/* Terminal Screen area */}
-            <div className="flex-1 p-4 font-mono text-[11px] sm:text-xs text-slate-300 space-y-2 overflow-y-auto select-none scrollbar-none">
+            <div className="flex-1 p-4 font-mono text-[11px] sm:text-xs text-slate-300 space-y-1.5 overflow-y-auto select-none scrollbar-none bg-slate-950/40">
               {displayedLines.map((line, idx) => {
                 let colorClass = 'text-slate-300';
-                if (line.startsWith('>')) colorClass = 'text-indigo-400 font-semibold';
-                else if (line.startsWith('✔')) colorClass = 'text-emerald-400';
+                if (line.startsWith('>')) colorClass = 'text-indigo-300 font-semibold';
+                else if (line.startsWith('✔')) colorClass = 'text-emerald-400 font-medium';
                 else if (line.includes('[SUCCESS]')) colorClass = 'text-emerald-400 font-bold';
                 else if (line.includes('Downloading')) colorClass = 'text-amber-300';
+                else if (line.includes('[INFO]')) colorClass = 'text-blue-400';
+                else if (line.includes('[SAMPLER]')) colorClass = 'text-purple-300';
+                else if (line.includes('[OUTPUT]')) colorClass = 'text-cyan-300';
                 
                 return (
                   <div key={idx} className={`${colorClass} leading-relaxed`}>
@@ -221,9 +231,9 @@ export function Hero() {
               
               {/* Active command line typing */}
               {terminalIndex < TERMINAL_LINES.length && TERMINAL_LINES[terminalIndex].type === 'command' && (
-                <div className="text-indigo-400 font-semibold flex items-center">
+                <div className="text-indigo-300 font-semibold flex items-center">
                   <span>&gt; {terminalText}</span>
-                  <span className="w-1.5 h-3.5 bg-indigo-400 ml-0.5 animate-pulse" />
+                  <span className="w-1.5 h-3.5 bg-indigo-400 ml-0.5 animate-pulse rounded-sm" />
                 </div>
               )}
             </div>
@@ -240,7 +250,7 @@ export function Hero() {
                   <motion.div 
                     initial={{ scale: 0.8 }}
                     animate={{ scale: 1 }}
-                    className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-xl overflow-hidden border border-indigo-500/20 shadow-[0_0_40px_rgba(99,102,241,0.2)] mb-4"
+                    className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-xl overflow-hidden border border-indigo-500/30 shadow-[0_0_50px_rgba(99,102,241,0.3)] mb-4"
                   >
                     {/* Generative Fluid CSS animation to mimic image creation */}
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 animate-spin [animation-duration:15s]" />
@@ -249,7 +259,7 @@ export function Hero() {
                       <Sparkles size={24} className="text-indigo-400 animate-bounce" />
                     </div>
                   </motion.div>
-                  <div className="text-xs text-slate-300 font-medium tracking-wide">
+                  <div className="text-xs text-slate-200 font-medium tracking-wide">
                     Generation Render Complete
                   </div>
                   <div className="text-[10px] text-slate-500 font-mono mt-1">
@@ -260,23 +270,20 @@ export function Hero() {
             </AnimatePresence>
 
             {/* Pipeline progress bar indicator */}
-            <div className="h-1 bg-slate-900">
+            <div className="h-1.5 bg-slate-900/80">
               {pipelineState === 'running' && (
                 <motion.div 
-                  className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                  className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500"
                   initial={{ width: '0%' }}
                   animate={{ width: '90%' }}
                   transition={{ duration: 6, ease: 'easeOut' }}
                 />
               )}
               {pipelineState === 'success' && (
-                <div className="h-full w-full bg-emerald-500" />
+                <div className="h-full w-full bg-gradient-to-r from-emerald-500 to-teal-500" />
               )}
             </div>
           </motion.div>
-
-          {/* Floating background glowing node behind terminal */}
-          <div className="absolute -z-10 w-72 h-72 rounded-full bg-indigo-500/10 blur-[60px]" />
         </div>
       </div>
     </section>

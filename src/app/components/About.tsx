@@ -133,7 +133,7 @@ export function About() {
             {/* Quick Metrics Grid */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80">
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
                   10+
                 </div>
                 <div className="text-[10px] sm:text-xs text-slate-500 uppercase font-medium tracking-wider mt-1">
@@ -141,7 +141,7 @@ export function About() {
                 </div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
                   20+
                 </div>
                 <div className="text-[10px] sm:text-xs text-slate-500 uppercase font-medium tracking-wider mt-1">
@@ -149,7 +149,7 @@ export function About() {
                 </div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-rose-400">
+                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-rose-400">
                   SecOps
                 </div>
                 <div className="text-[10px] sm:text-xs text-slate-500 uppercase font-medium tracking-wider mt-1">
