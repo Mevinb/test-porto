@@ -15,25 +15,25 @@ import {
 import { supabase, type Event } from '../../lib/supabase';
 
 const ROLE_ICONS: Record<string, React.ReactNode> = {
-  Participant: <Users size={14} className="text-cyan-400" />,
-  Speaker: <Mic size={14} className="text-purple-400" />,
-  Organizer: <Presentation size={14} className="text-indigo-400" />,
-  Winner: <Trophy size={14} className="text-amber-400" />,
-  Volunteer: <Users size={14} className="text-emerald-400" />,
+  Participant: <Users size={14} className="text-[#b6d9e0]" />,
+  Speaker: <Mic size={14} className="text-[#dbe2dc]" />,
+  Organizer: <Presentation size={14} className="text-[#b6d9e0]" />,
+  Winner: <Trophy size={14} className="text-[#dbe2dc]" />,
+  Volunteer: <Users size={14} className="text-[#b6d9e0]" />,
 };
 
 const getRoleIcon = (role: string) =>
-  ROLE_ICONS[role] ?? <Users size={14} className="text-slate-400" />;
+  ROLE_ICONS[role] ?? <Users size={14} className="text-[#8ea4b0]" />;
 
 const getRoleColor = (role: string) => {
   const map: Record<string, string> = {
-    Participant: 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10',
-    Speaker: 'text-purple-400 border-purple-500/30 bg-purple-500/10',
-    Organizer: 'text-indigo-400 border-indigo-500/30 bg-indigo-500/10',
-    Winner: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
-    Volunteer: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
+    Participant: 'text-[#b6d9e0] border-[#b6d9e0]/30 bg-[#b6d9e0]/10',
+    Speaker: 'text-[#dbe2dc] border-[#dbe2dc]/30 bg-[#dbe2dc]/10',
+    Organizer: 'text-[#b6d9e0] border-[#b6d9e0]/30 bg-[#b6d9e0]/10',
+    Winner: 'text-[#dbe2dc] border-[#dbe2dc]/30 bg-[#dbe2dc]/10',
+    Volunteer: 'text-[#b6d9e0] border-[#b6d9e0]/30 bg-[#b6d9e0]/10',
   };
-  return map[role] ?? 'text-slate-400 border-slate-700 bg-slate-800/40';
+  return map[role] ?? 'text-[#8ea4b0] border-[#b6d9e0]/15 bg-[#080c10]/40';
 };
 
 function EventCard({ event, index }: { event: Event; index: number }) {
@@ -62,14 +62,14 @@ function EventCard({ event, index }: { event: Event; index: number }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden bg-slate-900/30 backdrop-blur-xl border border-slate-800/80 rounded-3xl flex flex-col hover:bg-slate-900/60 hover:border-slate-700/50 transition-all duration-300"
+      className="group relative overflow-hidden bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 rounded-3xl flex flex-col hover:bg-[#0d1218] hover:border-[#b6d9e0]/35 transition-all duration-300 shadow-lg"
     >
       {/* Spotlight glow */}
       {isHovered && (
         <div
           className="pointer-events-none absolute -inset-px rounded-3xl transition-opacity duration-300"
           style={{
-            background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, rgba(139, 92, 246, 0.12), transparent 80%)`,
+            background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, rgba(182, 217, 224, 0.12), transparent 80%)`,
           }}
         />
       )}
@@ -82,7 +82,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             alt={event.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080c10] via-transparent to-transparent" />
           {/* Role badge over image */}
           <div className={`absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-semibold ${getRoleColor(event.role)}`}>
             {getRoleIcon(event.role)}
@@ -103,13 +103,13 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         )}
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-violet-400 transition-colors duration-300 leading-tight">
+        <h3 className="text-lg font-bold text-[#eef4f6] mb-2 group-hover:text-[#b6d9e0] transition-colors duration-300 leading-tight">
           {event.title}
         </h3>
 
         {/* Description */}
         {event.description && (
-          <p className="text-slate-400 text-xs leading-relaxed mb-4 flex-1">
+          <p className="text-[#8ea4b0] text-xs leading-relaxed mb-4 flex-1">
             {event.description}
           </p>
         )}
@@ -117,13 +117,13 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         <div className="mt-auto space-y-3">
           {/* Meta: Date & Location */}
           <div className="flex flex-wrap gap-3">
-            <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-              <Calendar size={12} className="text-violet-400 shrink-0" />
+            <div className="flex items-center gap-1.5 text-[11px] text-[#8ea4b0]">
+              <Calendar size={12} className="text-[#b6d9e0] shrink-0" />
               <span>{formattedDate}</span>
             </div>
             {event.location && (
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-                <MapPin size={12} className="text-violet-400 shrink-0" />
+              <div className="flex items-center gap-1.5 text-[11px] text-[#8ea4b0]">
+                <MapPin size={12} className="text-[#b6d9e0] shrink-0" />
                 <span>{event.location}</span>
               </div>
             )}
@@ -132,11 +132,11 @@ function EventCard({ event, index }: { event: Event; index: number }) {
           {/* Tags */}
           {event.tags && event.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
-              <Tag size={11} className="text-slate-600 mt-0.5 shrink-0" />
+              <Tag size={11} className="text-[#8ea4b0]/60 mt-0.5 shrink-0" />
               {event.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] px-2 py-0.5 rounded-lg bg-slate-950/60 border border-slate-800 text-slate-400"
+                  className="text-[10px] px-2 py-0.5 rounded-lg bg-[#080c10]/60 border border-[#b6d9e0]/15 text-[#8ea4b0]"
                 >
                   {tag}
                 </span>
@@ -150,7 +150,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
               href={event.certificate_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-violet-400 hover:text-violet-300"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#b6d9e0] hover:text-[#eef4f6]"
               whileHover={{ x: 3 }}
             >
               <Award size={13} />
@@ -167,14 +167,14 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 // ─── Placeholder skeleton for loading state ───────────────────────────────────
 function EventCardSkeleton() {
   return (
-    <div className="bg-slate-900/20 border border-slate-800/60 rounded-3xl p-6 animate-pulse">
-      <div className="h-3 bg-slate-800 rounded-full w-16 mb-4" />
-      <div className="h-5 bg-slate-800 rounded-full w-3/4 mb-2" />
-      <div className="h-3 bg-slate-800 rounded-full w-full mb-1" />
-      <div className="h-3 bg-slate-800 rounded-full w-2/3 mb-6" />
+    <div className="bg-[#0d1218]/40 border border-[#b6d9e0]/15 rounded-3xl p-6 animate-pulse">
+      <div className="h-3 bg-[#141c24] rounded-full w-16 mb-4" />
+      <div className="h-5 bg-[#141c24] rounded-full w-3/4 mb-2" />
+      <div className="h-3 bg-[#141c24] rounded-full w-full mb-1" />
+      <div className="h-3 bg-[#141c24] rounded-full w-2/3 mb-6" />
       <div className="flex gap-3">
-        <div className="h-3 bg-slate-800 rounded-full w-24" />
-        <div className="h-3 bg-slate-800 rounded-full w-20" />
+        <div className="h-3 bg-[#141c24] rounded-full w-24" />
+        <div className="h-3 bg-[#141c24] rounded-full w-20" />
       </div>
     </div>
   );
@@ -214,7 +214,7 @@ export function Events() {
     <section id="events" ref={sectionRef} className="relative py-24 px-6 overflow-hidden">
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-violet-500/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#b6d9e0]/5 blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -225,7 +225,7 @@ export function Events() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-3"
             >
               Experience
             </motion.p>
@@ -233,7 +233,7 @@ export function Events() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight"
+              className="text-3xl sm:text-4xl font-extrabold text-[#eef4f6] tracking-tight"
             >
               Events & Activities
             </motion.h2>

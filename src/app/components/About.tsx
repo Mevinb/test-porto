@@ -6,28 +6,28 @@ const skillCategories = [
   {
     title: 'AI & Image Generation',
     icon: Sparkles,
-    color: 'from-pink-500/20 to-purple-500/20 border-pink-500/30 text-pink-400',
+    color: 'bg-[#b6d9e0]/10 border-[#b6d9e0]/25 text-[#b6d9e0]',
     skills: ['Stable Diffusion', 'ComfyUI Workflows', 'LoRA Training', 'Prompt Engineering'],
     desc: 'Fine-tuning, custom pipeline assemblies, and specialized generative imaging node creation.',
   },
   {
     title: 'Backend & Systems',
     icon: Code,
-    color: 'from-indigo-500/20 to-blue-500/20 border-indigo-500/30 text-indigo-400',
+    color: 'bg-[#dbe2dc]/10 border-[#dbe2dc]/25 text-[#dbe2dc]',
     skills: ['FastAPI', 'Flask', 'Node.js', 'Express.js'],
     desc: 'High-throughput secure APIs, custom server orchestration, and persistent databases.',
   },
   {
     title: 'Languages & UI',
     icon: Layers,
-    color: 'from-cyan-500/20 to-teal-500/20 border-cyan-500/30 text-cyan-400',
+    color: 'bg-[#b6d9e0]/10 border-[#b6d9e0]/25 text-[#b6d9e0]',
     skills: ['React', 'Python', 'Java', 'Kotlin', 'C'],
     desc: 'Robust script creation, desktop software packaging, and responsive modern web builds.',
   },
   {
     title: 'DevOps & Tooling',
     icon: Wrench,
-    color: 'from-purple-500/20 to-rose-500/20 border-purple-500/30 text-purple-400',
+    color: 'bg-[#dbe2dc]/10 border-[#dbe2dc]/25 text-[#dbe2dc]',
     skills: ['Docker Containers', 'Git Versioning', 'PyInstaller Compilation'],
     desc: 'Automated CI/CD deployments, reproducible dev nodes, and standalone executable bundling.',
   },
@@ -66,14 +66,14 @@ function BentoCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.5, delay }}
-      className={`group relative overflow-hidden bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 rounded-3xl p-6 transition-colors duration-300 hover:bg-slate-900/60 hover:border-slate-700/50 ${className}`}
+      className={`group relative overflow-hidden bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 rounded-3xl p-6 transition-all duration-300 hover:bg-[#0d1218] hover:border-[#b6d9e0]/35 shadow-lg ${className}`}
     >
-      {/* Dynamic Border spotlight light */}
+      {/* Dynamic Border spotlight light using #b6d9e0 */}
       {isHovered && (
         <div
           className="pointer-events-none absolute -inset-px rounded-3xl transition-opacity duration-300"
           style={{
-            background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, rgba(99, 102, 241, 0.15), transparent 80%)`,
+            background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, rgba(182, 217, 224, 0.15), transparent 80%)`,
           }}
         />
       )}
@@ -98,7 +98,7 @@ export function About() {
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3"
+            className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-3"
           >
             Capabilities
           </motion.p>
@@ -106,7 +106,7 @@ export function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#eef4f6] tracking-tight"
           >
             Engineering visual intelligence and secure server execution.
           </motion.h2>
@@ -118,41 +118,41 @@ export function About() {
           {/* Bento Card 1: Bio Detail Spotlight (Spans 2 columns on medium+) */}
           <BentoCard className="md:col-span-2 flex flex-col justify-between min-h-[300px]" delay={0.1}>
             <div>
-              <div className="flex items-center gap-2 text-indigo-400 mb-6">
+              <div className="flex items-center gap-2 text-[#b6d9e0] mb-6">
                 <Cpu size={20} />
                 <span className="text-sm font-semibold tracking-wider uppercase">Background</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 leading-snug">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#eef4f6] mb-4 leading-snug">
                 Optimizing generative processes for production-grade software architectures.
               </h3>
-              <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+              <p className="text-[#8ea4b0] text-sm sm:text-base leading-relaxed mb-6">
                 I am a software engineer focused on developing secure, high-performance backends and optimizing generative image systems. I bridge the gaps between stable model checkpoints, complex ComfyUI workflows, and programmatic execution.
               </p>
             </div>
             
             {/* Quick Metrics Grid */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80">
+            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#b6d9e0]/15">
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
                   10+
                 </div>
-                <div className="text-[10px] sm:text-xs text-slate-500 uppercase font-medium tracking-wider mt-1">
+                <div className="text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-1">
                   Active Projects
                 </div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
                   20+
                 </div>
-                <div className="text-[10px] sm:text-xs text-slate-500 uppercase font-medium tracking-wider mt-1">
+                <div className="text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-1">
                   Custom Workflows
                 </div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-rose-400">
+                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
                   SecOps
                 </div>
-                <div className="text-[10px] sm:text-xs text-slate-500 uppercase font-medium tracking-wider mt-1">
+                <div className="text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-1">
                   Secure Auditing
                 </div>
               </div>
@@ -163,20 +163,20 @@ export function About() {
           <BentoCard className="md:col-span-1" delay={0.2}>
             <div className="h-full flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-2 text-rose-400 mb-6">
+                <div className="flex items-center gap-2 text-[#dbe2dc] mb-6">
                   <Zap size={20} />
                   <span className="text-sm font-semibold tracking-wider uppercase">Focus</span>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-3">
+                <h3 className="text-lg font-bold text-[#eef4f6] mb-3">
                   Reactorv3 Face Pipeline
                 </h3>
-                <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                <p className="text-[#8ea4b0] text-xs sm:text-sm leading-relaxed">
                   Developed high-resolution face restoration, running complex model weights, merging custom checkpoints, and preserving specific identities through specialized prompt matrices.
                 </p>
               </div>
-              <div className="mt-8 flex items-center justify-between text-xs font-semibold text-rose-400 bg-rose-500/5 border border-rose-500/10 px-4 py-3 rounded-2xl">
+              <div className="mt-8 flex items-center justify-between text-xs font-semibold text-[#b6d9e0] bg-[#b6d9e0]/5 border border-[#b6d9e0]/15 px-4 py-3 rounded-2xl">
                 <span>Face Enhancement Focus</span>
-                <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#b6d9e0] animate-pulse" />
               </div>
             </div>
           </BentoCard>
@@ -190,15 +190,15 @@ export function About() {
                   <div>
                     {/* Category Title & Icon */}
                     <div className="flex items-center gap-2.5 mb-4">
-                      <div className={`p-2 rounded-xl bg-slate-950 border border-slate-800 ${category.color.split(' ')[2]}`}>
+                      <div className={`p-2.5 rounded-xl border ${category.color}`}>
                         <Icon size={18} />
                       </div>
-                      <h4 className="text-sm font-bold text-white uppercase tracking-wider">
+                      <h4 className="text-sm font-bold text-[#eef4f6] uppercase tracking-wider">
                         {category.title}
                       </h4>
                     </div>
 
-                    <p className="text-slate-400 text-xs leading-relaxed mb-6">
+                    <p className="text-[#8ea4b0] text-xs leading-relaxed mb-6">
                       {category.desc}
                     </p>
                   </div>
@@ -208,7 +208,7 @@ export function About() {
                     {category.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="text-[10px] sm:text-xs px-2.5 py-1 rounded-lg bg-slate-950/60 border border-slate-800 text-slate-300 font-medium"
+                        className="text-[10px] sm:text-xs px-2.5 py-1 rounded-lg bg-[#080c10]/80 border border-[#b6d9e0]/15 text-[#dbe2dc] font-medium"
                       >
                         {skill}
                       </span>

@@ -99,7 +99,7 @@ function EventFormModal({
   };
 
   const inputClass =
-    'w-full px-4 py-3 bg-slate-950/60 border border-slate-800/80 focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 rounded-xl text-slate-200 placeholder-slate-600 text-sm outline-none transition-all';
+    'w-full px-4 py-3 bg-[#080c10]/80 border border-[#b6d9e0]/20 focus:border-[#b6d9e0] focus:ring-1 focus:ring-[#b6d9e0]/30 rounded-xl text-[#eef4f6] placeholder-[#8ea4b0]/40 text-sm outline-none transition-all';
   const labelClass = 'block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1.5';
 
   return (
@@ -266,7 +266,7 @@ function EventFormModal({
               <button
                 type="button"
                 onClick={addTag}
-                className="px-4 py-2 bg-violet-600 hover:bg-violet-500 rounded-xl text-white text-xs font-semibold transition-colors cursor-pointer"
+                className="px-4 py-2 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] rounded-xl text-xs font-semibold transition-colors cursor-pointer"
               >
                 Add
               </button>
@@ -276,7 +276,7 @@ function EventFormModal({
                 {form.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-violet-950/40 border border-violet-500/20 text-violet-300"
+                    className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 text-[#b6d9e0]"
                   >
                     {tag}
                     <button
@@ -305,7 +305,7 @@ function EventFormModal({
               type="submit"
               disabled={saving}
               whileTap={{ scale: 0.98 }}
-              className="flex-1 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-xl text-white text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-violet-500/20 cursor-pointer disabled:opacity-60 transition-all"
+              className="flex-1 py-3 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#b6d9e0]/20 cursor-pointer disabled:opacity-60 transition-all"
             >
               {saving ? (
                 <span className="flex gap-1">
@@ -352,15 +352,15 @@ function EventRow({
           className="w-12 h-12 rounded-xl object-cover border border-slate-800 shrink-0"
         />
       ) : (
-        <div className="w-12 h-12 rounded-xl bg-violet-950/40 border border-violet-500/20 flex items-center justify-center shrink-0">
-          <Calendar size={18} className="text-violet-400" />
+        <div className="w-12 h-12 rounded-xl bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 flex items-center justify-center shrink-0">
+          <Calendar size={18} className="text-[#b6d9e0]" />
         </div>
       )}
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
           <p className="text-sm font-semibold text-white truncate">{event.title}</p>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-violet-950/40 border border-violet-500/20 text-violet-300 shrink-0">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 text-[#b6d9e0] shrink-0">
             {event.role}
           </span>
         </div>
@@ -385,7 +385,7 @@ function EventRow({
       <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
         <button
           onClick={() => onEdit(event)}
-          className="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-violet-400 transition-all cursor-pointer"
+          className="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-[#b6d9e0] transition-all cursor-pointer"
         >
           <Edit3 size={15} />
         </button>
@@ -424,8 +424,8 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
         className="w-full max-w-sm"
       >
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-violet-600 to-purple-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-violet-500/20">
-            <Lock size={22} className="text-white" />
+          <div className="w-14 h-14 rounded-2xl bg-[#b6d9e0] text-[#080c10] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#b6d9e0]/20">
+            <Lock size={22} className="text-[#080c10]" />
           </div>
           <h1 className="text-2xl font-extrabold text-white">Admin Access</h1>
           <p className="text-slate-500 text-sm mt-1">Events CMS — Mevin's Portfolio</p>
@@ -440,7 +440,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               setError('');
             }}
             placeholder="Enter admin password"
-            className="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 focus:border-violet-500/50 rounded-2xl text-slate-200 placeholder-slate-600 outline-none transition-all text-center text-base tracking-widest"
+            className="w-full px-4 py-3.5 bg-[#0d1218] border border-[#b6d9e0]/20 focus:border-[#b6d9e0] rounded-2xl text-[#eef4f6] placeholder-slate-600 outline-none transition-all text-center text-base tracking-widest"
             autoFocus
           />
           {error && (
@@ -452,7 +452,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           <motion.button
             type="submit"
             whileTap={{ scale: 0.98 }}
-            className="w-full py-3.5 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-2xl text-white font-bold shadow-lg shadow-violet-500/20 cursor-pointer transition-all"
+            className="w-full py-3.5 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] font-bold rounded-2xl shadow-lg shadow-[#b6d9e0]/20 cursor-pointer transition-all"
           >
             Unlock Dashboard
           </motion.button>
@@ -555,7 +555,7 @@ export default function AdminEvents() {
               onClick={openAdd}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-xl text-white text-xs font-bold shadow-lg shadow-violet-500/20 cursor-pointer transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] text-xs font-bold rounded-xl shadow-lg shadow-[#b6d9e0]/20 cursor-pointer transition-all"
             >
               <Plus size={14} />
               Add Event
@@ -581,14 +581,14 @@ export default function AdminEvents() {
           </div>
         ) : events.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-violet-950/40 border border-violet-500/20 flex items-center justify-center mb-4">
-              <Calendar size={24} className="text-violet-400" />
+            <div className="w-16 h-16 rounded-2xl bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 flex items-center justify-center mb-4">
+              <Calendar size={24} className="text-[#b6d9e0]" />
             </div>
             <p className="text-slate-300 font-semibold mb-1">No events yet</p>
             <p className="text-slate-500 text-sm mb-6">Add your first event to get started</p>
             <button
               onClick={openAdd}
-              className="flex items-center gap-2 px-5 py-2.5 bg-violet-600 hover:bg-violet-500 rounded-xl text-white text-sm font-semibold cursor-pointer transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] rounded-xl text-sm font-semibold cursor-pointer transition-colors"
             >
               <Plus size={15} />
               Add First Event

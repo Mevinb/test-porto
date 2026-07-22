@@ -89,26 +89,26 @@ export function Navigation() {
           <div
             className={`w-full max-w-5xl flex items-center justify-between transition-all duration-500 pointer-events-auto ${
               isScrolled
-                ? 'bg-slate-900/60 backdrop-blur-xl border border-indigo-500/10 shadow-[0_0_30px_rgba(99,102,241,0.05)] rounded-full px-6 py-2.5'
+                ? 'bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/20 shadow-[0_0_30px_rgba(182,217,224,0.1)] rounded-full px-6 py-2.5'
                 : 'bg-transparent px-4 py-4 border border-transparent'
             }`}
           >
             {/* Logo */}
             <motion.button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex items-center gap-2 group cursor-pointer"
+              className="flex items-center gap-2.5 group cursor-pointer"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-shadow">
+              <div className="w-8 h-8 rounded-lg bg-[#b6d9e0] text-[#080c10] flex items-center justify-center font-bold shadow-lg shadow-[#b6d9e0]/25 group-hover:shadow-[#b6d9e0]/40 transition-shadow">
                 <Terminal size={16} />
               </div>
-              <span className="font-semibold tracking-tight text-white group-hover:text-indigo-400 transition-colors">
+              <span className="font-semibold tracking-tight text-[#eef4f6] group-hover:text-[#b6d9e0] transition-colors">
                 Mevin Benty
               </span>
             </motion.button>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1.5 bg-slate-950/40 p-1 border border-slate-800/30 rounded-full">
+            <nav className="hidden md:flex items-center gap-1.5 bg-[#080c10]/60 p-1 border border-[#b6d9e0]/15 rounded-full">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
@@ -116,13 +116,13 @@ export function Navigation() {
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
                     className={`relative px-4 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
-                      isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                      isActive ? 'text-[#080c10] font-semibold' : 'text-[#8ea4b0] hover:text-[#eef4f6]'
                     }`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activeNavPill"
-                        className="absolute inset-0 bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border border-indigo-500/30 rounded-full -z-10"
+                        className="absolute inset-0 bg-[#b6d9e0] rounded-full -z-10 shadow-[0_0_15px_rgba(182,217,224,0.4)]"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -136,17 +136,17 @@ export function Navigation() {
             <div className="hidden md:block">
               <motion.button
                 onClick={() => scrollToSection('contact')}
-                className="group relative px-5 py-2 overflow-hidden rounded-full bg-slate-900 border border-slate-700 text-xs font-semibold text-white shadow-md cursor-pointer transition-all hover:border-indigo-500"
-                whileHover={{ scale: 1.05 }}
+                className="group relative px-5 py-2 overflow-hidden rounded-full bg-[#0d1218] border border-[#b6d9e0]/30 text-xs font-semibold text-[#eef4f6] shadow-md cursor-pointer transition-all hover:border-[#b6d9e0] hover:shadow-[0_0_20px_rgba(182,217,224,0.25)]"
+                whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.98 }}
               >
                 {/* Glow shining background */}
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative flex items-center gap-1.5">
+                <div className="absolute inset-0 w-full h-full bg-[#b6d9e0]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative flex items-center gap-2">
                   Let's Connect
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b6d9e0] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#b6d9e0]"></span>
                   </span>
                 </span>
               </motion.button>
@@ -155,7 +155,7 @@ export function Navigation() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden flex items-center justify-center p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800/50 transition-colors cursor-pointer"
+              className="md:hidden flex items-center justify-center p-2 rounded-full text-[#8ea4b0] hover:text-[#eef4f6] hover:bg-[#141c24] transition-colors cursor-pointer"
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -169,25 +169,25 @@ export function Navigation() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-20 left-4 right-4 bg-slate-950/95 backdrop-blur-2xl border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 pointer-events-auto md:hidden"
+                className="absolute top-20 left-4 right-4 bg-[#0d1218]/95 backdrop-blur-2xl border border-[#b6d9e0]/20 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 pointer-events-auto md:hidden"
               >
-                <div className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">
+                <div className="text-[#8ea4b0] text-xs font-semibold uppercase tracking-wider mb-2">
                   Navigation
                 </div>
                 {NAV_ITEMS.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="flex items-center justify-between text-left py-2 px-4 rounded-xl hover:bg-slate-900 text-slate-300 hover:text-white transition-all text-sm font-medium cursor-pointer"
+                    className="flex items-center justify-between text-left py-2.5 px-4 rounded-xl hover:bg-[#141c24] text-[#eef4f6] transition-all text-sm font-medium cursor-pointer"
                   >
                     <span>{item.label}</span>
-                    <span className="text-indigo-500 opacity-0 group-hover:opacity-100">→</span>
+                    <span className="text-[#b6d9e0]">→</span>
                   </button>
                 ))}
-                <div className="border-t border-slate-800 my-2 pt-4">
+                <div className="border-t border-[#b6d9e0]/15 my-2 pt-4">
                   <motion.button
                     onClick={() => scrollToSection('contact')}
-                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white font-semibold text-center text-sm shadow-lg shadow-indigo-500/20 cursor-pointer"
+                    className="w-full py-3 bg-[#b6d9e0] text-[#080c10] font-bold rounded-xl text-center text-sm shadow-lg shadow-[#b6d9e0]/20 cursor-pointer"
                     whileTap={{ scale: 0.98 }}
                   >
                     Contact Me
