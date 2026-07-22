@@ -132,3 +132,15 @@
     line-height: 1.5;
   }
 }
+
+/* Hide scrollbars for smooth mobile touch sliders */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

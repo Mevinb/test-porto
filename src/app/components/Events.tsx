@@ -62,12 +62,12 @@ function EventCard({ event, index }: { event: Event; index: number }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 rounded-3xl flex flex-col hover:bg-[#0d1218] hover:border-[#b6d9e0]/35 transition-all duration-300 shadow-lg"
+      className="group relative overflow-hidden bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 rounded-2xl sm:rounded-3xl flex flex-col hover:bg-[#0d1218] hover:border-[#b6d9e0]/35 transition-all duration-300 shadow-lg"
     >
       {/* Spotlight glow */}
       {isHovered && (
         <div
-          className="pointer-events-none absolute -inset-px rounded-3xl transition-opacity duration-300"
+          className="pointer-events-none absolute -inset-px rounded-2xl sm:rounded-3xl transition-opacity duration-300"
           style={{
             background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, rgba(182, 217, 224, 0.12), transparent 80%)`,
           }}
@@ -76,7 +76,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 
       {/* Event Image */}
       {event.image_url && (
-        <div className="relative h-48 overflow-hidden rounded-t-3xl">
+        <div className="relative h-40 sm:h-48 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
           <img
             src={event.image_url}
             alt={event.title}
@@ -84,17 +84,17 @@ function EventCard({ event, index }: { event: Event; index: number }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080c10] via-transparent to-transparent" />
           {/* Role badge over image */}
-          <div className={`absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-semibold ${getRoleColor(event.role)}`}>
+          <div className={`absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-semibold ${getRoleColor(event.role)}`}>
             {getRoleIcon(event.role)}
             {event.role}
           </div>
         </div>
       )}
 
-      <div className="relative z-10 p-6 flex flex-col flex-1">
+      <div className="relative z-10 p-5 sm:p-6 flex flex-col flex-1">
         {/* Role badge (when no image) */}
         {!event.image_url && (
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
             <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-semibold ${getRoleColor(event.role)}`}>
               {getRoleIcon(event.role)}
               {event.role}
@@ -103,7 +103,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         )}
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-[#eef4f6] mb-2 group-hover:text-[#b6d9e0] transition-colors duration-300 leading-tight">
+        <h3 className="text-base sm:text-lg font-bold text-[#eef4f6] mb-2 group-hover:text-[#b6d9e0] transition-colors duration-300 leading-tight">
           {event.title}
         </h3>
 
@@ -116,13 +116,13 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 
         <div className="mt-auto space-y-3">
           {/* Meta: Date & Location */}
-          <div className="flex flex-wrap gap-3">
-            <div className="flex items-center gap-1.5 text-[11px] text-[#8ea4b0]">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3">
+            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#8ea4b0]">
               <Calendar size={12} className="text-[#b6d9e0] shrink-0" />
               <span>{formattedDate}</span>
             </div>
             {event.location && (
-              <div className="flex items-center gap-1.5 text-[11px] text-[#8ea4b0]">
+              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#8ea4b0]">
                 <MapPin size={12} className="text-[#b6d9e0] shrink-0" />
                 <span>{event.location}</span>
               </div>
@@ -131,7 +131,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 
           {/* Tags */}
           {event.tags && event.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               <Tag size={11} className="text-[#8ea4b0]/60 mt-0.5 shrink-0" />
               {event.tags.map((tag) => (
                 <span
@@ -167,7 +167,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 // ─── Placeholder skeleton for loading state ───────────────────────────────────
 function EventCardSkeleton() {
   return (
-    <div className="bg-[#0d1218]/40 border border-[#b6d9e0]/15 rounded-3xl p-6 animate-pulse">
+    <div className="bg-[#0d1218]/40 border border-[#b6d9e0]/15 rounded-2xl sm:rounded-3xl p-5 sm:p-6 animate-pulse">
       <div className="h-3 bg-[#141c24] rounded-full w-16 mb-4" />
       <div className="h-5 bg-[#141c24] rounded-full w-3/4 mb-2" />
       <div className="h-3 bg-[#141c24] rounded-full w-full mb-1" />
@@ -211,7 +211,7 @@ export function Events() {
   }
 
   return (
-    <section id="events" ref={sectionRef} className="relative py-24 px-6 overflow-hidden">
+    <section id="events" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#b6d9e0]/5 blur-[120px] rounded-full" />
@@ -219,13 +219,13 @@ export function Events() {
 
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
           <div className="max-w-xl text-left">
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-2 sm:mb-3"
             >
               Experience
             </motion.p>
@@ -233,7 +233,7 @@ export function Events() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl font-extrabold text-[#eef4f6] tracking-tight"
+              className="text-2xl sm:text-4xl font-extrabold text-[#eef4f6] tracking-tight"
             >
               Events & Activities
             </motion.h2>
@@ -241,7 +241,7 @@ export function Events() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-slate-400 text-sm mt-3 leading-relaxed"
+              className="text-slate-400 text-xs sm:text-sm mt-2 sm:mt-3 leading-relaxed"
             >
               Hackathons, conferences, workshops, and community events I've been part of.
             </motion.p>
@@ -250,7 +250,7 @@ export function Events() {
 
         {/* Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {Array.from({ length: 3 }).map((_, i) => (
               <EventCardSkeleton key={i} />
             ))}
@@ -261,7 +261,7 @@ export function Events() {
           </div>
         ) : (
           <AnimatePresence>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {events.map((event, i) => (
                 <EventCard key={event.id} event={event} index={i} />
               ))}

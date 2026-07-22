@@ -174,7 +174,7 @@ export function FluidBackground() {
       <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#b6d9e0]/60 to-transparent shadow-[0_0_18px_#b6d9e0] animate-[scanbeam_10s_linear_infinite]" />
 
       {/* 6. Futuristic Telemetry Watermarks & HUD Corner Reticles */}
-      <div className="absolute top-6 left-8 flex items-center gap-3 text-[11px] font-mono text-[#b6d9e0]/45 select-none tracking-widest uppercase font-semibold">
+      <div className="absolute top-6 left-8 hidden md:flex items-center gap-3 text-[11px] font-mono text-[#b6d9e0]/45 select-none tracking-widest uppercase font-semibold">
         <span className="w-2 h-2 rounded-full bg-[#b6d9e0] animate-ping" />
         <span>SYS.ONLINE // 0x7F2B</span>
       </div>
@@ -186,10 +186,10 @@ export function FluidBackground() {
       </div>
 
       {/* Corner Brackets */}
-      <div className="absolute top-8 left-8 w-5 h-5 border-t-2 border-l-2 border-[#b6d9e0]/35 select-none" />
-      <div className="absolute top-8 right-8 w-5 h-5 border-t-2 border-r-2 border-[#b6d9e0]/35 select-none" />
-      <div className="absolute bottom-8 left-8 w-5 h-5 border-b-2 border-l-2 border-[#b6d9e0]/35 select-none" />
-      <div className="absolute bottom-8 right-8 w-5 h-5 border-b-2 border-r-2 border-[#b6d9e0]/35 select-none" />
+      <div className="absolute top-8 left-8 w-5 h-5 border-t-2 border-l-2 border-[#b6d9e0]/35 select-none hidden md:block" />
+      <div className="absolute top-8 right-8 w-5 h-5 border-t-2 border-r-2 border-[#b6d9e0]/35 select-none hidden md:block" />
+      <div className="absolute bottom-8 left-8 w-5 h-5 border-b-2 border-l-2 border-[#b6d9e0]/35 select-none hidden md:block" />
+      <div className="absolute bottom-8 right-8 w-5 h-5 border-b-2 border-r-2 border-[#b6d9e0]/35 select-none hidden md:block" />
 
       {/* Keyframe animation for laser scanbeam */}
       <style>{`

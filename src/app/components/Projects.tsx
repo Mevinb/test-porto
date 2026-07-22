@@ -177,12 +177,12 @@ function ProjectCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 rounded-3xl p-6 flex flex-col justify-between hover:bg-[#0d1218] hover:border-[#b6d9e0]/35 transition-all duration-300 h-full shadow-lg"
+      className="group relative overflow-hidden bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:bg-[#0d1218] hover:border-[#b6d9e0]/35 transition-all duration-300 h-full shadow-lg"
     >
       {/* Border hover spotlight glow */}
       {isHovered && (
         <div
-          className="pointer-events-none absolute -inset-px rounded-3xl transition-opacity duration-300"
+          className="pointer-events-none absolute -inset-px rounded-2xl sm:rounded-3xl transition-opacity duration-300"
           style={{
             background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, rgba(182, 217, 224, 0.15), transparent 80%)`,
           }}
@@ -191,8 +191,8 @@ function ProjectCard({
 
       <div className="relative z-10">
         {/* Card Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#080c10] border border-[#b6d9e0]/20 text-[10px] font-semibold uppercase tracking-wider text-[#dbe2dc]">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#080c10] border border-[#b6d9e0]/20 text-[10px] font-semibold uppercase tracking-wider text-[#dbe2dc]">
             {getCategoryIcon()}
             <span>{project.category}</span>
           </div>
@@ -205,28 +205,28 @@ function ProjectCard({
             whileHover={{ scale: 1.05, rotate: 10 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Github size={18} />
+            <Github size={17} />
           </motion.a>
         </div>
 
         {/* Title */}
-        <h3 className="text-xl font-bold text-[#eef4f6] mb-2 group-hover:text-[#b6d9e0] transition-colors duration-300">
+        <h3 className="text-lg sm:text-xl font-bold text-[#eef4f6] mb-1.5 sm:mb-2 group-hover:text-[#b6d9e0] transition-colors duration-300">
           {project.title}
         </h3>
 
         {/* Description */}
-        <p className="text-[#8ea4b0] text-xs sm:text-sm leading-relaxed mb-6">
+        <p className="text-[#8ea4b0] text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
           {project.description}
         </p>
       </div>
 
       <div className="relative z-10 mt-auto">
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-4 sm:mb-5">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] px-2.5 py-1 rounded-lg bg-[#080c10]/60 border border-[#b6d9e0]/15 text-[#8ea4b0] group-hover:text-[#dbe2dc] group-hover:border-[#b6d9e0]/30 transition-colors"
+              className="text-[10px] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#080c10]/60 border border-[#b6d9e0]/15 text-[#8ea4b0] group-hover:text-[#dbe2dc] group-hover:border-[#b6d9e0]/30 transition-colors"
             >
               {tag}
             </span>
@@ -242,7 +242,7 @@ function ProjectCard({
           whileHover={{ x: 3 }}
         >
           <span>{project.primaryLabel}</span>
-          <ExternalLink size={14} />
+          <ExternalLink size={13} />
         </motion.a>
       </div>
     </div>
@@ -314,17 +314,17 @@ export function Projects() {
   );
 
   return (
-    <section id="projects" ref={sectionRef} className="relative py-24 px-6 overflow-hidden">
+    <section id="projects" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* Header Block */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-16">
           <div className="max-w-xl text-left">
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-2 sm:mb-3"
             >
               Showcase
             </motion.p>
@@ -332,7 +332,7 @@ export function Projects() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl font-extrabold text-[#eef4f6] tracking-tight"
+              className="text-2xl sm:text-4xl font-extrabold text-[#eef4f6] tracking-tight"
             >
               Curated Repositories
             </motion.h2>
@@ -343,7 +343,7 @@ export function Projects() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-wrap items-center gap-1.5 p-1 bg-[#080c10]/80 border border-[#b6d9e0]/20 rounded-2xl md:self-end"
+            className="flex items-center gap-1.5 p-1 bg-[#080c10]/80 border border-[#b6d9e0]/20 rounded-xl sm:rounded-2xl max-w-full overflow-x-auto no-scrollbar scrollbar-none md:self-end"
           >
             {CATEGORIES.map((category) => {
               const isActive = activeCategory === category;
@@ -351,14 +351,14 @@ export function Projects() {
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`relative px-4 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
+                  className={`relative px-3.5 py-1.5 rounded-lg sm:rounded-xl text-xs font-medium transition-colors cursor-pointer shrink-0 whitespace-nowrap ${
                     isActive ? 'text-[#080c10] font-semibold' : 'text-[#8ea4b0] hover:text-[#eef4f6]'
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="activeFilterPill"
-                      className="absolute inset-0 bg-[#b6d9e0] rounded-xl -z-10 shadow-[0_0_15px_rgba(182,217,224,0.35)]"
+                      className="absolute inset-0 bg-[#b6d9e0] rounded-lg sm:rounded-xl -z-10 shadow-[0_0_15px_rgba(182,217,224,0.35)]"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -372,7 +372,7 @@ export function Projects() {
         {/* Project Grid Container with layout animations */}
         <motion.div 
           layout 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (

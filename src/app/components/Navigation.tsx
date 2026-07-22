@@ -84,25 +84,25 @@ export function Navigation() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 pointer-events-none"
+          className="fixed top-0 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pt-3 sm:pt-4 pointer-events-none"
         >
           <div
             className={`w-full max-w-5xl flex items-center justify-between transition-all duration-500 pointer-events-auto ${
               isScrolled
-                ? 'bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/20 shadow-[0_0_30px_rgba(182,217,224,0.1)] rounded-full px-6 py-2.5'
-                : 'bg-transparent px-4 py-4 border border-transparent'
+                ? 'bg-[#0d1218]/85 backdrop-blur-xl border border-[#b6d9e0]/20 shadow-[0_0_30px_rgba(182,217,224,0.1)] rounded-full px-4 sm:px-6 py-2 sm:py-2.5'
+                : 'bg-transparent px-3 sm:px-4 py-3 sm:py-4 border border-transparent'
             }`}
           >
             {/* Logo */}
             <motion.button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex items-center gap-2.5 group cursor-pointer"
+              className="flex items-center gap-2 sm:gap-2.5 group cursor-pointer"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="w-8 h-8 rounded-lg bg-[#b6d9e0] text-[#080c10] flex items-center justify-center font-bold shadow-lg shadow-[#b6d9e0]/25 group-hover:shadow-[#b6d9e0]/40 transition-shadow">
-                <Terminal size={16} />
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#b6d9e0] text-[#080c10] flex items-center justify-center font-bold shadow-lg shadow-[#b6d9e0]/25 group-hover:shadow-[#b6d9e0]/40 transition-shadow shrink-0">
+                <Terminal size={15} className="sm:w-[16px] sm:h-[16px]" />
               </div>
-              <span className="font-semibold tracking-tight text-[#eef4f6] group-hover:text-[#b6d9e0] transition-colors">
+              <span className="font-semibold tracking-tight text-xs sm:text-base text-[#eef4f6] group-hover:text-[#b6d9e0] transition-colors whitespace-nowrap">
                 Mevin Benty
               </span>
             </motion.button>
@@ -165,26 +165,26 @@ export function Navigation() {
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-20 left-4 right-4 bg-[#0d1218]/95 backdrop-blur-2xl border border-[#b6d9e0]/20 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 pointer-events-auto md:hidden"
+                className="absolute top-16 sm:top-20 left-3 right-3 sm:left-4 sm:right-4 bg-[#0d1218]/95 backdrop-blur-2xl border border-[#b6d9e0]/20 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl flex flex-col gap-3 sm:gap-4 pointer-events-auto md:hidden max-h-[80vh] overflow-y-auto"
               >
-                <div className="text-[#8ea4b0] text-xs font-semibold uppercase tracking-wider mb-2">
+                <div className="text-[#8ea4b0] text-[11px] font-semibold uppercase tracking-wider mb-1">
                   Navigation
                 </div>
                 {NAV_ITEMS.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="flex items-center justify-between text-left py-2.5 px-4 rounded-xl hover:bg-[#141c24] text-[#eef4f6] transition-all text-sm font-medium cursor-pointer"
+                    className="flex items-center justify-between text-left py-2.5 px-3.5 rounded-xl hover:bg-[#141c24] text-[#eef4f6] transition-all text-sm font-medium cursor-pointer"
                   >
                     <span>{item.label}</span>
                     <span className="text-[#b6d9e0]">→</span>
                   </button>
                 ))}
-                <div className="border-t border-[#b6d9e0]/15 my-2 pt-4">
+                <div className="border-t border-[#b6d9e0]/15 my-1 pt-3">
                   <motion.button
                     onClick={() => scrollToSection('contact')}
                     className="w-full py-3 bg-[#b6d9e0] text-[#080c10] font-bold rounded-xl text-center text-sm shadow-lg shadow-[#b6d9e0]/20 cursor-pointer"

@@ -78,8 +78,8 @@ export function Hero() {
   }, [terminalIndex, currentLineCharIdx]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-6 overflow-hidden">
-      <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center relative z-10">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 sm:pt-28 pb-12 px-4 sm:px-6 overflow-hidden">
+      <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
         
         {/* Left Column: Headline and Actions */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
@@ -89,10 +89,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#b6d9e0]/10 border border-[#b6d9e0]/30 text-[#b6d9e0] text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(182,217,224,0.15)]"
+            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#b6d9e0]/10 border border-[#b6d9e0]/30 text-[#b6d9e0] text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-4 sm:mb-6 shadow-[0_0_15px_rgba(182,217,224,0.15)]"
           >
-            <Sparkles size={14} className="animate-pulse text-[#b6d9e0]" />
-            AI Workflow Engineer & DevSecOps
+            <Sparkles size={13} className="animate-pulse text-[#b6d9e0] shrink-0" />
+            <span>AI Workflow Engineer & DevSecOps</span>
           </motion.div>
 
           {/* Heading */}
@@ -100,13 +100,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#eef4f6] tracking-tight leading-[1.1] mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#eef4f6] tracking-tight leading-[1.15] mb-5 sm:mb-6"
           >
             Building{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] via-[#dbe2dc] to-[#ffffff] font-black">
               Next-Gen AI
-            </span>
-            <br className="hidden sm:block" />
+            </span>{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#dbe2dc] to-[#b6d9e0] font-black">
               Pipelines
             </span>{' '}
@@ -118,7 +117,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[#8ea4b0] text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-8"
+            className="text-[#8ea4b0] text-sm sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-6 sm:mb-8"
           >
             I specialize in optimizing generative imaging workflows, developing robust facial restoration pipelines (Reactorv3), and creating secure backend architectures with automated systems.
           </motion.p>
@@ -128,27 +127,27 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-wrap gap-3 mb-10"
+            className="flex flex-wrap gap-2 sm:gap-3 mb-8 sm:mb-10"
           >
             <motion.div 
               whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-xs text-[#dbe2dc] shadow-md"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-[11px] sm:text-xs text-[#dbe2dc] shadow-md"
             >
-              <Cpu size={14} className="text-[#b6d9e0]" />
+              <Cpu size={13} className="text-[#b6d9e0] shrink-0" />
               <span>Stable Diffusion</span>
             </motion.div>
             <motion.div 
               whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-xs text-[#dbe2dc] shadow-md"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-[11px] sm:text-xs text-[#dbe2dc] shadow-md"
             >
-              <Sparkles size={14} className="text-[#dbe2dc]" />
+              <Sparkles size={13} className="text-[#dbe2dc] shrink-0" />
               <span>ComfyUI Custom Workflows</span>
             </motion.div>
             <motion.div 
               whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-xs text-[#dbe2dc] shadow-md"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-[11px] sm:text-xs text-[#dbe2dc] shadow-md"
             >
-              <Shield size={14} className="text-[#b6d9e0]" />
+              <Shield size={13} className="text-[#b6d9e0] shrink-0" />
               <span>PowerShell & Python Security</span>
             </motion.div>
           </motion.div>
@@ -158,27 +157,27 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
           >
             <motion.a
               href={PROFILE_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#b6d9e0] hover:bg-[#cce5eb] text-[#080c10] font-bold rounded-xl shadow-[0_0_25px_rgba(182,217,224,0.3)] transition-all overflow-hidden cursor-pointer"
+              className="group relative flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#b6d9e0] hover:bg-[#cce5eb] text-[#080c10] text-xs sm:text-sm font-bold rounded-xl shadow-[0_0_25px_rgba(182,217,224,0.3)] transition-all overflow-hidden cursor-pointer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <Github size={18} />
+              <Github size={17} />
               <span>Explore Repositories</span>
             </motion.a>
 
             <motion.a
               href={PROFILE_LINKS.email}
-              className="flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#0d1218]/90 hover:bg-[#141c24] backdrop-blur-sm border border-[#b6d9e0]/20 hover:border-[#b6d9e0]/40 rounded-xl text-[#eef4f6] font-semibold transition-all cursor-pointer shadow-md"
+              className="flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#0d1218]/90 hover:bg-[#141c24] backdrop-blur-sm border border-[#b6d9e0]/20 hover:border-[#b6d9e0]/40 rounded-xl text-[#eef4f6] text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <Mail size={18} />
+              <Mail size={17} />
               <span>Get In Touch</span>
             </motion.a>
           </motion.div>
@@ -188,14 +187,14 @@ export function Hero() {
         <div className="lg:col-span-5 relative w-full flex items-center justify-center">
           
           {/* Glow orb behind terminal */}
-          <div className="absolute -z-10 w-80 h-80 rounded-full bg-radial from-[#b6d9e0]/15 via-[#dbe2dc]/8 to-transparent blur-[70px]" />
+          <div className="absolute -z-10 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-radial from-[#b6d9e0]/15 via-[#dbe2dc]/8 to-transparent blur-[70px]" />
 
           {/* Main Container glassmorphism block */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative w-full aspect-[4/3] sm:aspect-[1.4] bg-[#0d1218]/90 backdrop-blur-xl border border-[#b6d9e0]/25 rounded-2xl shadow-2xl shadow-[#080c10]/80 overflow-hidden flex flex-col ring-1 ring-[#b6d9e0]/15"
+            className="relative w-full h-72 xs:h-80 sm:h-auto sm:aspect-[1.4] bg-[#0d1218]/90 backdrop-blur-xl border border-[#b6d9e0]/25 rounded-2xl shadow-2xl shadow-[#080c10]/80 overflow-hidden flex flex-col ring-1 ring-[#b6d9e0]/15"
           >
             {/* Window bar */}
             <div className="flex items-center justify-between px-4 py-3 bg-[#080c10]/80 border-b border-[#b6d9e0]/15">

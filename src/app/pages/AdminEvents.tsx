@@ -343,28 +343,28 @@ function EventRow({
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -10 }}
-      className="flex items-center gap-4 p-4 bg-slate-900/40 border border-slate-800/80 rounded-2xl hover:border-slate-700/50 transition-all group"
+      className="flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl sm:rounded-2xl hover:border-slate-700/50 transition-all group"
     >
       {event.image_url ? (
         <img
           src={event.image_url}
           alt={event.title}
-          className="w-12 h-12 rounded-xl object-cover border border-slate-800 shrink-0"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-slate-800 shrink-0"
         />
       ) : (
-        <div className="w-12 h-12 rounded-xl bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 flex items-center justify-center shrink-0">
-          <Calendar size={18} className="text-[#b6d9e0]" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 flex items-center justify-center shrink-0">
+          <Calendar size={16} className="text-[#b6d9e0] sm:w-[18px] sm:h-[18px]" />
         </div>
       )}
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
-          <p className="text-sm font-semibold text-white truncate">{event.title}</p>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 text-[#b6d9e0] shrink-0">
+          <p className="text-xs sm:text-sm font-semibold text-white truncate">{event.title}</p>
+          <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 text-[#b6d9e0] shrink-0">
             {event.role}
           </span>
         </div>
-        <div className="flex items-center gap-3 text-[11px] text-slate-500">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-slate-500">
           <span className="flex items-center gap-1">
             <Calendar size={10} />
             {new Date(event.event_date).toLocaleDateString('en-US', {
@@ -382,16 +382,16 @@ function EventRow({
         </div>
       </div>
 
-      <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+      <div className="flex items-center gap-1 sm:gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shrink-0">
         <button
           onClick={() => onEdit(event)}
-          className="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-[#b6d9e0] transition-all cursor-pointer"
+          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-slate-800 text-slate-400 hover:text-[#b6d9e0] transition-all cursor-pointer"
         >
           <Edit3 size={15} />
         </button>
         <button
           onClick={() => onDelete(event.id)}
-          className="p-2 rounded-xl hover:bg-red-950/40 text-slate-400 hover:text-red-400 transition-all cursor-pointer"
+          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-red-950/40 text-slate-400 hover:text-red-400 transition-all cursor-pointer"
         >
           <Trash2 size={15} />
         </button>

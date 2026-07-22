@@ -89,16 +89,16 @@ export function About() {
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-24 px-6 overflow-hidden">
+    <section id="about" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Heading */}
-        <div className="text-left mb-16 max-w-3xl">
+        <div className="text-left mb-10 sm:mb-16 max-w-3xl">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-3"
+            className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-2 sm:mb-3"
           >
             Capabilities
           </motion.p>
@@ -106,53 +106,53 @@ export function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#eef4f6] tracking-tight"
+            className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#eef4f6] tracking-tight leading-tight"
           >
             Engineering visual intelligence and secure server execution.
           </motion.h2>
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           
           {/* Bento Card 1: Bio Detail Spotlight (Spans 2 columns on medium+) */}
-          <BentoCard className="md:col-span-2 flex flex-col justify-between min-h-[300px]" delay={0.1}>
+          <BentoCard className="md:col-span-2 flex flex-col justify-between min-h-[280px] p-5 sm:p-6" delay={0.1}>
             <div>
-              <div className="flex items-center gap-2 text-[#b6d9e0] mb-6">
-                <Cpu size={20} />
-                <span className="text-sm font-semibold tracking-wider uppercase">Background</span>
+              <div className="flex items-center gap-2 text-[#b6d9e0] mb-4 sm:mb-6">
+                <Cpu size={18} className="sm:w-[20px] sm:h-[20px]" />
+                <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase">Background</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#eef4f6] mb-4 leading-snug">
+              <h3 className="text-lg sm:text-2xl font-bold text-[#eef4f6] mb-3 sm:mb-4 leading-snug">
                 Optimizing generative processes for production-grade software architectures.
               </h3>
-              <p className="text-[#8ea4b0] text-sm sm:text-base leading-relaxed mb-6">
+              <p className="text-[#8ea4b0] text-xs sm:text-base leading-relaxed mb-5 sm:mb-6">
                 I am a software engineer focused on developing secure, high-performance backends and optimizing generative image systems. I bridge the gaps between stable model checkpoints, complex ComfyUI workflows, and programmatic execution.
               </p>
             </div>
             
             {/* Quick Metrics Grid */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#b6d9e0]/15">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 sm:pt-6 border-t border-[#b6d9e0]/15">
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
                   10+
                 </div>
-                <div className="text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-1">
+                <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
                   Active Projects
                 </div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
                   20+
                 </div>
-                <div className="text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-1">
+                <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
                   Custom Workflows
                 </div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]">
                   SecOps
                 </div>
-                <div className="text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-1">
+                <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#8ea4b0] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
                   Secure Auditing
                 </div>
               </div>
@@ -160,21 +160,21 @@ export function About() {
           </BentoCard>
 
           {/* Bento Card 2: Interactive Feature Spotlight (Spans 1 column) */}
-          <BentoCard className="md:col-span-1" delay={0.2}>
+          <BentoCard className="md:col-span-1 p-5 sm:p-6" delay={0.2}>
             <div className="h-full flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-2 text-[#dbe2dc] mb-6">
-                  <Zap size={20} />
-                  <span className="text-sm font-semibold tracking-wider uppercase">Focus</span>
+                <div className="flex items-center gap-2 text-[#dbe2dc] mb-4 sm:mb-6">
+                  <Zap size={18} className="sm:w-[20px] sm:h-[20px]" />
+                  <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase">Focus</span>
                 </div>
-                <h3 className="text-lg font-bold text-[#eef4f6] mb-3">
+                <h3 className="text-base sm:text-lg font-bold text-[#eef4f6] mb-2 sm:mb-3">
                   Reactorv3 Face Pipeline
                 </h3>
                 <p className="text-[#8ea4b0] text-xs sm:text-sm leading-relaxed">
                   Developed high-resolution face restoration, running complex model weights, merging custom checkpoints, and preserving specific identities through specialized prompt matrices.
                 </p>
               </div>
-              <div className="mt-8 flex items-center justify-between text-xs font-semibold text-[#b6d9e0] bg-[#b6d9e0]/5 border border-[#b6d9e0]/15 px-4 py-3 rounded-2xl">
+              <div className="mt-6 sm:mt-8 flex items-center justify-between text-[11px] sm:text-xs font-semibold text-[#b6d9e0] bg-[#b6d9e0]/5 border border-[#b6d9e0]/15 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl">
                 <span>Face Enhancement Focus</span>
                 <span className="w-2 h-2 rounded-full bg-[#b6d9e0] animate-pulse" />
               </div>
@@ -185,30 +185,30 @@ export function About() {
           {skillCategories.map((category, idx) => {
             const Icon = category.icon;
             return (
-              <BentoCard key={category.title} delay={0.2 + idx * 0.1}>
+              <BentoCard key={category.title} className="p-5 sm:p-6" delay={0.2 + idx * 0.1}>
                 <div className="flex flex-col justify-between h-full">
                   <div>
                     {/* Category Title & Icon */}
-                    <div className="flex items-center gap-2.5 mb-4">
-                      <div className={`p-2.5 rounded-xl border ${category.color}`}>
-                        <Icon size={18} />
+                    <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
+                      <div className={`p-2 sm:p-2.5 rounded-xl border ${category.color}`}>
+                        <Icon size={16} className="sm:w-[18px] sm:h-[18px]" />
                       </div>
-                      <h4 className="text-sm font-bold text-[#eef4f6] uppercase tracking-wider">
+                      <h4 className="text-xs sm:text-sm font-bold text-[#eef4f6] uppercase tracking-wider">
                         {category.title}
                       </h4>
                     </div>
 
-                    <p className="text-[#8ea4b0] text-xs leading-relaxed mb-6">
+                    <p className="text-[#8ea4b0] text-xs leading-relaxed mb-4 sm:mb-6">
                       {category.desc}
                     </p>
                   </div>
 
                   {/* Skills tags list */}
-                  <div className="flex flex-wrap gap-1.5 mt-auto">
+                  <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-auto">
                     {category.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="text-[10px] sm:text-xs px-2.5 py-1 rounded-lg bg-[#080c10]/80 border border-[#b6d9e0]/15 text-[#dbe2dc] font-medium"
+                        className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg bg-[#080c10]/80 border border-[#b6d9e0]/15 text-[#dbe2dc] font-medium"
                       >
                         {skill}
                       </span>
@@ -221,7 +221,7 @@ export function About() {
         </div>
 
         {/* Anchor point for Skills navigation item */}
-        <div id="skills" className="w-full h-px mt-16" />
+        <div id="skills" className="w-full h-px mt-12 sm:mt-16" />
       </div>
     </section>
   );
