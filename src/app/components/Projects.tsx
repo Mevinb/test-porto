@@ -1,152 +1,423 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { useInView } from 'motion/react';
+import { motion, AnimatePresence, useInView } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { Github, ExternalLink, Shield, Cpu, Code, Globe } from 'lucide-react';
+import {
+  Github,
+  ExternalLink,
+  Shield,
+  Cpu,
+  Code,
+  Globe,
+  Smartphone,
+  CheckCircle2,
+  X,
+  Star,
+  GitFork,
+  Terminal,
+  Zap,
+  Sparkles,
+  Layers,
+  ArrowRight,
+} from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-type GitHubRepo = {
-  name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  language: string | null;
-  fork: boolean;
-  archived: boolean;
-  pushed_at: string;
-};
+export type Category = 'All' | 'AI & Vision' | 'Security & Systems' | 'Web & Cloud' | 'Mobile';
 
-type PortfolioProject = {
+export interface DetailedProject {
+  id: string;
   title: string;
+  tagline: string;
   description: string;
+  category: Exclude<Category, 'All'>;
   tags: string[];
+  features: string[];
+  techStack: string[];
   repoUrl: string;
   primaryUrl: string;
   primaryLabel: string;
-  category: 'AI & Vision' | 'Security & Systems' | 'Web Apps';
-};
-
-const GITHUB_REPOS_API = 'https://api.github.com/users/Mevinb/repos?per_page=100&sort=updated';
-const CURATED_REPOSITORIES = [
-  'NetScan',
-  'db',
-  'Reactorv3',
-  'cloudx',
-  'Riftory',
-  'sn1per-win',
-  'etlabshr',
-  'persona',
-] as const;
-const CURATED_REPO_SET = new Set<string>(CURATED_REPOSITORIES);
-
-const PROJECT_SUMMARIES: Record<string, string> = {
-  NetScan:
-    'A comprehensive security toolkit for network discovery, vulnerability scanning, and log analysis.',
-  db:
-    'A full-stack system for managing departments, courses, attendance, and examinations with role-based access.',
-  Reactorv3:
-    'Professional-grade facial restoration pipeline focused on high-resolution identity-preserving enhancement.',
-  cloudx:
-    'A full-stack learning management platform built with Node.js/Express and React/TypeScript.',
-  Riftory: 'A TypeScript project focused on modern web application development workflows.',
-  'sn1per-win':
-    'A complete PowerShell port of the Sn1per security toolkit for Windows-based assessments.',
-  etlabshr:
-    'Unofficial API for the Sahrdaya Etlab portal supporting attendance, timetable, and profile workflows.',
-  persona:
-    'A local, modular personal AI assistant built in Python for private and customizable AI workflows.',
-};
-
-function getCategoryForRepo(name: string): 'AI & Vision' | 'Security & Systems' | 'Web Apps' {
-  if (name === 'Reactorv3' || name === 'persona') {
-    return 'AI & Vision';
-  }
-  if (name === 'NetScan' || name === 'sn1per-win' || name === 'etlabshr') {
-    return 'Security & Systems';
-  }
-  return 'Web Apps';
+  stars?: number;
+  forks?: number;
+  language: string;
 }
 
-const FALLBACK_PROJECTS: PortfolioProject[] = [
+const CATEGORIES: Category[] = ['All', 'AI & Vision', 'Security & Systems', 'Web & Cloud', 'Mobile'];
+
+const DETAILED_PROJECTS: DetailedProject[] = [
   {
-    title: 'NetScan',
-    description: PROJECT_SUMMARIES.NetScan,
-    tags: ['Python', 'Security', 'Scanner'],
-    repoUrl: 'https://github.com/Mevinb/NetScan',
-    primaryUrl: 'https://github.com/Mevinb/NetScan',
-    primaryLabel: 'View Repository',
-    category: 'Security & Systems',
-  },
-  {
-    title: 'db',
-    description: PROJECT_SUMMARIES.db,
-    tags: ['TypeScript', 'Node.js', 'PostgreSQL'],
-    repoUrl: 'https://github.com/Mevinb/db',
-    primaryUrl: 'https://github.com/Mevinb/db',
-    primaryLabel: 'View Repository',
-    category: 'Web Apps',
-  },
-  {
-    title: 'Reactorv3',
-    description: PROJECT_SUMMARIES.Reactorv3,
-    tags: ['Python', 'Stable Diffusion', 'Facial AI'],
-    repoUrl: 'https://github.com/Mevinb/Reactorv3',
-    primaryUrl: 'https://github.com/Mevinb/Reactorv3',
-    primaryLabel: 'View Repository',
+    id: 'story-teller',
+    title: 'Story Teller',
+    tagline: 'Multi-Agent AI Fiction Generation & Semantic Story Memory System',
+    description:
+      'A multi-agent AI fiction generation engine for writing long-form stories chapter by chapter. Features collaborating agents (Architect, Planner, Writer, Consistency Engine, Editor), real-time SSE generation streaming, FAISS semantic story memory, and pluggable backends (llama.cpp, Groq, Gemini, OpenRouter).',
     category: 'AI & Vision',
-  },
-  {
-    title: 'cloudx',
-    description: PROJECT_SUMMARIES.cloudx,
-    tags: ['TypeScript', 'Express', 'React'],
-    repoUrl: 'https://github.com/Mevinb/cloudx',
-    primaryUrl: 'https://github.com/Mevinb/cloudx',
+    tags: ['Python', 'Multi-Agent AI', 'FAISS', 'Flask', 'LLM'],
+    features: [
+      'Multi-agent pipeline (Architect, Planner, Writer, Consistency, Editor)',
+      'Real-time SSE event streaming UI & interactive manual scene writing',
+      'Semantic story memory with FAISS & sentence-transformers vector store',
+      'Pluggable backends: Local GGUF (llama.cpp), Groq, Gemini & OpenRouter',
+    ],
+    techStack: ['Python', 'Flask', 'FAISS', 'Llama.cpp', 'Gemini API', 'Groq API', 'SSE Streaming'],
+    repoUrl: 'https://github.com/Mevinb/story-teller-',
+    primaryUrl: 'https://github.com/Mevinb/story-teller-',
     primaryLabel: 'View Repository',
-    category: 'Web Apps',
+    language: 'Python',
   },
   {
-    title: 'Riftory',
-    description: PROJECT_SUMMARIES.Riftory,
-    tags: ['TypeScript', 'Webpack', 'CSS'],
-    repoUrl: 'https://github.com/Mevinb/Riftory',
-    primaryUrl: 'https://github.com/Mevinb/Riftory',
+    id: 'Reactorv4',
+    title: 'Reactorv4',
+    tagline: 'High-Performance ComfyUI Facial Restoration & Identity Pipeline',
+    description:
+      'Advanced face restoration and identity swap node extension designed for ComfyUI and Stable Diffusion workflows. Features high-resolution face enhancement, custom checkpoint blending, and identity preservation across complex prompt matrices.',
+    category: 'AI & Vision',
+    tags: ['Python', 'ComfyUI', 'Stable Diffusion', 'Facial AI'],
+    features: [
+      'High-resolution identity-preserving face swapping',
+      'Seamless integration into custom ComfyUI node graphs',
+      'Optimized VRAM allocation for large batch inference',
+      'Support for custom model weights and LoRA blending',
+    ],
+    techStack: ['Python', 'PyTorch', 'ComfyUI Node API', 'OpenCV', 'InsightFace'],
+    repoUrl: 'https://github.com/Mevinb/Reactorv4',
+    primaryUrl: 'https://github.com/Mevinb/Reactorv4',
     primaryLabel: 'View Repository',
-    category: 'Web Apps',
+    language: 'Python',
   },
   {
+    id: 'reactor-linux',
+    title: 'reactor-linux',
+    tagline: 'Linux GPU Automated Build & Deployment Matrix for Reactor',
+    description:
+      'Dedicated Linux build, dependency orchestrator, and GPU driver setup scripts for executing Reactor face restoration pipelines headlessly across Linux cloud servers.',
+    category: 'AI & Vision',
+    tags: ['Python', 'Linux', 'DevOps', 'GPU Automation'],
+    features: [
+      'Automated headless installation of CUDA and CUDNN environments',
+      'One-click dependency installation for Linux server nodes',
+      'Automated system health and VRAM telemetry checks',
+      'Containerized execution scripts for cloud deployments',
+    ],
+    techStack: ['Python', 'Bash Shell', 'CUDA Toolkit', 'Linux Administration'],
+    repoUrl: 'https://github.com/Mevinb/reactor-linux',
+    primaryUrl: 'https://github.com/Mevinb/reactor-linux',
+    primaryLabel: 'View Repository',
+    language: 'Python',
+  },
+  {
+    id: 'sn1per-win',
     title: 'sn1per-win',
-    description: PROJECT_SUMMARIES['sn1per-win'],
-    tags: ['PowerShell', 'Windows Sec', 'Auditing'],
+    tagline: 'Automated Reconnaissance & Security Scanner for Windows',
+    description:
+      'A native PowerShell port of the Sn1per security scanner. Automates security auditing, port discovery, vulnerability detection, and active threat surface assessments on Windows targets.',
+    category: 'Security & Systems',
+    tags: ['PowerShell', 'Windows Sec', 'Auditing', 'Pentesting'],
+    features: [
+      'Automated host discovery and port range scanning',
+      'Vulnerability signature matching for Windows services',
+      'Structured HTML and JSON security audit report generation',
+      'Native execution without external heavy dependencies',
+    ],
+    techStack: ['PowerShell', 'Windows API', 'Network Socketing', 'Security Reporting'],
     repoUrl: 'https://github.com/Mevinb/sn1per-win',
     primaryUrl: 'https://github.com/Mevinb/sn1per-win',
     primaryLabel: 'View Repository',
-    category: 'Security & Systems',
+    language: 'PowerShell',
   },
   {
-    title: 'etlabshr',
-    description: PROJECT_SUMMARIES.etlabshr,
-    tags: ['Python', 'Web API', 'Automation'],
-    repoUrl: 'https://github.com/Mevinb/etlabshr',
-    primaryUrl: 'https://github.com/Mevinb/etlabshr',
+    id: 'NetScan',
+    title: 'NetScan',
+    tagline: 'Active IP Discovery, Port Mapper & Device Fingerprinting Tool',
+    description:
+      'Lightweight python network scanner built to quickly discover active hosts on local subnets, perform port banners analysis, and identify connected hardware devices.',
+    category: 'Security & Systems',
+    tags: ['Python', 'Network Sec', 'IP Scanner', 'Socket'],
+    features: [
+      'Multithreaded subnet ping sweep and active IP identification',
+      'Port banner grabbing for service detection',
+      'MAC address lookup and vendor identification',
+      'Exportable scan results into JSON & CSV formats',
+    ],
+    techStack: ['Python', 'Scapy', 'Socket API', 'Threaded Execution'],
+    repoUrl: 'https://github.com/Mevinb/NetScan',
+    primaryUrl: 'https://github.com/Mevinb/NetScan',
     primaryLabel: 'View Repository',
-    category: 'Security & Systems',
+    language: 'Python',
   },
   {
+    id: 'ai-analysis',
+    title: 'ai-analysis',
+    tagline: 'Automated Multi-Modal Data Analytics & Insight Engine',
+    description:
+      'TypeScript data analysis engine leveraging LLM interfaces to parse raw data streams, compute telemetry trends, and output structured actionable intelligence reports.',
+    category: 'AI & Vision',
+    tags: ['TypeScript', 'LLM API', 'Analytics', 'Node.js'],
+    features: [
+      'Automated data cleaning and pattern recognition',
+      'LLM-driven anomaly detection and telemetry summary',
+      'Interactive chart data generation for client visualization',
+      'Extensible API connectors for external databases',
+    ],
+    techStack: ['TypeScript', 'Node.js', 'OpenAI / Gemini API', 'Tailwind CSS'],
+    repoUrl: 'https://github.com/Mevinb/ai-analysis',
+    primaryUrl: 'https://github.com/Mevinb/ai-analysis',
+    primaryLabel: 'View Repository',
+    language: 'TypeScript',
+  },
+  {
+    id: 'cloudx',
+    title: 'cloudx',
+    tagline: 'Cloud Infrastructure Management & LMS Platform Engine',
+    description:
+      'Full-stack cloud application platform for course management, virtual labs, user role permissions, and scalable content delivery.',
+    category: 'Web & Cloud',
+    tags: ['TypeScript', 'React', 'Node.js', 'Express'],
+    features: [
+      'Role-based access control (Admin, Student, Instructor)',
+      'Real-time course analytics and progress tracking',
+      'Secure authentication with JWT and bcrypt hashing',
+      'Responsive dashboard with glassmorphism UI components',
+    ],
+    techStack: ['TypeScript', 'React', 'Node.js', 'Express', 'MongoDB'],
+    repoUrl: 'https://github.com/Mevinb/cloudx',
+    primaryUrl: 'https://github.com/Mevinb/cloudx',
+    primaryLabel: 'View Repository',
+    language: 'TypeScript',
+  },
+  {
+    id: 'Riftory',
+    title: 'Riftory',
+    tagline: 'Modern Web Application Platform with Real-Time Component Architecture',
+    description:
+      'Modular web application project showcasing high-performance component rendering, clean state flows, and reactive UI architecture.',
+    category: 'Web & Cloud',
+    tags: ['TypeScript', 'React', 'Tailwind CSS', 'Vite'],
+    features: [
+      'Component-driven UI architecture',
+      'Optimized DOM rendering with zero runtime overhead',
+      'Custom theme CSS tokens and dark mode support',
+      'Modular state management pattern',
+    ],
+    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Vite'],
+    repoUrl: 'https://github.com/Mevinb/Riftory',
+    primaryUrl: 'https://github.com/Mevinb/Riftory',
+    primaryLabel: 'View Repository',
+    language: 'TypeScript',
+  },
+  {
+    id: 'persona',
     title: 'persona',
-    description: PROJECT_SUMMARIES.persona,
-    tags: ['Python', 'Local AI', 'Agent'],
+    tagline: 'Modular Autonomous AI Agent & Local Persona Engine',
+    description:
+      'Private Python AI assistant framework enabling custom persona configurations, memory buffer management, and local prompt execution pipelines.',
+    category: 'AI & Vision',
+    tags: ['Python', 'Local AI', 'Agent', 'Prompt Matrix'],
+    features: [
+      'Configurable AI persona profiles and system instructions',
+      'Local vector store for contextual chat memory',
+      'Modular tool calling integration for system commands',
+      'Privacy-focused offline execution capabilities',
+    ],
+    techStack: ['Python', 'LangChain / LlamaIndex', 'SQLite', 'Local LLM API'],
     repoUrl: 'https://github.com/Mevinb/persona',
     primaryUrl: 'https://github.com/Mevinb/persona',
     primaryLabel: 'View Repository',
-    category: 'AI & Vision',
+    language: 'Python',
+  },
+  {
+    id: 'mobille',
+    title: 'mobille',
+    tagline: 'Native Android Mobile Workflow Application',
+    description:
+      'Native Android mobile application built with Kotlin, featuring modern Jetpack Compose architecture, asynchronous Coroutines, and RESTful API integrations.',
+    category: 'Mobile',
+    tags: ['Kotlin', 'Android', 'Jetpack Compose', 'REST API'],
+    features: [
+      'Jetpack Compose declarative UI interface',
+      'Kotlin Coroutines for smooth background network requests',
+      'Offline caching layer using Room Database',
+      'Clean MVVM architectural design pattern',
+    ],
+    techStack: ['Kotlin', 'Android SDK', 'Jetpack Compose', 'Retrofit', 'Room DB'],
+    repoUrl: 'https://github.com/Mevinb/mobille',
+    primaryUrl: 'https://github.com/Mevinb/mobille',
+    primaryLabel: 'View Repository',
+    language: 'Kotlin',
+  },
+  {
+    id: 'sharing-and-renting-agricultural-equipment',
+    title: 'AgriRent Platform',
+    tagline: 'Agricultural Equipment Sharing & Rental Management System',
+    description:
+      'Full-stack AgriTech web application designed for farmers to list, discover, and rent heavy machinery, with booking schedules and equipment verification.',
+    category: 'Web & Cloud',
+    tags: ['TypeScript', 'React', 'Node.js', 'AgriTech'],
+    features: [
+      'Equipment catalog search with geo-location filters',
+      'Booking schedule calendar and availability validation',
+      'Direct messaging between equipment owners and renters',
+      'Transparent pricing calculator with deposit management',
+    ],
+    techStack: ['TypeScript', 'React', 'Node.js', 'Express', 'MongoDB'],
+    repoUrl: 'https://github.com/Mevinb/sharing-and-renting-agricultural-equipment',
+    primaryUrl: 'https://github.com/Mevinb/sharing-and-renting-agricultural-equipment',
+    primaryLabel: 'View Repository',
+    language: 'TypeScript',
   },
 ];
 
-const CATEGORIES = ['All', 'AI & Vision', 'Security & Systems', 'Web Apps'] as const;
+function getCategoryIcon(category: DetailedProject['category']) {
+  switch (category) {
+    case 'AI & Vision':
+      return <Cpu size={15} className="text-[#b6d9e0] light:text-[#0284c7]" />;
+    case 'Security & Systems':
+      return <Shield size={15} className="text-[#dbe2dc] light:text-[#0284c7]" />;
+    case 'Web & Cloud':
+      return <Globe size={15} className="text-[#b6d9e0] light:text-[#0284c7]" />;
+    case 'Mobile':
+      return <Smartphone size={15} className="text-[#dbe2dc] light:text-[#0284c7]" />;
+  }
+}
 
+// ── Detailed Project Modal Component ───────────────────────────────────────────
+function ProjectDetailModal({
+  project,
+  onClose,
+}: {
+  project: DetailedProject;
+  onClose: () => void;
+}) {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#06090e]/80 light:bg-slate-900/60 backdrop-blur-md overflow-y-auto"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <motion.div
+        initial={{ scale: 0.92, y: 20, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.92, y: 20, opacity: 0 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        className="relative w-full max-w-3xl bg-[#0d1218] light:bg-white border border-[#b6d9e0]/25 light:border-slate-200 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl shadow-[#080c10]/90 light:shadow-slate-300/40 max-h-[90vh] overflow-y-auto"
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-xl bg-[#080c10]/80 light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[#8ea4b0] light:text-slate-600 hover:text-[#eef4f6] light:hover:text-[#0f172a] transition-all cursor-pointer"
+        >
+          <X size={18} />
+        </button>
+
+        {/* Header Badge & Category */}
+        <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#080c10] light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-[#dbe2dc] light:text-slate-700">
+            {getCategoryIcon(project.category)}
+            <span>{project.category}</span>
+          </div>
+          <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#b6d9e0]/10 light:bg-[#0284c7]/10 text-[#b6d9e0] light:text-[#0284c7] font-mono font-medium">
+            {project.language}
+          </span>
+        </div>
+
+        {/* Project Title & Tagline */}
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#eef4f6] light:text-[#0f172a] tracking-tight mb-2">
+          {project.title}
+        </h2>
+        <p className="text-xs sm:text-sm text-[#b6d9e0] light:text-[#0284c7] font-semibold mb-6">
+          {project.tagline}
+        </p>
+
+        {/* Overview Section */}
+        <div className="mb-6">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-[#8ea4b0] light:text-slate-500 mb-2">
+            Overview
+          </h4>
+          <p className="text-xs sm:text-sm text-[#8ea4b0] light:text-slate-600 leading-relaxed">
+            {project.description}
+          </p>
+        </div>
+
+        {/* Key Features List */}
+        <div className="mb-6">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-[#8ea4b0] light:text-slate-500 mb-3">
+            Key Architecture & Features
+          </h4>
+          <div className="grid sm:grid-cols-2 gap-2.5">
+            {project.features.map((feature, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-2.5 p-3 rounded-xl bg-[#080c10]/70 light:bg-slate-50 border border-[#b6d9e0]/15 light:border-slate-200/80 text-xs text-[#eef4f6] light:text-slate-800"
+              >
+                <CheckCircle2 size={15} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0 mt-0.5" />
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tech Stack Breakdown */}
+        <div className="mb-8">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-[#8ea4b0] light:text-slate-500 mb-2.5">
+            Technologies Used
+          </h4>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="text-xs px-3 py-1 rounded-lg bg-[#080c10] light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[#dbe2dc] light:text-slate-700 font-medium"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Modal Action Footer Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-[#b6d9e0]/15 light:border-slate-200">
+          <div className="flex items-center gap-3 text-xs text-[#8ea4b0] light:text-slate-500">
+            <span className="flex items-center gap-1">
+              <Terminal size={14} className="text-[#b6d9e0] light:text-[#0284c7]" />
+              <span>Public Repository</span>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <motion.a
+              href={project.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 bg-[#b6d9e0] light:bg-[#0284c7] hover:bg-[#cce5eb] light:hover:bg-[#0369a1] text-[#080c10] light:text-white text-xs font-bold rounded-xl shadow-lg shadow-[#b6d9e0]/20 light:shadow-[#0284c7]/20 cursor-pointer transition-all"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Github size={15} />
+              <span>View on GitHub</span>
+            </motion.a>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ── Project Card Component ───────────────────────────────────────────────────
 function ProjectCard({
   project,
+  onSelect,
 }: {
-  project: PortfolioProject;
+  project: DetailedProject;
+  onSelect: (project: DetailedProject) => void;
 }) {
   const { theme } = useTheme();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -165,24 +436,14 @@ function ProjectCard({
   const isLight = theme === 'light';
   const spotlightColor = isLight ? 'rgba(2, 132, 199, 0.12)' : 'rgba(182, 217, 224, 0.15)';
 
-  const getCategoryIcon = () => {
-    switch (project.category) {
-      case 'AI & Vision':
-        return <Cpu size={16} className="text-[#b6d9e0] light:text-[#0284c7]" />;
-      case 'Security & Systems':
-        return <Shield size={16} className="text-[#dbe2dc] light:text-[#0284c7]" />;
-      case 'Web Apps':
-        return <Code size={16} className="text-[#b6d9e0] light:text-[#0284c7]" />;
-    }
-  };
-
   return (
     <div
       ref={cardRef}
+      onClick={() => onSelect(project)}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden bg-[#0d1218]/80 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/15 light:border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:bg-[#0d1218] light:hover:bg-white hover:border-[#b6d9e0]/35 light:hover:border-slate-300 transition-all duration-300 h-full shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+      className="group relative overflow-hidden bg-[#0d1218]/80 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/15 light:border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:bg-[#0d1218] light:hover:bg-white hover:border-[#b6d9e0]/35 light:hover:border-slate-300 transition-all duration-300 h-full shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] cursor-pointer"
     >
       {/* Border hover spotlight glow */}
       {isHovered && (
@@ -196,16 +457,18 @@ function ProjectCard({
 
       <div className="relative z-10">
         {/* Card Header */}
-        <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center justify-between mb-3.5">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#080c10] light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[10px] font-semibold uppercase tracking-wider text-[#dbe2dc] light:text-slate-700">
-            {getCategoryIcon()}
+            {getCategoryIcon(project.category)}
             <span>{project.category}</span>
           </div>
-          
+
           <motion.a
             href={project.repoUrl}
             target="_blank"
             rel="noopener noreferrer"
+            title="Open GitHub Repository"
+            onClick={(e) => e.stopPropagation()}
             className="flex items-center justify-center p-2 rounded-xl bg-[#080c10]/80 light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 hover:border-[#b6d9e0] light:hover:border-[#0284c7] hover:bg-[#b6d9e0]/10 light:hover:bg-[#0284c7]/10 text-[#8ea4b0] light:text-slate-500 hover:text-[#b6d9e0] light:hover:text-[#0284c7] transition-colors cursor-pointer"
             whileHover={{ scale: 1.05, rotate: 10 }}
             whileTap={{ scale: 0.95 }}
@@ -214,112 +477,66 @@ function ProjectCard({
           </motion.a>
         </div>
 
-        {/* Title */}
-        <h3 className="text-lg sm:text-xl font-bold text-[#eef4f6] light:text-[#0f172a] mb-1.5 sm:mb-2 group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors duration-300">
-          {project.title}
+        {/* Title & Tagline */}
+        <h3 className="text-lg sm:text-xl font-bold text-[#eef4f6] light:text-[#0f172a] mb-1 group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors duration-300 flex items-center justify-between">
+          <span>{project.title}</span>
+          <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-[#b6d9e0] light:text-[#0284c7]" />
         </h3>
+        <p className="text-xs text-[#b6d9e0] light:text-[#0284c7] font-semibold mb-3">
+          {project.tagline}
+        </p>
 
-        {/* Description */}
-        <p className="text-[#8ea4b0] light:text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
+        {/* Short Description */}
+        <p className="text-[#8ea4b0] light:text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
           {project.description}
         </p>
+
+        {/* Feature Preview Badges */}
+        <div className="space-y-1.5 mb-4">
+          {project.features.slice(0, 2).map((feat, idx) => (
+            <div key={idx} className="flex items-center gap-1.5 text-[11px] text-[#dbe2dc] light:text-slate-700">
+              <Zap size={12} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
+              <span className="truncate">{feat}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="relative z-10 mt-auto">
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-4 sm:mb-5">
+      <div className="relative z-10 mt-auto pt-3.5 border-t border-[#b6d9e0]/10 light:border-slate-200/80">
+        {/* Tech Stack Tags */}
+        <div className="flex flex-wrap gap-1 sm:gap-1.5">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#080c10]/60 light:bg-slate-100 border border-[#b6d9e0]/15 light:border-slate-200 text-[#8ea4b0] light:text-slate-600 group-hover:text-[#dbe2dc] light:group-hover:text-[#0f172a] group-hover:border-[#b6d9e0]/30 light:group-hover:border-slate-300 transition-colors"
+              className="text-[10px] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#080c10]/60 light:bg-slate-100 border border-[#b6d9e0]/15 light:border-slate-200 text-[#8ea4b0] light:text-slate-600 font-medium"
             >
               {tag}
             </span>
           ))}
         </div>
-
-        {/* Link Button */}
-        <motion.a
-          href={project.primaryUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#b6d9e0] light:text-[#0284c7] hover:text-[#eef4f6] light:hover:text-[#0369a1] cursor-pointer"
-          whileHover={{ x: 3 }}
-        >
-          <span>{project.primaryLabel}</span>
-          <ExternalLink size={13} />
-        </motion.a>
       </div>
     </div>
   );
 }
 
+// ── Main Projects Showcase Section ─────────────────────────────────────────────
 export function Projects() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
-  const [projects, setProjects] = useState<PortfolioProject[]>(FALLBACK_PROJECTS);
-  const [activeCategory, setActiveCategory] = useState<typeof CATEGORIES[number]>('All');
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
+  const [selectedProject, setSelectedProject] = useState<DetailedProject | null>(null);
 
-  useEffect(() => {
-    let mounted = true;
-
-    const loadProjects = async () => {
-      try {
-        const response = await fetch(GITHUB_REPOS_API);
-        if (!response.ok) {
-          throw new Error(`GitHub API request failed: ${response.status}`);
-        }
-
-        const repos = (await response.json()) as GitHubRepo[];
-
-        const repoMap = new Map(
-          repos
-            .filter((repo) => !repo.fork && !repo.archived && CURATED_REPO_SET.has(repo.name))
-            .map((repo) => [repo.name, repo] as const),
-        );
-
-        const githubProjects = CURATED_REPOSITORIES.map((name) => repoMap.get(name))
-          .filter((repo): repo is GitHubRepo => Boolean(repo))
-          .map((repo) => {
-            const hasHomepage = Boolean(repo.homepage && repo.homepage.trim().length > 0);
-            const summary = PROJECT_SUMMARIES[repo.name] || repo.description?.trim();
-            const category = getCategoryForRepo(repo.name);
-            const lang = repo.language ?? 'Software';
-
-            return {
-              title: repo.name,
-              description: summary || `A ${lang.toLowerCase()} project by Mevin Benty.`,
-              tags: [lang, hasHomepage ? 'Live' : 'GitHub'].slice(0, 3),
-              repoUrl: repo.html_url,
-              primaryUrl: hasHomepage ? repo.homepage!.trim() : repo.html_url,
-              primaryLabel: hasHomepage ? 'View Live Project' : 'View Repository',
-              category,
-            };
-          });
-
-        if (mounted && githubProjects.length > 0) {
-          setProjects(githubProjects);
-        }
-      } catch {
-        if (mounted) {
-          setProjects(FALLBACK_PROJECTS);
-        }
-      }
-    };
-
-    void loadProjects();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  const filteredProjects = projects.filter(
+  const filteredProjects = DETAILED_PROJECTS.filter(
     (project) => activeCategory === 'All' || project.category === activeCategory
   );
 
   return (
     <section id="projects" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-1/3 right-10 w-[500px] h-[350px] bg-[#b6d9e0]/5 light:bg-[#0284c7]/5 blur-[120px] rounded-full" />
+      </div>
+
       <div className="max-w-7xl mx-auto">
         
         {/* Header Block */}
@@ -331,7 +548,7 @@ export function Projects() {
               transition={{ duration: 0.5 }}
               className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] light:text-[#0284c7] mb-2 sm:mb-3"
             >
-              Showcase
+              Curated Showcase
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -339,8 +556,16 @@ export function Projects() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-2xl sm:text-4xl font-extrabold text-[#eef4f6] light:text-[#0f172a] tracking-tight"
             >
-              Curated Repositories
+              Featured GitHub Repositories
             </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-xs sm:text-sm text-[#8ea4b0] light:text-slate-600 mt-2 sm:mt-3 leading-relaxed"
+            >
+              Explore detailed architectural breakdowns, key features, and source code of production-ready AI pipelines, security scanners, and web applications.
+            </motion.p>
           </div>
 
           {/* Dynamic Filter Navigation Tabs */}
@@ -376,29 +601,34 @@ export function Projects() {
           </motion.div>
         </div>
 
-        {/* Project Grid Container with layout animations */}
-        <motion.div 
-          layout 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
-        >
+        {/* Project Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, index) => (
               <motion.div
-                key={project.title}
+                key={project.id}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                className="h-full"
+                transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                <ProjectCard project={project} />
+                <ProjectCard project={project} onSelect={setSelectedProject} />
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
-
+        </div>
       </div>
+
+      {/* Project Detail Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetailModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
