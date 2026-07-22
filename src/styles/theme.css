@@ -1,4 +1,5 @@
 @custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
 :root {
   --font-size: 16px;

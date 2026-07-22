@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
+import { useTheme } from '../context/ThemeContext';
 
 export function CustomCursor() {
+  const { theme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -71,11 +73,17 @@ export function CustomCursor() {
 
   if (!isVisible) return null;
 
+  const isLight = theme === 'light';
+  const primaryColor = isLight ? '#0284c7' : '#b6d9e0';
+  const ringHoverBorder = isLight ? 'rgba(2, 132, 199, 0.9)' : 'rgba(182, 217, 224, 0.9)';
+  const ringDefaultBorder = isLight ? 'rgba(2, 132, 199, 0.4)' : 'rgba(219, 226, 220, 0.35)';
+  const ringHoverBg = isLight ? 'rgba(2, 132, 199, 0.08)' : 'rgba(182, 217, 224, 0.08)';
+
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
       {/* Precision Center Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#b6d9e0] shadow-[0_0_10px_#b6d9e0]"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#b6d9e0] light:bg-[#0284c7] shadow-[0_0_10px_#b6d9e0] light:shadow-[0_0_10px_#0284c7]"
         style={{
           x: cursorX,
           y: cursorY,
@@ -91,7 +99,7 @@ export function CustomCursor() {
 
       {/* Trailing Reticle Ring */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full border border-[#b6d9e0]/40 backdrop-blur-[1px] flex items-center justify-center"
+        className="fixed top-0 left-0 rounded-full border border-[#b6d9e0]/40 light:border-[#0284c7]/40 backdrop-blur-[1px] flex items-center justify-center"
         style={{
           x: smoothX,
           y: smoothY,
@@ -101,21 +109,21 @@ export function CustomCursor() {
         animate={{
           width: isHovered ? 48 : isClicked ? 24 : 32,
           height: isHovered ? 48 : isClicked ? 24 : 32,
-          borderColor: isHovered ? 'rgba(182, 217, 224, 0.9)' : 'rgba(219, 226, 220, 0.35)',
-          backgroundColor: isHovered ? 'rgba(182, 217, 224, 0.08)' : 'rgba(182, 217, 224, 0.02)',
+          borderColor: isHovered ? ringHoverBorder : ringDefaultBorder,
+          backgroundColor: isHovered ? ringHoverBg : 'transparent',
           boxShadow: isHovered
-            ? '0 0 20px rgba(182, 217, 224, 0.3), inset 0 0 10px rgba(182, 217, 224, 0.15)'
-            : '0 0 10px rgba(182, 217, 224, 0.1)',
+            ? `0 0 20px ${isLight ? 'rgba(2, 132, 199, 0.3)' : 'rgba(182, 217, 224, 0.3)'}, inset 0 0 10px ${isLight ? 'rgba(2, 132, 199, 0.15)' : 'rgba(182, 217, 224, 0.15)'}`
+            : `0 0 10px ${isLight ? 'rgba(2, 132, 199, 0.1)' : 'rgba(182, 217, 224, 0.1)'}`,
         }}
         transition={{ type: 'spring', damping: 25, stiffness: 300, mass: 0.2 }}
       >
         {/* Futuristic reticle corner crosshairs on hover */}
         {isHovered && (
           <>
-            <span className="absolute -top-1 w-2 h-[1px] bg-[#b6d9e0]" />
-            <span className="absolute -bottom-1 w-2 h-[1px] bg-[#b6d9e0]" />
-            <span className="absolute -left-1 h-2 w-[1px] bg-[#b6d9e0]" />
-            <span className="absolute -right-1 h-2 w-[1px] bg-[#b6d9e0]" />
+            <span className="absolute -top-1 w-2 h-[1px]" style={{ backgroundColor: primaryColor }} />
+            <span className="absolute -bottom-1 w-2 h-[1px]" style={{ backgroundColor: primaryColor }} />
+            <span className="absolute -left-1 h-2 w-[1px]" style={{ backgroundColor: primaryColor }} />
+            <span className="absolute -right-1 h-2 w-[1px]" style={{ backgroundColor: primaryColor }} />
           </>
         )}
       </motion.div>
@@ -124,7 +132,7 @@ export function CustomCursor() {
       {clickParticles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="fixed top-0 left-0 rounded-full border border-[#b6d9e0]"
+          className="fixed top-0 left-0 rounded-full border border-[#b6d9e0] light:border-[#0284c7]"
           style={{
             left: particle.x,
             top: particle.y,

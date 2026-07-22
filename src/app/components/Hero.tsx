@@ -89,9 +89,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#b6d9e0]/10 border border-[#b6d9e0]/30 text-[#b6d9e0] text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-4 sm:mb-6 shadow-[0_0_15px_rgba(182,217,224,0.15)]"
+            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#b6d9e0]/10 light:bg-[#0284c7]/10 border border-[#b6d9e0]/30 light:border-[#0284c7]/30 text-[#b6d9e0] light:text-[#0284c7] text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-4 sm:mb-6 shadow-[0_0_15px_rgba(182,217,224,0.15)] light:shadow-[0_0_15px_rgba(2,132,199,0.1)]"
           >
-            <Sparkles size={13} className="animate-pulse text-[#b6d9e0] shrink-0" />
+            <Sparkles size={13} className="animate-pulse text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
             <span>AI Workflow Engineer & DevSecOps</span>
           </motion.div>
 
@@ -100,13 +100,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#eef4f6] tracking-tight leading-[1.15] mb-5 sm:mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#eef4f6] light:text-[#0f172a] tracking-tight leading-[1.15] mb-5 sm:mb-6"
           >
             Building{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] via-[#dbe2dc] to-[#ffffff] font-black">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] via-[#dbe2dc] to-[#ffffff] light:from-[#0284c7] light:via-[#0ea5e9] light:to-[#0f172a] font-black">
               Next-Gen AI
             </span>{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#dbe2dc] to-[#b6d9e0] font-black">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#dbe2dc] to-[#b6d9e0] light:from-[#0284c7] light:to-[#0369a1] font-black">
               Pipelines
             </span>{' '}
             and Secure Systems.
@@ -117,7 +117,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[#8ea4b0] text-sm sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-6 sm:mb-8"
+            className="text-[#8ea4b0] light:text-slate-600 text-sm sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-6 sm:mb-8"
           >
             I specialize in optimizing generative imaging workflows, developing robust facial restoration pipelines (Reactorv3), and creating secure backend architectures with automated systems.
           </motion.p>
@@ -131,23 +131,23 @@ export function Hero() {
           >
             <motion.div 
               whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-[11px] sm:text-xs text-[#dbe2dc] shadow-md"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] light:bg-white border border-[#b6d9e0]/20 light:border-slate-200 text-[11px] sm:text-xs text-[#dbe2dc] light:text-slate-800 shadow-md"
             >
-              <Cpu size={13} className="text-[#b6d9e0] shrink-0" />
+              <Cpu size={13} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
               <span>Stable Diffusion</span>
             </motion.div>
             <motion.div 
               whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-[11px] sm:text-xs text-[#dbe2dc] shadow-md"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] light:bg-white border border-[#b6d9e0]/20 light:border-slate-200 text-[11px] sm:text-xs text-[#dbe2dc] light:text-slate-800 shadow-md"
             >
-              <Sparkles size={13} className="text-[#dbe2dc] shrink-0" />
+              <Sparkles size={13} className="text-[#dbe2dc] light:text-[#0284c7] shrink-0" />
               <span>ComfyUI Custom Workflows</span>
             </motion.div>
             <motion.div 
               whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] border border-[#b6d9e0]/20 text-[11px] sm:text-xs text-[#dbe2dc] shadow-md"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] light:bg-white border border-[#b6d9e0]/20 light:border-slate-200 text-[11px] sm:text-xs text-[#dbe2dc] light:text-slate-800 shadow-md"
             >
-              <Shield size={13} className="text-[#b6d9e0] shrink-0" />
+              <Shield size={13} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
               <span>PowerShell & Python Security</span>
             </motion.div>
           </motion.div>
@@ -163,7 +163,7 @@ export function Hero() {
               href={PROFILE_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#b6d9e0] hover:bg-[#cce5eb] text-[#080c10] text-xs sm:text-sm font-bold rounded-xl shadow-[0_0_25px_rgba(182,217,224,0.3)] transition-all overflow-hidden cursor-pointer"
+              className="group relative flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#b6d9e0] light:bg-[#0284c7] hover:bg-[#cce5eb] light:hover:bg-[#0369a1] text-[#080c10] light:text-white text-xs sm:text-sm font-bold rounded-xl shadow-[0_0_25px_rgba(182,217,224,0.3)] light:shadow-[0_4px_20px_rgba(2,132,199,0.25)] transition-all overflow-hidden cursor-pointer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -173,7 +173,7 @@ export function Hero() {
 
             <motion.a
               href={PROFILE_LINKS.email}
-              className="flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#0d1218]/90 hover:bg-[#141c24] backdrop-blur-sm border border-[#b6d9e0]/20 hover:border-[#b6d9e0]/40 rounded-xl text-[#eef4f6] text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md"
+              className="flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#0d1218]/90 light:bg-white/90 hover:bg-[#141c24] light:hover:bg-slate-100 backdrop-blur-sm border border-[#b6d9e0]/20 light:border-slate-300 rounded-xl text-[#eef4f6] light:text-[#0f172a] text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -187,14 +187,14 @@ export function Hero() {
         <div className="lg:col-span-5 relative w-full flex items-center justify-center">
           
           {/* Glow orb behind terminal */}
-          <div className="absolute -z-10 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-radial from-[#b6d9e0]/15 via-[#dbe2dc]/8 to-transparent blur-[70px]" />
+          <div className="absolute -z-10 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-radial from-[#b6d9e0]/15 light:from-[#0284c7]/15 via-[#dbe2dc]/8 to-transparent blur-[70px]" />
 
           {/* Main Container glassmorphism block */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative w-full h-72 xs:h-80 sm:h-auto sm:aspect-[1.4] bg-[#0d1218]/90 backdrop-blur-xl border border-[#b6d9e0]/25 rounded-2xl shadow-2xl shadow-[#080c10]/80 overflow-hidden flex flex-col ring-1 ring-[#b6d9e0]/15"
+            className="relative w-full h-72 xs:h-80 sm:h-auto sm:aspect-[1.4] bg-[#0d1218]/90 light:bg-[#0f172a]/95 backdrop-blur-xl border border-[#b6d9e0]/25 light:border-slate-300 rounded-2xl shadow-2xl shadow-[#080c10]/80 light:shadow-slate-400/20 overflow-hidden flex flex-col ring-1 ring-[#b6d9e0]/15"
           >
             {/* Window bar */}
             <div className="flex items-center justify-between px-4 py-3 bg-[#080c10]/80 border-b border-[#b6d9e0]/15">

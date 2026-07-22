@@ -62,7 +62,7 @@ export function Footer() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] mb-2 sm:mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] light:text-[#0284c7] mb-2 sm:mb-3"
             >
               Get In Touch
             </motion.p>
@@ -71,7 +71,7 @@ export function Footer() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-2xl sm:text-4xl font-extrabold text-[#eef4f6] tracking-tight leading-tight mb-4 sm:mb-6"
+              className="text-2xl sm:text-4xl font-extrabold text-[#eef4f6] light:text-[#0f172a] tracking-tight leading-tight mb-4 sm:mb-6"
             >
               Let's build something secure & intelligent.
             </motion.h2>
@@ -80,7 +80,7 @@ export function Footer() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[#8ea4b0] text-xs sm:text-base leading-relaxed mb-6 sm:mb-10"
+              className="text-[#8ea4b0] light:text-slate-600 text-xs sm:text-base leading-relaxed mb-6 sm:mb-10"
             >
               Whether you are looking to integrate generative image models, automate backend deployments, audit scripts, or just say hello—reach out and let's coordinate.
             </motion.p>
@@ -94,20 +94,20 @@ export function Footer() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 onClick={copyEmailToClipboard}
-                className="group relative flex items-center justify-between p-3.5 sm:p-4 bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 hover:border-[#b6d9e0]/40 rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 shadow-md min-w-0"
+                className="group relative flex items-center justify-between p-3.5 sm:p-4 bg-[#0d1218]/80 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/15 light:border-slate-200/90 hover:border-[#b6d9e0]/40 light:hover:border-slate-300 rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
               >
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1 mr-2">
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] border border-[#b6d9e0]/20 text-[#b6d9e0] group-hover:bg-[#b6d9e0]/10 transition-all shrink-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[#b6d9e0] light:text-[#0284c7] group-hover:bg-[#b6d9e0]/10 light:group-hover:bg-[#0284c7]/10 transition-all shrink-0">
                     <Mail size={17} className="sm:w-[18px] sm:h-[18px]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] uppercase font-semibold tracking-wider">Email Address</div>
-                    <div className="text-xs sm:text-sm font-medium text-[#eef4f6] truncate">{CONTACT.email}</div>
+                    <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] light:text-slate-500 uppercase font-semibold tracking-wider">Email Address</div>
+                    <div className="text-xs sm:text-sm font-medium text-[#eef4f6] light:text-[#0f172a] truncate">{CONTACT.email}</div>
                   </div>
                 </div>
                 
                 {/* Copy Status Icon */}
-                <div className="p-1.5 text-[#8ea4b0] group-hover:text-[#b6d9e0] transition-colors shrink-0">
+                <div className="p-1.5 text-[#8ea4b0] light:text-slate-500 group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors shrink-0">
                   <AnimatePresence mode="wait">
                     {copied ? (
                       <motion.div
@@ -115,7 +115,7 @@ export function Footer() {
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.8, opacity: 0 }}
-                        className="text-[#b6d9e0]"
+                        className="text-[#b6d9e0] light:text-[#0284c7]"
                       >
                         <Check size={16} />
                       </motion.div>
@@ -143,14 +143,14 @@ export function Footer() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 hover:border-[#b6d9e0]/40 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md min-w-0"
+                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#0d1218]/80 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/15 light:border-slate-200/90 hover:border-[#b6d9e0]/40 light:hover:border-slate-300 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
                 >
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] border border-[#b6d9e0]/20 text-[#8ea4b0] group-hover:text-[#b6d9e0] transition-colors shrink-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[#8ea4b0] light:text-slate-600 group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors shrink-0">
                     <Github size={17} className="sm:w-[18px] sm:h-[18px]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] uppercase font-semibold tracking-wider">GitHub</div>
-                    <div className="text-xs font-semibold text-[#eef4f6] group-hover:text-[#b6d9e0] transition-colors truncate">@Mevinb</div>
+                    <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] light:text-slate-500 uppercase font-semibold tracking-wider">GitHub</div>
+                    <div className="text-xs font-semibold text-[#eef4f6] light:text-[#0f172a] group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors truncate">@Mevinb</div>
                   </div>
                 </motion.a>
 
@@ -161,14 +161,14 @@ export function Footer() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 hover:border-[#b6d9e0]/40 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md min-w-0"
+                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#0d1218]/80 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/15 light:border-slate-200/90 hover:border-[#b6d9e0]/40 light:hover:border-slate-300 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
                 >
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] border border-[#b6d9e0]/20 text-[#8ea4b0] group-hover:text-[#b6d9e0] transition-colors shrink-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[#8ea4b0] light:text-slate-600 group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors shrink-0">
                     <Linkedin size={17} className="sm:w-[18px] sm:h-[18px]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] uppercase font-semibold tracking-wider">LinkedIn</div>
-                    <div className="text-xs font-semibold text-[#eef4f6] group-hover:text-[#b6d9e0] transition-colors truncate">Mevin Benty</div>
+                    <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] light:text-slate-500 uppercase font-semibold tracking-wider">LinkedIn</div>
+                    <div className="text-xs font-semibold text-[#eef4f6] light:text-[#0f172a] group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors truncate">Mevin Benty</div>
                   </div>
                 </motion.a>
               </div>
@@ -178,14 +178,14 @@ export function Footer() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#0d1218]/80 backdrop-blur-xl border border-[#b6d9e0]/15 rounded-xl sm:rounded-2xl select-none shadow-md"
+                className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#0d1218]/80 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/15 light:border-slate-200/90 rounded-xl sm:rounded-2xl select-none shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
               >
-                <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] border border-[#b6d9e0]/20 text-[#8ea4b0] shrink-0">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-[#080c10] light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 text-[#8ea4b0] light:text-slate-600 shrink-0">
                   <MapPin size={17} className="sm:w-[18px] sm:h-[18px]" />
                 </div>
                 <div>
-                  <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] uppercase font-semibold tracking-wider">Location</div>
-                  <div className="text-xs font-semibold text-[#eef4f6]">{CONTACT.location}</div>
+                  <div className="text-[9px] sm:text-[10px] text-[#8ea4b0] light:text-slate-500 uppercase font-semibold tracking-wider">Location</div>
+                  <div className="text-xs font-semibold text-[#eef4f6] light:text-[#0f172a]">{CONTACT.location}</div>
                 </div>
               </motion.div>
             </div>
@@ -196,15 +196,15 @@ export function Footer() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-7 bg-[#0d1218]/60 backdrop-blur-xl border border-[#b6d9e0]/20 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl"
+            className="lg:col-span-7 bg-[#0d1218]/60 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/20 light:border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl light:shadow-[0_4px_25px_rgba(0,0,0,0.05)]"
           >
-            <h3 className="text-base sm:text-lg font-bold text-[#eef4f6] mb-4 sm:mb-6 text-left">Send a Quick Message</h3>
+            <h3 className="text-base sm:text-lg font-bold text-[#eef4f6] light:text-[#0f172a] mb-4 sm:mb-6 text-left">Send a Quick Message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4 text-left">
               
               <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
                 <div>
-                  <label htmlFor="name" className="block text-[10px] uppercase font-bold tracking-wider text-[#8ea4b0] mb-1 sm:mb-1.5">
+                  <label htmlFor="name" className="block text-[10px] uppercase font-bold tracking-wider text-[#8ea4b0] light:text-slate-600 mb-1 sm:mb-1.5">
                     Your Name
                   </label>
                   <input
@@ -216,11 +216,11 @@ export function Footer() {
                     required
                     disabled={formState !== 'idle'}
                     placeholder="John Doe"
-                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#080c10]/80 border border-[#b6d9e0]/20 focus:border-[#b6d9e0] focus:ring-1 focus:ring-[#b6d9e0]/30 rounded-xl text-[#eef4f6] placeholder-[#8ea4b0]/40 text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#080c10]/80 light:bg-slate-50 border border-[#b6d9e0]/20 light:border-slate-300 focus:border-[#b6d9e0] light:focus:border-[#0284c7] focus:ring-1 focus:ring-[#b6d9e0]/30 light:focus:ring-[#0284c7]/20 rounded-xl text-[#eef4f6] light:text-[#0f172a] placeholder-[#8ea4b0]/40 light:placeholder-slate-400 text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-[10px] uppercase font-bold tracking-wider text-[#8ea4b0] mb-1 sm:mb-1.5">
+                  <label htmlFor="email" className="block text-[10px] uppercase font-bold tracking-wider text-[#8ea4b0] light:text-slate-600 mb-1 sm:mb-1.5">
                     Email Address
                   </label>
                   <input
@@ -232,13 +232,13 @@ export function Footer() {
                     required
                     disabled={formState !== 'idle'}
                     placeholder="john@example.com"
-                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#080c10]/80 border border-[#b6d9e0]/20 focus:border-[#b6d9e0] focus:ring-1 focus:ring-[#b6d9e0]/30 rounded-xl text-[#eef4f6] placeholder-[#8ea4b0]/40 text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#080c10]/80 light:bg-slate-50 border border-[#b6d9e0]/20 light:border-slate-300 focus:border-[#b6d9e0] light:focus:border-[#0284c7] focus:ring-1 focus:ring-[#b6d9e0]/30 light:focus:ring-[#0284c7]/20 rounded-xl text-[#eef4f6] light:text-[#0f172a] placeholder-[#8ea4b0]/40 light:placeholder-slate-400 text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-[10px] uppercase font-bold tracking-wider text-[#8ea4b0] mb-1 sm:mb-1.5">
+                <label htmlFor="message" className="block text-[10px] uppercase font-bold tracking-wider text-[#8ea4b0] light:text-slate-600 mb-1 sm:mb-1.5">
                   Message Details
                 </label>
                 <textarea
@@ -250,14 +250,14 @@ export function Footer() {
                   rows={3}
                   disabled={formState !== 'idle'}
                   placeholder="Tell me about your project needs..."
-                  className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#080c10]/80 border border-[#b6d9e0]/20 focus:border-[#b6d9e0] focus:ring-1 focus:ring-[#b6d9e0]/30 rounded-xl text-[#eef4f6] placeholder-[#8ea4b0]/40 text-xs sm:text-sm font-medium outline-none transition-all resize-none disabled:opacity-50"
+                  className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#080c10]/80 light:bg-slate-50 border border-[#b6d9e0]/20 light:border-slate-300 focus:border-[#b6d9e0] light:focus:border-[#0284c7] focus:ring-1 focus:ring-[#b6d9e0]/30 light:focus:ring-[#0284c7]/20 rounded-xl text-[#eef4f6] light:text-[#0f172a] placeholder-[#8ea4b0]/40 light:placeholder-slate-400 text-xs sm:text-sm font-medium outline-none transition-all resize-none disabled:opacity-50"
                 />
               </div>
 
               <motion.button
                 type="submit"
                 disabled={formState !== 'idle'}
-                className="w-full py-3 sm:py-3.5 bg-[#b6d9e0] hover:bg-[#cce5eb] rounded-xl text-[#080c10] font-bold text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(182,217,224,0.3)] flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
+                className="w-full py-3 sm:py-3.5 bg-[#b6d9e0] light:bg-[#0284c7] hover:bg-[#cce5eb] light:hover:bg-[#0369a1] rounded-xl text-[#080c10] light:text-white font-bold text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(182,217,224,0.3)] light:shadow-[0_4px_20px_rgba(2,132,199,0.25)] flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
                 whileTap={{ scale: 0.98 }}
               >
                 {formState === 'idle' && (
@@ -268,13 +268,13 @@ export function Footer() {
                 )}
                 {formState === 'sending' && (
                   <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-[#080c10] rounded-full animate-bounce" />
-                    <span className="w-1.5 h-1.5 bg-[#080c10] rounded-full animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-1.5 h-1.5 bg-[#080c10] rounded-full animate-bounce [animation-delay:0.4s]" />
+                    <span className="w-1.5 h-1.5 bg-[#080c10] light:bg-white rounded-full animate-bounce" />
+                    <span className="w-1.5 h-1.5 bg-[#080c10] light:bg-white rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-1.5 h-1.5 bg-[#080c10] light:bg-white rounded-full animate-bounce [animation-delay:0.4s]" />
                   </span>
                 )}
                 {formState === 'success' && (
-                  <span className="flex items-center gap-1.5 text-[#080c10]">
+                  <span className="flex items-center gap-1.5 text-[#080c10] light:text-white">
                     <Check size={14} />
                     <span>Message Dispatched</span>
                   </span>
@@ -285,15 +285,15 @@ export function Footer() {
         </div>
 
         {/* Footer Base Details */}
-        <div className="pt-8 border-t border-[#b6d9e0]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center select-none">
-          <p className="text-[10px] sm:text-xs text-[#8ea4b0]">
+        <div className="pt-8 border-t border-[#b6d9e0]/10 light:border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center select-none">
+          <p className="text-[10px] sm:text-xs text-[#8ea4b0] light:text-slate-500">
             © {new Date().getFullYear()} Mevin Benty. All rights reserved.
           </p>
-          <div className="flex items-center gap-1.5 text-[10px] text-[#8ea4b0]/70">
+          <div className="flex items-center gap-1.5 text-[10px] text-[#8ea4b0]/70 light:text-slate-500">
             <span>Powered by React</span>
-            <span className="w-1 h-1 rounded-full bg-[#8ea4b0]/40" />
+            <span className="w-1 h-1 rounded-full bg-[#8ea4b0]/40 light:bg-slate-400" />
             <span>Tailwind v4</span>
-            <span className="w-1 h-1 rounded-full bg-[#8ea4b0]/40" />
+            <span className="w-1 h-1 rounded-full bg-[#8ea4b0]/40 light:bg-slate-400" />
             <span>Framer Motion</span>
           </div>
         </div>
