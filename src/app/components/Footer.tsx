@@ -32,17 +32,26 @@ export function Footer() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setFormState('sending');
-    // Simulate API request
+
+    // Build pre-filled mailto URI to ensure direct email delivery
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nSender Email: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    const mailtoUrl = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+
+    // Trigger user mail client after brief UI feedback
     setTimeout(() => {
+      window.location.href = mailtoUrl;
       setFormState('success');
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setFormState('idle'), 4000);
-    }, 1500);
+    }, 800);
   };
 
   return (

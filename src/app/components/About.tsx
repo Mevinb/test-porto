@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 import { Code, Sparkles, Layers, Wrench, Cpu, Shield, Zap } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { CareerRoadmap } from './CareerRoadmap';
 
 const skillCategories = [
   {
@@ -224,6 +225,9 @@ export function About() {
             );
           })}
         </div>
+
+        {/* Career & Innovation Roadmap Timeline */}
+        <CareerRoadmap />
 
         {/* Anchor point for Skills navigation item */}
         <div id="skills" className="w-full h-px mt-12 sm:mt-16" />

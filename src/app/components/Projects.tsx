@@ -19,6 +19,65 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { ArchitectureModal, ProjectArchitecture } from './ArchitectureModal';
+import { GithubStats } from './GithubStats';
+
+export const PROJECT_ARCHITECTURES: Record<string, ProjectArchitecture> = {
+  'story-teller': {
+    projectId: 'story-teller',
+    projectTitle: 'Story Teller Engine Architecture',
+    pipelineDescription: 'Multi-Agent LLM narrative engine with SSE streaming & vector story memory',
+    nodes: [
+      { id: 'n1', name: 'User Prompt Input', type: 'input', description: 'Ingests chapter requirements, outline parameters, and target tone.', tech: 'Flask REST API' },
+      { id: 'n2', name: 'Architect & Planner Agent', type: 'process', description: 'Decomposes narrative into detailed scene sub-tasks and character goals.', tech: 'LangChain Agent' },
+      { id: 'n3', name: 'FAISS Vector Memory', type: 'storage', description: 'Queries past chapter lore and character continuity vectors.', tech: 'FAISS / Sent-Transformers', latency: '4ms' },
+      { id: 'n4', name: 'LLM Generation & Editor', type: 'model', description: 'Executes scene writing pass with real-time SSE token streaming.', tech: 'Llama.cpp / Gemini API', vram: '6.4 GB', latency: '420ms' },
+      { id: 'n5', name: 'SSE Client Stream', type: 'output', description: 'Pushes live Markdown narrative directly to user editor UI.', tech: 'Server-Sent Events' },
+    ],
+    connections: [
+      { from: 'n1', to: 'n2' },
+      { from: 'n2', to: 'n3' },
+      { from: 'n3', to: 'n4' },
+      { from: 'n4', to: 'n5' },
+    ],
+  },
+  Reactorv4: {
+    projectId: 'Reactorv4',
+    projectTitle: 'Reactorv4 Face Restoration Pipeline',
+    pipelineDescription: 'ComfyUI node suite for identity preservation & facial swapping',
+    nodes: [
+      { id: 'r1', name: 'Identity Source Image', type: 'input', description: 'Loads target face image and calculates identity embedding vector.', tech: 'OpenCV / PIL' },
+      { id: 'r2', name: 'InsightFace Feature Extractor', type: 'process', description: 'Detects 68 facial keypoints & computes 512D face embeddings.', tech: 'InsightFace / ONNX', latency: '18ms' },
+      { id: 'r3', name: 'ComfyUI Sampler Node', type: 'model', description: 'Applies identity swap tensor during latent space diffusion sampling.', tech: 'PyTorch / Stable Diffusion', vram: '8.2 GB', latency: '850ms' },
+      { id: 'r4', name: 'CodeFormer Enhancer', type: 'process', description: 'Performs high-resolution facial feature restoration and upscaling.', tech: 'CodeFormer / PyTorch', latency: '120ms' },
+      { id: 'r5', name: 'Enhanced Composite Output', type: 'output', description: 'Blends restitched face back onto target composite image canvas.', tech: 'PNG Export / ComfyUI Node' },
+    ],
+    connections: [
+      { from: 'r1', to: 'r2' },
+      { from: 'r2', to: 'r3' },
+      { from: 'r3', to: 'r4' },
+      { from: 'r4', to: 'r5' },
+    ],
+  },
+  'reactor-linux': {
+    projectId: 'reactor-linux',
+    projectTitle: 'Reactor Linux GPU Automated Deployment',
+    pipelineDescription: 'Headless CUDA driver installer and GPU orchestration matrix',
+    nodes: [
+      { id: 'l1', name: 'Cloud Instance Trigger', type: 'input', description: 'Initiates automated installation on cloud GPU instances.', tech: 'Bash / SSH' },
+      { id: 'l2', name: 'CUDA 12.4 Setup', type: 'process', description: 'Automates installation of NVIDIA drivers, CUDA Toolkit & PyTorch.', tech: 'APT / Shell Scripts', latency: '45s' },
+      { id: 'l3', name: 'Dependency Resolver', type: 'process', description: 'Installs ONNXRuntime-GPU, OpenCV, and ComfyUI dependencies.', tech: 'Pip / Virtualenv' },
+      { id: 'l4', name: 'VRAM Health Telemetry', type: 'storage', description: 'Monitors GPU memory allocation and thermal health metrics.', tech: 'NVIDIA-SMI / Python' },
+      { id: 'l5', name: 'Headless Service Active', type: 'output', description: 'Spawns background inference workers ready for REST API calls.', tech: 'Systemd Service' },
+    ],
+    connections: [
+      { from: 'l1', to: 'l2' },
+      { from: 'l2', to: 'l3' },
+      { from: 'l3', to: 'l4' },
+      { from: 'l4', to: 'l5' },
+    ],
+  },
+};
 
 export type Category = 'All' | 'AI & Vision' | 'Security & Systems' | 'Web & Cloud' | 'Mobile';
 
@@ -281,12 +340,15 @@ function getCategoryIcon(category: DetailedProject['category']) {
 function ProjectDetailModal({
   project,
   onClose,
+  onViewArch,
 }: {
   project: DetailedProject;
   onClose: () => void;
+  onViewArch: (arch: ProjectArchitecture) => void;
 }) {
   const { theme } = useTheme();
   const isLight = theme === 'light';
+  const archData = PROJECT_ARCHITECTURES[project.id];
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -393,6 +455,19 @@ function ProjectDetailModal({
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
+            {archData && (
+              <button
+                onClick={() => {
+                  onClose();
+                  onViewArch(archData);
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 bg-[#b6d9e0]/15 hover:bg-[#b6d9e0]/25 text-[#b6d9e0] border border-[#b6d9e0]/30 text-xs font-bold rounded-xl transition-all"
+              >
+                <Layers size={15} />
+                <span>View Architecture Diagram</span>
+              </button>
+            )}
+
             <motion.a
               href={project.repoUrl}
               target="_blank"
@@ -415,9 +490,11 @@ function ProjectDetailModal({
 function ProjectCard({
   project,
   onSelect,
+  onOpenArch,
 }: {
   project: DetailedProject;
   onSelect: (project: DetailedProject) => void;
+  onOpenArch?: (arch: ProjectArchitecture) => void;
 }) {
   const { theme } = useTheme();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -435,6 +512,7 @@ function ProjectCard({
 
   const isLight = theme === 'light';
   const spotlightColor = isLight ? 'rgba(2, 132, 199, 0.12)' : 'rgba(182, 217, 224, 0.15)';
+  const archData = PROJECT_ARCHITECTURES[project.id];
 
   return (
     <div
@@ -463,18 +541,33 @@ function ProjectCard({
             <span>{project.category}</span>
           </div>
 
-          <motion.a
-            href={project.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Open GitHub Repository"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center justify-center p-2 rounded-xl bg-[#080c10]/80 light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 hover:border-[#b6d9e0] light:hover:border-[#0284c7] hover:bg-[#b6d9e0]/10 light:hover:bg-[#0284c7]/10 text-[#8ea4b0] light:text-slate-500 hover:text-[#b6d9e0] light:hover:text-[#0284c7] transition-colors cursor-pointer"
-            whileHover={{ scale: 1.05, rotate: 10 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Github size={17} />
-          </motion.a>
+          <div className="flex items-center gap-2">
+            {archData && onOpenArch && (
+              <button
+                title="View System Architecture Diagram"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenArch(archData);
+                }}
+                className="flex items-center justify-center p-2 rounded-xl bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 hover:border-[#b6d9e0] text-[#b6d9e0] transition-colors cursor-pointer"
+              >
+                <Layers size={15} />
+              </button>
+            )}
+
+            <motion.a
+              href={project.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open GitHub Repository"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center p-2 rounded-xl bg-[#080c10]/80 light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-200 hover:border-[#b6d9e0] light:hover:border-[#0284c7] hover:bg-[#b6d9e0]/10 light:hover:bg-[#0284c7]/10 text-[#8ea4b0] light:text-slate-500 hover:text-[#b6d9e0] light:hover:text-[#0284c7] transition-colors cursor-pointer"
+              whileHover={{ scale: 1.05, rotate: 10 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Github size={17} />
+            </motion.a>
+          </div>
         </div>
 
         {/* Title & Tagline */}
@@ -502,7 +595,7 @@ function ProjectCard({
         </div>
       </div>
 
-      <div className="relative z-10 mt-auto pt-3.5 border-t border-[#b6d9e0]/10 light:border-slate-200/80">
+      <div className="relative z-10 mt-auto pt-3.5 border-t border-[#b6d9e0]/10 light:border-slate-200/80 flex items-center justify-between gap-2">
         {/* Tech Stack Tags */}
         <div className="flex flex-wrap gap-1 sm:gap-1.5">
           {project.tags.map((tag) => (
@@ -514,6 +607,18 @@ function ProjectCard({
             </span>
           ))}
         </div>
+
+        {archData && onOpenArch && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenArch(archData);
+            }}
+            className="text-[10px] font-mono px-2 py-1 rounded bg-[#b6d9e0]/10 hover:bg-[#b6d9e0]/20 text-[#b6d9e0] border border-[#b6d9e0]/25 transition-all whitespace-nowrap"
+          >
+            Diagram
+          </button>
+        )}
       </div>
     </div>
   );
@@ -525,6 +630,7 @@ export function Projects() {
   const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
   const [activeCategory, setActiveCategory] = useState<Category>('All');
   const [selectedProject, setSelectedProject] = useState<DetailedProject | null>(null);
+  const [activeArch, setActiveArch] = useState<ProjectArchitecture | null>(null);
 
   const filteredProjects = DETAILED_PROJECTS.filter(
     (project) => activeCategory === 'All' || project.category === activeCategory
@@ -613,11 +719,18 @@ export function Projects() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                <ProjectCard project={project} onSelect={setSelectedProject} />
+                <ProjectCard
+                  project={project}
+                  onSelect={setSelectedProject}
+                  onOpenArch={(arch) => setActiveArch(arch)}
+                />
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
+
+        {/* Live GitHub Telemetry Component */}
+        <GithubStats />
       </div>
 
       {/* Project Detail Modal */}
@@ -626,9 +739,17 @@ export function Projects() {
           <ProjectDetailModal
             project={selectedProject}
             onClose={() => setSelectedProject(null)}
+            onViewArch={(arch) => setActiveArch(arch)}
           />
         )}
       </AnimatePresence>
+
+      {/* System Architecture Modal */}
+      <ArchitectureModal
+        isOpen={!!activeArch}
+        onClose={() => setActiveArch(null)}
+        architecture={activeArch || undefined}
+      />
     </section>
   );
 }
