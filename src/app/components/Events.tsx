@@ -16,25 +16,25 @@ import { supabase, type Event } from '../../lib/supabase';
 import { useTheme } from '../context/ThemeContext';
 
 const ROLE_ICONS: Record<string, React.ReactNode> = {
-  Participant: <Users size={14} className="text-[#b6d9e0]" />,
-  Speaker: <Mic size={14} className="text-[#dbe2dc]" />,
-  Organizer: <Presentation size={14} className="text-[#b6d9e0]" />,
-  Winner: <Trophy size={14} className="text-[#dbe2dc]" />,
-  Volunteer: <Users size={14} className="text-[#b6d9e0]" />,
+  Participant: <Users size={14} className="text-[#EC5B38]" />,
+  Speaker: <Mic size={14} className="text-[#A8A492]" />,
+  Organizer: <Presentation size={14} className="text-[#EC5B38]" />,
+  Winner: <Trophy size={14} className="text-[#A8A492]" />,
+  Volunteer: <Users size={14} className="text-[#EC5B38]" />,
 };
 
 const getRoleIcon = (role: string) =>
-  ROLE_ICONS[role] ?? <Users size={14} className="text-[#8ea4b0]" />;
+  ROLE_ICONS[role] ?? <Users size={14} className="text-[#A8A492]" />;
 
 const getRoleColor = (role: string) => {
   const map: Record<string, string> = {
-    Participant: 'text-[#b6d9e0] light:text-[#0284c7] border-[#b6d9e0]/30 light:border-[#0284c7]/30 bg-[#b6d9e0]/10 light:bg-[#0284c7]/10',
-    Speaker: 'text-[#dbe2dc] light:text-slate-800 border-[#dbe2dc]/30 light:border-slate-300 bg-[#dbe2dc]/10 light:bg-slate-100',
-    Organizer: 'text-[#b6d9e0] light:text-[#0284c7] border-[#b6d9e0]/30 light:border-[#0284c7]/30 bg-[#b6d9e0]/10 light:bg-[#0284c7]/10',
-    Winner: 'text-[#dbe2dc] light:text-slate-800 border-[#dbe2dc]/30 light:border-slate-300 bg-[#dbe2dc]/10 light:bg-slate-100',
-    Volunteer: 'text-[#b6d9e0] light:text-[#0284c7] border-[#b6d9e0]/30 light:border-[#0284c7]/30 bg-[#b6d9e0]/10 light:bg-[#0284c7]/10',
+    Participant: 'text-[#EC5B38] light:text-[#EC5B38] border-[#EC5B38]/30 light:border-[#EC5B38]/30 bg-[#EC5B38]/10 light:bg-[#EC5B38]/10',
+    Speaker: 'text-[#A8A492] light:text-[#524646] border-[#A8A492]/30 light:border-[#C9BEAA] bg-[#A8A492]/10 light:bg-[#F4E9D8]',
+    Organizer: 'text-[#EC5B38] light:text-[#EC5B38] border-[#EC5B38]/30 light:border-[#EC5B38]/30 bg-[#EC5B38]/10 light:bg-[#EC5B38]/10',
+    Winner: 'text-[#A8A492] light:text-[#524646] border-[#A8A492]/30 light:border-[#C9BEAA] bg-[#A8A492]/10 light:bg-[#F4E9D8]',
+    Volunteer: 'text-[#EC5B38] light:text-[#EC5B38] border-[#EC5B38]/30 light:border-[#EC5B38]/30 bg-[#EC5B38]/10 light:bg-[#EC5B38]/10',
   };
-  return map[role] ?? 'text-[#8ea4b0] light:text-slate-600 border-[#b6d9e0]/15 light:border-slate-200 bg-[#080c10]/40 light:bg-slate-100';
+  return map[role] ?? 'text-[#A8A492] light:text-[#8A7B7B] border-[#EC5B38]/15 light:border-[#D9CEBB] bg-[#524646]/40 light:bg-[#F4E9D8]';
 };
 
 function EventCard({ event, index }: { event: Event; index: number }) {
@@ -50,7 +50,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
   };
 
   const isLight = theme === 'light';
-  const spotlightColor = isLight ? 'rgba(2, 132, 199, 0.12)' : 'rgba(182, 217, 224, 0.12)';
+  const spotlightColor = isLight ? 'rgba(236, 91, 56, 0.12)' : 'rgba(236, 91, 56, 0.12)';
 
   const formattedDate = new Date(event.event_date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -67,7 +67,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden bg-[#0d1218]/80 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/15 light:border-slate-200/90 rounded-2xl sm:rounded-3xl flex flex-col hover:bg-[#0d1218] light:hover:bg-white hover:border-[#b6d9e0]/35 light:hover:border-slate-300 transition-all duration-300 shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+      className="group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 rounded-2xl sm:rounded-3xl flex flex-col hover:bg-[#5E5252] light:hover:bg-white hover:border-[#EC5B38]/35 light:hover:border-[#C9BEAA] transition-all duration-300 shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
     >
       {/* Spotlight glow */}
       {isHovered && (
@@ -87,7 +87,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             alt={event.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080c10] light:from-[#0f172a]/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#524646] light:from-[#524646]/60 via-transparent to-transparent" />
           {/* Role badge over image */}
           <div className={`absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-semibold ${getRoleColor(event.role)}`}>
             {getRoleIcon(event.role)}
@@ -108,13 +108,13 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         )}
 
         {/* Title */}
-        <h3 className="text-base sm:text-lg font-bold text-[#eef4f6] light:text-[#0f172a] mb-2 group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors duration-300 leading-tight">
+        <h3 className="text-base sm:text-lg font-bold text-[#FCF2E5] light:text-[#524646] mb-2 group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors duration-300 leading-tight">
           {event.title}
         </h3>
 
         {/* Description */}
         {event.description && (
-          <p className="text-[#8ea4b0] light:text-slate-600 text-xs leading-relaxed mb-4 flex-1">
+          <p className="text-[#A8A492] light:text-[#8A7B7B] text-xs leading-relaxed mb-4 flex-1">
             {event.description}
           </p>
         )}
@@ -122,13 +122,13 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         <div className="mt-auto space-y-3">
           {/* Meta: Date & Location */}
           <div className="flex flex-wrap gap-2.5 sm:gap-3">
-            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#8ea4b0] light:text-slate-500">
-              <Calendar size={12} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
+            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#A8A492] light:text-[#A8A492]">
+              <Calendar size={12} className="text-[#EC5B38] light:text-[#EC5B38] shrink-0" />
               <span>{formattedDate}</span>
             </div>
             {event.location && (
-              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#8ea4b0] light:text-slate-500">
-                <MapPin size={12} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
+              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#A8A492] light:text-[#A8A492]">
+                <MapPin size={12} className="text-[#EC5B38] light:text-[#EC5B38] shrink-0" />
                 <span>{event.location}</span>
               </div>
             )}
@@ -137,11 +137,11 @@ function EventCard({ event, index }: { event: Event; index: number }) {
           {/* Tags */}
           {event.tags && event.tags.length > 0 && (
             <div className="flex flex-wrap gap-1 sm:gap-1.5">
-              <Tag size={11} className="text-[#8ea4b0]/60 light:text-slate-400 mt-0.5 shrink-0" />
+              <Tag size={11} className="text-[#A8A492]/60 light:text-[#A8A492] mt-0.5 shrink-0" />
               {event.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] px-2 py-0.5 rounded-lg bg-[#080c10]/60 light:bg-slate-100 border border-[#b6d9e0]/15 light:border-slate-200 text-[#8ea4b0] light:text-slate-600"
+                  className="text-[10px] px-2 py-0.5 rounded-lg bg-[#524646]/60 light:bg-[#F4E9D8] border border-[#EC5B38]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B]"
                 >
                   {tag}
                 </span>
@@ -155,7 +155,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
               href={event.certificate_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#b6d9e0] light:text-[#0284c7] hover:text-[#eef4f6] light:hover:text-[#0369a1]"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#EC5B38] light:text-[#EC5B38] hover:text-[#FCF2E5] light:hover:text-[#D64A28]"
               whileHover={{ x: 3 }}
             >
               <Award size={13} />
@@ -172,14 +172,14 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 // ─── Placeholder skeleton for loading state ───────────────────────────────────
 function EventCardSkeleton() {
   return (
-    <div className="bg-[#0d1218]/40 light:bg-white/60 border border-[#b6d9e0]/15 light:border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-6 animate-pulse">
-      <div className="h-3 bg-[#141c24] light:bg-slate-200 rounded-full w-16 mb-4" />
-      <div className="h-5 bg-[#141c24] light:bg-slate-200 rounded-full w-3/4 mb-2" />
-      <div className="h-3 bg-[#141c24] light:bg-slate-200 rounded-full w-full mb-1" />
-      <div className="h-3 bg-[#141c24] light:bg-slate-200 rounded-full w-2/3 mb-6" />
+    <div className="bg-[#5E5252]/40 light:bg-white/60 border border-[#EC5B38]/15 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-5 sm:p-6 animate-pulse">
+      <div className="h-3 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-16 mb-4" />
+      <div className="h-5 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-3/4 mb-2" />
+      <div className="h-3 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-full mb-1" />
+      <div className="h-3 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-2/3 mb-6" />
       <div className="flex gap-3">
-        <div className="h-3 bg-[#141c24] light:bg-slate-200 rounded-full w-24" />
-        <div className="h-3 bg-[#141c24] light:bg-slate-200 rounded-full w-20" />
+        <div className="h-3 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-24" />
+        <div className="h-3 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-20" />
       </div>
     </div>
   );
@@ -219,7 +219,7 @@ export function Events() {
     <section id="events" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#b6d9e0]/5 light:bg-[#0284c7]/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#EC5B38]/5 light:bg-[#EC5B38]/5 blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -230,7 +230,7 @@ export function Events() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-[#b6d9e0] light:text-[#0284c7] mb-2 sm:mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#EC5B38] light:text-[#EC5B38] mb-2 sm:mb-3"
             >
               Experience
             </motion.p>
@@ -238,7 +238,7 @@ export function Events() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-2xl sm:text-4xl font-extrabold text-[#eef4f6] light:text-[#0f172a] tracking-tight"
+              className="text-2xl sm:text-4xl font-extrabold text-[#FCF2E5] light:text-[#524646] tracking-tight"
             >
               Events & Activities
             </motion.h2>
@@ -246,7 +246,7 @@ export function Events() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-slate-400 light:text-slate-600 text-xs sm:text-sm mt-2 sm:mt-3 leading-relaxed"
+              className="text-[#A8A492] light:text-[#8A7B7B] text-xs sm:text-sm mt-2 sm:mt-3 leading-relaxed"
             >
               Hackathons, conferences, workshops, and community events I've been part of.
             </motion.p>
@@ -261,7 +261,7 @@ export function Events() {
             ))}
           </div>
         ) : error ? (
-          <div className="flex items-center justify-center py-20 text-slate-500 text-sm">
+          <div className="flex items-center justify-center py-20 text-[#A8A492] text-sm">
             {error}
           </div>
         ) : (

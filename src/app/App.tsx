@@ -11,7 +11,7 @@ import { CustomCursor } from './components/CustomCursor';
 export default function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-transparent text-[#eef4f6] dark:text-[#eef4f6] light:text-[#0f172a] font-sans antialiased selection:bg-[#b6d9e0]/30 selection:text-[#b6d9e0] relative cursor-default transition-colors duration-500">
+      <div className="min-h-screen bg-transparent text-[#FCF2E5] dark:text-[#FCF2E5] light:text-[#524646] font-sans antialiased selection:bg-[#EC5B38]/30 selection:text-[#EC5B38] relative cursor-default transition-colors duration-500">
         {/* Interactive Reticle Cursor */}
         <CustomCursor />
 

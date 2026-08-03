@@ -1,97 +1,38 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Github, Mail, Sparkles, Shield, Cpu, Play } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Github, Mail, Sparkles, Shield, Cpu, MapPin, ArrowUpRight, BadgeCheck, Code2 } from 'lucide-react';
 
 const PROFILE_LINKS = {
   github: 'https://github.com/Mevinb',
   email: 'mailto:mevinbenty507@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/mevin-benty-17305a322',
 };
 
-const TERMINAL_LINES = [
-  { text: 'pip install stable-diffusion-diffusers comfyui-api', type: 'command' },
-  { text: 'Collecting stable-diffusion-diffusers...', type: 'output' },
-  { text: '  Downloading model weights [100% |██████████| 4.12 GB]', type: 'output' },
-  { text: 'python run_restoration_pipeline.py --checkpoint v3-alpha', type: 'command' },
-  { text: '[INFO] Initializing Reactorv3 facial restoration...', type: 'output' },
-  { text: '[INFO] Mapping identity latents & scale matching...', type: 'output' },
-  { text: '[SAMPLER] Steps: 20/20 [====================] 100% (0.8s)', type: 'output' },
-  { text: '[SUCCESS] Target enhanced successfully (1240x1240px)', type: 'success' },
-  { text: '[OUTPUT] Saved artifact to outputs/reactor_face_v3.png', type: 'success' },
+const FOCUS_AREAS = [
+  { icon: Cpu, label: 'Stable Diffusion' },
+  { icon: Sparkles, label: 'ComfyUI Workflows' },
+  { icon: Shield, label: 'Python & PowerShell Security' },
+];
+
+const HIGHLIGHTS = [
+  { value: '10+', label: 'Active Projects' },
+  { value: '20+', label: 'Custom Workflows' },
+  { value: '42', label: 'GitHub Stars' },
 ];
 
 export function Hero() {
-  const [terminalIndex, setTerminalIndex] = useState(0);
-  const [terminalText, setTerminalText] = useState('');
-  const [displayedLines, setDisplayedLines] = useState<string[]>([]);
-  const [currentLineCharIdx, setCurrentLineCharIdx] = useState(0);
-  const [pipelineState, setPipelineState] = useState<'idle' | 'running' | 'success'>('idle');
-
-  // Terminal Typing Simulation Effect
-  useEffect(() => {
-    if (terminalIndex >= TERMINAL_LINES.length) {
-      // Loop back after 4 seconds
-      const timeout = setTimeout(() => {
-        setTerminalIndex(0);
-        setDisplayedLines([]);
-        setTerminalText('');
-        setCurrentLineCharIdx(0);
-        setPipelineState('idle');
-      }, 5000);
-      return () => clearTimeout(timeout);
-    }
-
-    const currentLine = TERMINAL_LINES[terminalIndex];
-
-    if (currentLine.type === 'command') {
-      setPipelineState('running');
-      if (currentLineCharIdx < currentLine.text.length) {
-        const charTimeout = setTimeout(() => {
-          setTerminalText((prev) => prev + currentLine.text[currentLineCharIdx]);
-          setCurrentLineCharIdx((prev) => prev + 1);
-        }, 30);
-        return () => clearTimeout(charTimeout);
-      } else {
-        // Command finished typing. Push to list and move to next
-        const pushTimeout = setTimeout(() => {
-          setDisplayedLines((prev) => [...prev, `> ${currentLine.text}`]);
-          setTerminalText('');
-          setCurrentLineCharIdx(0);
-          setTerminalIndex((prev) => prev + 1);
-        }, 400);
-        return () => clearTimeout(pushTimeout);
-      }
-    } else {
-      // Output lines appear instantly or short delay
-      const outputTimeout = setTimeout(() => {
-        let prefix = '';
-        if (currentLine.type === 'success') prefix = '✔ ';
-        setDisplayedLines((prev) => [...prev, prefix + currentLine.text]);
-        
-        if (currentLine.text.includes('[SUCCESS]')) {
-          setPipelineState('success');
-        }
-        
-        setTerminalIndex((prev) => prev + 1);
-      }, 350);
-      return () => clearTimeout(outputTimeout);
-    }
-  }, [terminalIndex, currentLineCharIdx]);
-
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 sm:pt-28 pb-12 px-4 sm:px-6 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-        
         {/* Left Column: Headline and Actions */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
-          
           {/* Floating badge */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-[#b6d9e0]/10 light:bg-[#0284c7]/10 border border-[#b6d9e0]/30 light:border-[#0284c7]/30 text-[#b6d9e0] light:text-[#0284c7] text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-4 sm:mb-6 shadow-[0_0_15px_rgba(182,217,224,0.15)] light:shadow-[0_0_15px_rgba(2,132,199,0.1)]"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC5B38]/10 light:bg-[#EC5B38]/10 border border-[#EC5B38]/30 light:border-[#EC5B38]/30 text-[#EC5B38] text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(236,91,56,0.12)]"
           >
-            <Sparkles size={13} className="animate-pulse text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
+            <Sparkles size={13} className="animate-pulse shrink-0" />
             <span>AI Workflow Engineer & DevSecOps</span>
           </motion.div>
 
@@ -100,13 +41,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#eef4f6] light:text-[#0f172a] tracking-tight leading-[1.15] mb-5 sm:mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#FCF2E5] light:text-[#524646] tracking-tight leading-[1.15] mb-6"
           >
             Building{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#b6d9e0] via-[#dbe2dc] to-[#ffffff] light:from-[#0284c7] light:via-[#0ea5e9] light:to-[#0f172a] font-black">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#EC5B38] via-[#F06745] to-[#FCF2E5] light:from-[#EC5B38] light:via-[#D64A28] light:to-[#524646] font-black">
               Next-Gen AI
             </span>{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#dbe2dc] to-[#b6d9e0] light:from-[#0284c7] light:to-[#0369a1] font-black">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#A8A492] to-[#F06745] light:from-[#EC5B38] light:to-[#8A7B7B] font-black">
               Pipelines
             </span>{' '}
             and Secure Systems.
@@ -117,39 +58,32 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[#8ea4b0] light:text-slate-600 text-sm sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-6 sm:mb-8"
+            className="text-[#A8A492] light:text-[#8A7B7B] text-sm sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-8"
           >
-            I specialize in optimizing generative imaging workflows, developing robust facial restoration pipelines (Reactorv3), and creating secure backend architectures with automated systems.
+            I specialize in optimizing generative imaging workflows, developing robust facial restoration
+            pipelines (Reactorv3), and creating secure backend architectures with automated systems.
           </motion.p>
 
-          {/* Focus Tags / Micro-features */}
-          <motion.div 
+          {/* Focus Tags */}
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-wrap gap-2 sm:gap-3 mb-8 sm:mb-10"
+            className="flex flex-wrap gap-2 sm:gap-3 mb-10"
           >
-            <motion.div 
-              whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] light:bg-white border border-[#b6d9e0]/20 light:border-slate-200 text-[11px] sm:text-xs text-[#dbe2dc] light:text-slate-800 shadow-md"
-            >
-              <Cpu size={13} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
-              <span>Stable Diffusion</span>
-            </motion.div>
-            <motion.div 
-              whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] light:bg-white border border-[#b6d9e0]/20 light:border-slate-200 text-[11px] sm:text-xs text-[#dbe2dc] light:text-slate-800 shadow-md"
-            >
-              <Sparkles size={13} className="text-[#dbe2dc] light:text-[#0284c7] shrink-0" />
-              <span>ComfyUI Custom Workflows</span>
-            </motion.div>
-            <motion.div 
-              whileHover={{ y: -3 }}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0d1218] light:bg-white border border-[#b6d9e0]/20 light:border-slate-200 text-[11px] sm:text-xs text-[#dbe2dc] light:text-slate-800 shadow-md"
-            >
-              <Shield size={13} className="text-[#b6d9e0] light:text-[#0284c7] shrink-0" />
-              <span>PowerShell & Python Security</span>
-            </motion.div>
+            {FOCUS_AREAS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.label}
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#5E5252]/80 light:bg-white border border-[#A8A492]/25 light:border-[#D9CEBB] text-[11px] sm:text-xs text-[#FCF2E5] light:text-[#524646] shadow-md"
+                >
+                  <Icon size={13} className="text-[#EC5B38] shrink-0" />
+                  <span>{item.label}</span>
+                </motion.div>
+              );
+            })}
           </motion.div>
 
           {/* CTA Buttons */}
@@ -163,7 +97,7 @@ export function Hero() {
               href={PROFILE_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#b6d9e0] light:bg-[#0284c7] hover:bg-[#cce5eb] light:hover:bg-[#0369a1] text-[#080c10] light:text-white text-xs sm:text-sm font-bold rounded-xl shadow-[0_0_25px_rgba(182,217,224,0.3)] light:shadow-[0_4px_20px_rgba(2,132,199,0.25)] transition-all overflow-hidden cursor-pointer"
+              className="group relative flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#EC5B38] hover:bg-[#F06745] text-[#FCF2E5] text-xs sm:text-sm font-bold rounded-xl shadow-[0_0_25px_rgba(236,91,56,0.25)] transition-all overflow-hidden cursor-pointer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -173,7 +107,7 @@ export function Hero() {
 
             <motion.a
               href={PROFILE_LINKS.email}
-              className="flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#0d1218]/90 light:bg-white/90 hover:bg-[#141c24] light:hover:bg-slate-100 backdrop-blur-sm border border-[#b6d9e0]/20 light:border-slate-300 rounded-xl text-[#eef4f6] light:text-[#0f172a] text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md"
+              className="flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#5E5252]/90 light:bg-white/90 hover:bg-[#6B5D5D] light:hover:bg-[#F4E9D8] backdrop-blur-sm border border-[#A8A492]/30 light:border-[#D9CEBB] rounded-xl text-[#FCF2E5] light:text-[#524646] text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -183,104 +117,99 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Terminal and Fluid Graphics Mockup */}
+        {/* Right Column: Professional Profile Card */}
         <div className="lg:col-span-5 relative w-full flex items-center justify-center">
-          
-          {/* Glow orb behind terminal */}
-          <div className="absolute -z-10 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-radial from-[#b6d9e0]/15 light:from-[#0284c7]/15 via-[#dbe2dc]/8 to-transparent blur-[70px]" />
+          {/* Soft glow behind card */}
+          <div className="absolute -z-10 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-[#EC5B38]/15 light:from-[#EC5B38]/10 via-[#A8A492]/8 to-transparent blur-[70px]" />
 
-          {/* Main Container glassmorphism block */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            initial={{ opacity: 0, scale: 0.92, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative w-full h-72 xs:h-80 sm:h-auto sm:aspect-[1.4] bg-[#0d1218]/90 light:bg-[#0f172a]/95 backdrop-blur-xl border border-[#b6d9e0]/25 light:border-slate-300 rounded-2xl shadow-2xl shadow-[#080c10]/80 light:shadow-slate-400/20 overflow-hidden flex flex-col ring-1 ring-[#b6d9e0]/15"
+            className="relative w-full max-w-md bg-[#5E5252]/85 light:bg-white/95 backdrop-blur-xl border border-[#A8A492]/25 light:border-[#D9CEBB] rounded-3xl shadow-2xl overflow-hidden"
           >
-            {/* Window bar */}
-            <div className="flex items-center justify-between px-4 py-3 bg-[#080c10]/80 border-b border-[#b6d9e0]/15">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#b6d9e0]/40" />
-                <div className="w-3 h-3 rounded-full bg-[#dbe2dc]/40" />
-                <div className="w-3 h-3 rounded-full bg-[#b6d9e0]/20" />
-              </div>
-              <div className="text-[#8ea4b0] text-[10px] font-mono select-none">
-                mevin@reactor-vm:~
-              </div>
-              <div className="w-4 h-4" />
-            </div>
+            {/* Top accent bar */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#EC5B38] via-[#F06745] to-[#A8A492]" />
 
-            {/* Terminal Screen area */}
-            <div className="flex-1 p-4 font-mono text-[11px] sm:text-xs text-[#dbe2dc] space-y-1.5 overflow-y-auto select-none scrollbar-none bg-[#080c10]/60">
-              {displayedLines.map((line, idx) => {
-                let colorClass = 'text-[#8ea4b0]';
-                if (line.startsWith('>')) colorClass = 'text-[#b6d9e0] font-semibold';
-                else if (line.startsWith('✔')) colorClass = 'text-[#b6d9e0] font-medium';
-                else if (line.includes('[SUCCESS]')) colorClass = 'text-[#b6d9e0] font-bold';
-                else if (line.includes('Downloading')) colorClass = 'text-[#dbe2dc]';
-                else if (line.includes('[INFO]')) colorClass = 'text-[#b6d9e0]/80';
-                else if (line.includes('[SAMPLER]')) colorClass = 'text-[#dbe2dc]';
-                else if (line.includes('[OUTPUT]')) colorClass = 'text-[#b6d9e0]';
-                
-                return (
-                  <div key={idx} className={`${colorClass} leading-relaxed`}>
-                    {line}
+            <div className="p-6 sm:p-8">
+              {/* Header: monogram + identity */}
+              <div className="flex items-center gap-4">
+                <div className="relative shrink-0">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#EC5B38] text-[#FCF2E5] flex items-center justify-center text-xl sm:text-2xl font-black shadow-lg shadow-[#EC5B38]/30">
+                    MB
                   </div>
-                );
-              })}
-              
-              {/* Active command line typing */}
-              {terminalIndex < TERMINAL_LINES.length && TERMINAL_LINES[terminalIndex].type === 'command' && (
-                <div className="text-[#b6d9e0] font-semibold flex items-center">
-                  <span>&gt; {terminalText}</span>
-                  <span className="w-1.5 h-3.5 bg-[#b6d9e0] ml-0.5 animate-pulse rounded-sm" />
+                  <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#A8A492] border-2 border-[#5E5252] light:border-white" />
                 </div>
-              )}
-            </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#FCF2E5] light:text-[#524646] leading-tight">
+                    Mevin Benty
+                  </h2>
+                  <p className="text-[11px] sm:text-xs font-medium text-[#A8A492] light:text-[#8A7B7B] mt-0.5">
+                    Software Engineer · AI Pipeline Specialist
+                  </p>
+                  <span className="inline-flex items-center gap-1 mt-2 px-2.5 py-0.5 rounded-full bg-[#A8A492]/15 border border-[#A8A492]/30 text-[10px] font-semibold text-[#A8A492] light:text-[#8A7B7B]">
+                    <BadgeCheck size={11} className="text-[#EC5B38]" />
+                    Open to opportunities
+                  </span>
+                </div>
+              </div>
 
-            {/* Generative Visualizer Panel (triggered when successful) */}
-            <AnimatePresence>
-              {pipelineState === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 bg-[#080c10]/95 flex flex-col items-center justify-center p-6 border-t border-[#b6d9e0]/20"
-                >
-                  <motion.div 
-                    initial={{ scale: 0.8 }}
-                    animate={{ scale: 1 }}
-                    className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-xl overflow-hidden border border-[#b6d9e0]/40 shadow-[0_0_50px_rgba(182,217,224,0.3)] mb-4"
+              {/* Location line */}
+              <div className="flex items-center gap-1.5 mt-4 text-[11px] text-[#A8A492] light:text-[#8A7B7B]">
+                <MapPin size={12} className="text-[#EC5B38] shrink-0" />
+                <span>Thrissur, Kerala · Remote-friendly</span>
+              </div>
+
+              {/* Quick stats */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-5">
+                {HIGHLIGHTS.map((item) => (
+                  <div
+                    key={item.label}
+                    className="p-3 rounded-xl bg-[#4F4444] light:bg-[#F7EBDD] border border-[#A8A492]/20 light:border-[#EFE3D0] text-center"
                   >
-                    {/* Generative Cyber animation */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#b6d9e0] via-[#dbe2dc] to-[#080c10] animate-spin [animation-duration:15s]" />
-                    <div className="absolute inset-[3px] rounded-lg bg-[#080c10] overflow-hidden flex items-center justify-center">
-                      <div className="absolute inset-0 bg-radial from-[#b6d9e0]/30 to-transparent blur-md animate-pulse" />
-                      <Sparkles size={24} className="text-[#b6d9e0] animate-bounce" />
+                    <div className="text-base sm:text-lg font-extrabold text-[#F06745] light:text-[#EC5B38]">
+                      {item.value}
                     </div>
-                  </motion.div>
-                  <div className="text-xs text-[#eef4f6] font-medium tracking-wide">
-                    Generation Render Complete
+                    <div className="text-[9px] sm:text-[10px] uppercase tracking-wider font-medium text-[#A8A492] light:text-[#8A7B7B] mt-0.5">
+                      {item.label}
+                    </div>
                   </div>
-                  <div className="text-[10px] text-[#8ea4b0] font-mono mt-1">
-                    v3-alpha-diffusion.ckpt • Steps: 20 • CFG: 7.5
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                ))}
+              </div>
 
-            {/* Pipeline progress bar indicator */}
-            <div className="h-1.5 bg-[#080c10]">
-              {pipelineState === 'running' && (
-                <motion.div 
-                  className="h-full bg-gradient-to-r from-[#b6d9e0] to-[#dbe2dc]"
-                  initial={{ width: '0%' }}
-                  animate={{ width: '90%' }}
-                  transition={{ duration: 6, ease: 'easeOut' }}
-                />
-              )}
-              {pipelineState === 'success' && (
-                <div className="h-full w-full bg-[#b6d9e0]" />
-              )}
+              {/* Quick links */}
+              <div className="flex items-center gap-2 mt-6">
+                {[
+                  { href: PROFILE_LINKS.github, label: 'GitHub', icon: Github },
+                  { href: PROFILE_LINKS.linkedin, label: 'LinkedIn', icon: ArrowUpRight },
+                  { href: PROFILE_LINKS.email, label: 'Email', icon: Mail },
+                ].map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-[#4F4444] light:bg-[#F4E9D8] border border-[#A8A492]/25 light:border-[#D9CEBB] text-[11px] font-semibold text-[#FCF2E5] light:text-[#524646] hover:border-[#EC5B38] hover:text-[#F06745] light:hover:text-[#EC5B38] transition-all cursor-pointer"
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      <Icon size={14} />
+                      <span className="hidden xs:inline sm:inline">{link.label}</span>
+                    </motion.a>
+                  );
+                })}
+              </div>
+
+              {/* Mono footer */}
+              <div className="mt-6 pt-4 border-t border-[#A8A492]/20 light:border-[#EFE3D0] flex items-center justify-between text-[10px] font-mono text-[#A8A492]/80 light:text-[#A8A492]">
+                <span className="flex items-center gap-1.5">
+                  <Code2 size={11} className="text-[#EC5B38]" />
+                  React · TypeScript · Tailwind
+                </span>
+                <span>MB-2026</span>
+              </div>
             </div>
           </motion.div>
         </div>

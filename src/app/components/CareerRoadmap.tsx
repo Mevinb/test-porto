@@ -102,15 +102,15 @@ export function CareerRoadmap() {
   const getCategoryBadgeClass = (category: RoadmapCategory) => {
     switch (category) {
       case 'AI & Research':
-        return 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30';
+        return 'bg-[#A8A492]/10 text-[#A8A492] border-[#A8A492]/30';
       case 'Open Source':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+        return 'bg-[#A8A492]/10 text-[#A8A492] border-[#A8A492]/30';
       case 'Milestones':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+        return 'bg-[#EC5B38]/10 text-[#EC5B38] border-[#EC5B38]/30';
       case 'Hackathons':
-        return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
+        return 'bg-[#EC5B38]/10 text-[#EC5B38] border-[#EC5B38]/30';
       default:
-        return 'bg-[#b6d9e0]/10 text-[#b6d9e0] border-[#b6d9e0]/30';
+        return 'bg-[#EC5B38]/10 text-[#EC5B38] border-[#EC5B38]/30';
     }
   };
 
@@ -119,10 +119,10 @@ export function CareerRoadmap() {
       {/* Category Pill Filters */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
         <div>
-          <h3 className="text-xl font-bold font-mono text-[#eef4f6] light:text-slate-900 flex items-center gap-2">
-            <Trophy className="w-5 h-5 text-[#b6d9e0]" /> Career & Innovation Roadmap
+          <h3 className="text-xl font-bold font-mono text-[#FCF2E5] light:text-[#524646] flex items-center gap-2">
+            <Trophy className="w-5 h-5 text-[#EC5B38]" /> Career & Innovation Roadmap
           </h3>
-          <p className="text-xs text-[#b6d9e0]/70 light:text-slate-500 font-sans">
+          <p className="text-xs text-[#EC5B38]/70 light:text-[#A8A492] font-sans">
             Interactive trajectory of AI engineering milestones, open-source releases & systems research
           </p>
         </div>
@@ -134,8 +134,8 @@ export function CareerRoadmap() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all ${
                 selectedCategory === cat
-                  ? 'bg-[#b6d9e0] text-[#06090e] font-semibold shadow-md'
-                  : 'bg-[#0b1018] light:bg-slate-100 text-[#b6d9e0]/70 light:text-slate-700 hover:bg-[#121924] border border-[#b6d9e0]/15'
+                  ? 'bg-[#EC5B38] text-[#3F3636] font-semibold shadow-md'
+                  : 'bg-[#463C3C] light:bg-[#F4E9D8] text-[#EC5B38]/70 light:text-[#524646] hover:bg-[#574B4B] border border-[#EC5B38]/15'
               }`}
             >
               {cat}
@@ -145,7 +145,7 @@ export function CareerRoadmap() {
       </div>
 
       {/* Vertical Node Timeline */}
-      <div className="relative pl-6 sm:pl-8 border-l-2 border-[#b6d9e0]/20 light:border-slate-300 space-y-8">
+      <div className="relative pl-6 sm:pl-8 border-l-2 border-[#EC5B38]/20 light:border-[#C9BEAA] space-y-8">
         {filteredNodes.map((node, index) => {
           const isExpanded = expandedId === node.id;
 
@@ -163,19 +163,19 @@ export function CareerRoadmap() {
                 onClick={() => setExpandedId(isExpanded ? '' : node.id)}
                 className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full border-2 cursor-pointer flex items-center justify-center transition-all ${
                   isExpanded
-                    ? 'bg-[#b6d9e0] border-[#b6d9e0] shadow-[0_0_15px_#b6d9e0]'
-                    : 'bg-[#080d14] border-[#b6d9e0]/40 hover:border-[#b6d9e0]'
+                    ? 'bg-[#EC5B38] border-[#EC5B38] shadow-[0_0_15px_#EC5B38]'
+                    : 'bg-[#463D3D] border-[#EC5B38]/40 hover:border-[#EC5B38]'
                 }`}
               >
-                <div className={`w-2 h-2 rounded-full ${isExpanded ? 'bg-[#06090e]' : 'bg-[#b6d9e0]'}`} />
+                <div className={`w-2 h-2 rounded-full ${isExpanded ? 'bg-[#3F3636]' : 'bg-[#EC5B38]'}`} />
               </div>
 
               {/* Card Container */}
               <div
-                className={`bg-[#080d14]/90 light:bg-white/90 backdrop-blur-xl border rounded-2xl p-5 sm:p-6 transition-all duration-300 ${
+                className={`bg-[#463D3D]/90 light:bg-white/90 backdrop-blur-xl border rounded-2xl p-5 sm:p-6 transition-all duration-300 ${
                   isExpanded
-                    ? 'border-[#b6d9e0]/40 shadow-xl'
-                    : 'border-[#b6d9e0]/15 light:border-slate-200 hover:border-[#b6d9e0]/30'
+                    ? 'border-[#EC5B38]/40 shadow-xl'
+                    : 'border-[#EC5B38]/15 light:border-[#D9CEBB] hover:border-[#EC5B38]/30'
                 }`}
               >
                 {/* Header Row */}
@@ -184,25 +184,25 @@ export function CareerRoadmap() {
                   className="flex flex-wrap items-center justify-between gap-3 cursor-pointer group"
                 >
                   <div className="flex items-center gap-3 flex-wrap">
-                    <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-[#b6d9e0]/10 border border-[#b6d9e0]/25 text-[#b6d9e0]">
+                    <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-[#EC5B38]/10 border border-[#EC5B38]/25 text-[#EC5B38]">
                       {node.year}
                     </span>
                     <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border uppercase ${getCategoryBadgeClass(node.category)}`}>
                       {node.category}
                     </span>
-                    <h4 className="text-base font-bold text-[#eef4f6] light:text-slate-900 group-hover:text-[#b6d9e0] transition-colors font-mono">
+                    <h4 className="text-base font-bold text-[#FCF2E5] light:text-[#524646] group-hover:text-[#EC5B38] transition-colors font-mono">
                       {node.title}
                     </h4>
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs font-mono text-[#b6d9e0]/60">
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#EC5B38]/60">
                     <span>{node.role}</span>
-                    <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-90 text-[#b6d9e0]' : ''}`} />
+                    <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-90 text-[#EC5B38]' : ''}`} />
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs text-[#b6d9e0]/70 light:text-slate-600 mt-2 font-sans leading-relaxed">
+                <p className="text-xs text-[#EC5B38]/70 light:text-[#8A7B7B] mt-2 font-sans leading-relaxed">
                   {node.description}
                 </p>
 
@@ -216,14 +216,14 @@ export function CareerRoadmap() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="mt-4 pt-4 border-t border-[#b6d9e0]/15 light:border-slate-200 space-y-3">
-                        <h5 className="text-xs font-mono text-[#b6d9e0] light:text-slate-800 uppercase tracking-wider font-semibold">
+                      <div className="mt-4 pt-4 border-t border-[#EC5B38]/15 light:border-[#D9CEBB] space-y-3">
+                        <h5 className="text-xs font-mono text-[#EC5B38] light:text-[#524646] uppercase tracking-wider font-semibold">
                           Key Deliverables & Innovations
                         </h5>
-                        <ul className="space-y-1.5 text-xs text-[#b6d9e0]/80 light:text-slate-600 font-sans">
+                        <ul className="space-y-1.5 text-xs text-[#EC5B38]/80 light:text-[#8A7B7B] font-sans">
                           {node.highlights.map((h, i) => (
                             <li key={i} className="flex items-start gap-2">
-                              <Sparkles className="w-3.5 h-3.5 text-[#b6d9e0] mt-0.5 shrink-0" />
+                              <Sparkles className="w-3.5 h-3.5 text-[#EC5B38] mt-0.5 shrink-0" />
                               <span>{h}</span>
                             </li>
                           ))}
@@ -233,7 +233,7 @@ export function CareerRoadmap() {
                         <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                           <div className="flex flex-wrap gap-1.5">
                             {node.techStack.map((tech) => (
-                              <span key={tech} className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 text-[#b6d9e0]">
+                              <span key={tech} className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EC5B38]/10 border border-[#EC5B38]/20 text-[#EC5B38]">
                                 {tech}
                               </span>
                             ))}
@@ -244,7 +244,7 @@ export function CareerRoadmap() {
                               href={node.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-1.5 text-xs font-mono text-[#b6d9e0] hover:underline"
+                              className="flex items-center gap-1.5 text-xs font-mono text-[#EC5B38] hover:underline"
                             >
                               <span>{node.linkLabel || 'Learn More'}</span>
                               <ExternalLink className="w-3.5 h-3.5" />

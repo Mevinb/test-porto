@@ -91,7 +91,7 @@ export function Navigation() {
           <div
             className={`w-full max-w-5xl flex items-center justify-between transition-all duration-500 pointer-events-auto ${
               isScrolled
-                ? 'bg-[#0d1218]/85 light:bg-white/90 backdrop-blur-xl border border-[#b6d9e0]/20 light:border-slate-200/90 shadow-[0_0_30px_rgba(182,217,224,0.1)] light:shadow-[0_4px_25px_rgba(0,0,0,0.06)] rounded-full px-4 sm:px-6 py-2 sm:py-2.5'
+                ? 'bg-[#5E5252]/85 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/20 light:border-[#D9CEBB]/90 shadow-[0_0_30px_rgba(236,91,56,0.1)] light:shadow-[0_4px_25px_rgba(0,0,0,0.06)] rounded-full px-4 sm:px-6 py-2 sm:py-2.5'
                 : 'bg-transparent px-3 sm:px-4 py-3 sm:py-4 border border-transparent'
             }`}
           >
@@ -101,16 +101,16 @@ export function Navigation() {
               className="flex items-center gap-2 sm:gap-2.5 group cursor-pointer"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#b6d9e0] light:bg-[#0284c7] text-[#080c10] light:text-white flex items-center justify-center font-bold shadow-lg shadow-[#b6d9e0]/25 light:shadow-[#0284c7]/25 group-hover:shadow-[#b6d9e0]/40 transition-all shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#EC5B38] light:bg-[#EC5B38] text-[#524646] light:text-[#FCF2E5] flex items-center justify-center font-bold shadow-lg shadow-[#EC5B38]/25 light:shadow-[#EC5B38]/25 group-hover:shadow-[#EC5B38]/40 transition-all shrink-0">
                 <Terminal size={15} className="sm:w-[16px] sm:h-[16px]" />
               </div>
-              <span className="font-semibold tracking-tight text-xs sm:text-base text-[#eef4f6] light:text-[#0f172a] group-hover:text-[#b6d9e0] light:group-hover:text-[#0284c7] transition-colors whitespace-nowrap">
+              <span className="font-semibold tracking-tight text-xs sm:text-base text-[#FCF2E5] light:text-[#524646] group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors whitespace-nowrap">
                 Mevin Benty
               </span>
             </motion.button>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1.5 bg-[#080c10]/60 light:bg-slate-100/90 p-1 border border-[#b6d9e0]/15 light:border-slate-200/80 rounded-full">
+            <nav className="hidden md:flex items-center gap-1.5 bg-[#524646]/60 light:bg-[#F4E9D8]/90 p-1 border border-[#EC5B38]/15 light:border-[#D9CEBB]/80 rounded-full">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
@@ -119,14 +119,14 @@ export function Navigation() {
                     onClick={() => scrollToSection(item.id)}
                     className={`relative px-4 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                       isActive 
-                        ? 'text-[#080c10] light:text-white font-semibold' 
-                        : 'text-[#8ea4b0] light:text-slate-600 hover:text-[#eef4f6] light:hover:text-[#0f172a]'
+                        ? 'text-[#524646] light:text-[#FCF2E5] font-semibold' 
+                        : 'text-[#A8A492] light:text-[#8A7B7B] hover:text-[#FCF2E5] light:hover:text-[#524646]'
                     }`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activeNavPill"
-                        className="absolute inset-0 bg-[#b6d9e0] light:bg-[#0284c7] rounded-full -z-10 shadow-[0_0_15px_rgba(182,217,224,0.4)] light:shadow-[0_0_15px_rgba(2,132,199,0.3)]"
+                        className="absolute inset-0 bg-[#EC5B38] light:bg-[#EC5B38] rounded-full -z-10 shadow-[0_0_15px_rgba(236,91,56,0.4)] light:shadow-[0_0_15px_rgba(236,91,56,0.3)]"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -142,7 +142,7 @@ export function Navigation() {
               <motion.button
                 onClick={toggleTheme}
                 title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-                className="flex items-center justify-center p-2 rounded-full bg-[#080c10]/70 light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-300 text-[#b6d9e0] light:text-[#0284c7] hover:bg-[#b6d9e0]/15 light:hover:bg-slate-200 transition-all cursor-pointer shadow-sm"
+                className="flex items-center justify-center p-2 rounded-full bg-[#524646]/70 light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#C9BEAA] text-[#EC5B38] light:text-[#EC5B38] hover:bg-[#EC5B38]/15 light:hover:bg-[#EFE3D0] transition-all cursor-pointer shadow-sm"
                 whileHover={{ scale: 1.08, rotate: 15 }}
                 whileTap={{ scale: 0.92 }}
               >
@@ -152,17 +152,17 @@ export function Navigation() {
               {/* Desktop CTA */}
               <motion.button
                 onClick={() => scrollToSection('contact')}
-                className="group relative px-5 py-2 overflow-hidden rounded-full bg-[#0d1218] light:bg-slate-900 border border-[#b6d9e0]/30 light:border-slate-700 text-xs font-semibold text-[#eef4f6] light:text-white shadow-md cursor-pointer transition-all hover:border-[#b6d9e0] light:hover:border-[#0284c7] hover:shadow-[0_0_20px_rgba(182,217,224,0.25)]"
+                className="group relative px-5 py-2 overflow-hidden rounded-full bg-[#5E5252] light:bg-[#524646] border border-[#EC5B38]/30 light:border-[#7A6B6B] text-xs font-semibold text-[#FCF2E5] light:text-[#FCF2E5] shadow-md cursor-pointer transition-all hover:border-[#EC5B38] light:hover:border-[#EC5B38] hover:shadow-[0_0_20px_rgba(236,91,56,0.25)]"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.98 }}
               >
                 {/* Glow shining background */}
-                <div className="absolute inset-0 w-full h-full bg-[#b6d9e0]/10 light:bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 w-full h-full bg-[#EC5B38]/10 light:bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative flex items-center gap-2">
                   Let's Connect
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b6d9e0] light:bg-[#38bdf8] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#b6d9e0] light:bg-[#38bdf8]"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EC5B38] light:bg-[#A8A492] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#EC5B38] light:bg-[#A8A492]"></span>
                   </span>
                 </span>
               </motion.button>
@@ -173,7 +173,7 @@ export function Navigation() {
               <motion.button
                 onClick={toggleTheme}
                 title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-                className="flex items-center justify-center p-2 rounded-full text-[#b6d9e0] light:text-[#0284c7] bg-[#080c10]/60 light:bg-slate-100 border border-[#b6d9e0]/20 light:border-slate-300 transition-colors cursor-pointer"
+                className="flex items-center justify-center p-2 rounded-full text-[#EC5B38] light:text-[#EC5B38] bg-[#524646]/60 light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#C9BEAA] transition-colors cursor-pointer"
                 whileTap={{ scale: 0.9 }}
               >
                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -181,7 +181,7 @@ export function Navigation() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="flex items-center justify-center p-2 rounded-full text-[#8ea4b0] light:text-slate-700 hover:text-[#eef4f6] light:hover:text-black hover:bg-[#141c24] light:hover:bg-slate-100 transition-colors cursor-pointer"
+                className="flex items-center justify-center p-2 rounded-full text-[#A8A492] light:text-[#524646] hover:text-[#FCF2E5] light:hover:text-black hover:bg-[#6B5D5D] light:hover:bg-[#F4E9D8] transition-colors cursor-pointer"
               >
                 {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -196,13 +196,13 @@ export function Navigation() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-16 sm:top-20 left-3 right-3 sm:left-4 sm:right-4 bg-[#0d1218]/95 light:bg-white/95 backdrop-blur-2xl border border-[#b6d9e0]/20 light:border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl flex flex-col gap-3 sm:gap-4 pointer-events-auto md:hidden max-h-[80vh] overflow-y-auto"
+                className="absolute top-16 sm:top-20 left-3 right-3 sm:left-4 sm:right-4 bg-[#5E5252]/95 light:bg-white/95 backdrop-blur-2xl border border-[#EC5B38]/20 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl flex flex-col gap-3 sm:gap-4 pointer-events-auto md:hidden max-h-[80vh] overflow-y-auto"
               >
-                <div className="flex items-center justify-between text-[#8ea4b0] light:text-slate-500 text-[11px] font-semibold uppercase tracking-wider mb-1">
+                <div className="flex items-center justify-between text-[#A8A492] light:text-[#A8A492] text-[11px] font-semibold uppercase tracking-wider mb-1">
                   <span>Navigation</span>
                   <button
                     onClick={toggleTheme}
-                    className="flex items-center gap-1.5 text-xs text-[#b6d9e0] light:text-[#0284c7] font-semibold cursor-pointer"
+                    className="flex items-center gap-1.5 text-xs text-[#EC5B38] light:text-[#EC5B38] font-semibold cursor-pointer"
                   >
                     {theme === 'dark' ? (
                       <>
@@ -221,16 +221,16 @@ export function Navigation() {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="flex items-center justify-between text-left py-2.5 px-3.5 rounded-xl hover:bg-[#141c24] light:hover:bg-slate-100 text-[#eef4f6] light:text-[#0f172a] transition-all text-sm font-medium cursor-pointer"
+                    className="flex items-center justify-between text-left py-2.5 px-3.5 rounded-xl hover:bg-[#6B5D5D] light:hover:bg-[#F4E9D8] text-[#FCF2E5] light:text-[#524646] transition-all text-sm font-medium cursor-pointer"
                   >
                     <span>{item.label}</span>
-                    <span className="text-[#b6d9e0] light:text-[#0284c7]">→</span>
+                    <span className="text-[#EC5B38] light:text-[#EC5B38]">→</span>
                   </button>
                 ))}
-                <div className="border-t border-[#b6d9e0]/15 light:border-slate-200 my-1 pt-3">
+                <div className="border-t border-[#EC5B38]/15 light:border-[#D9CEBB] my-1 pt-3">
                   <motion.button
                     onClick={() => scrollToSection('contact')}
-                    className="w-full py-3 bg-[#b6d9e0] light:bg-[#0284c7] text-[#080c10] light:text-white font-bold rounded-xl text-center text-sm shadow-lg shadow-[#b6d9e0]/20 light:shadow-[#0284c7]/20 cursor-pointer"
+                    className="w-full py-3 bg-[#EC5B38] light:bg-[#EC5B38] text-[#524646] light:text-[#FCF2E5] font-bold rounded-xl text-center text-sm shadow-lg shadow-[#EC5B38]/20 light:shadow-[#EC5B38]/20 cursor-pointer"
                     whileTap={{ scale: 0.98 }}
                   >
                     Contact Me

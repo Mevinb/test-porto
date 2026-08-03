@@ -46,8 +46,8 @@ function Toast({ message, type }: { message: string; type: 'success' | 'error' }
       exit={{ opacity: 0, y: 20, scale: 0.95 }}
       className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl border shadow-2xl text-sm font-medium ${
         type === 'success'
-          ? 'bg-emerald-950 border-emerald-700/50 text-emerald-300'
-          : 'bg-red-950 border-red-700/50 text-red-300'
+          ? 'bg-[#A8A492]/15 border-[#A8A492]/40 text-[#C4BFAF]'
+          : 'bg-[#EC5B38]/15 border-[#EC5B38]/40 text-[#F06745]'
       }`}
     >
       {type === 'success' ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
@@ -99,30 +99,30 @@ function EventFormModal({
   };
 
   const inputClass =
-    'w-full px-4 py-3 bg-[#080c10]/80 border border-[#b6d9e0]/20 focus:border-[#b6d9e0] focus:ring-1 focus:ring-[#b6d9e0]/30 rounded-xl text-[#eef4f6] placeholder-[#8ea4b0]/40 text-sm outline-none transition-all';
-  const labelClass = 'block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1.5';
+    'w-full px-4 py-3 bg-[#524646]/80 border border-[#EC5B38]/20 focus:border-[#EC5B38] focus:ring-1 focus:ring-[#EC5B38]/30 rounded-xl text-[#FCF2E5] placeholder-[#A8A492]/40 text-sm outline-none transition-all';
+  const labelClass = 'block text-[10px] uppercase font-bold tracking-wider text-[#A8A492] mb-1.5';
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#473D3D]/80 backdrop-blur-md"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <motion.div
         initial={{ scale: 0.95, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.95, y: 20 }}
-        className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
+        className="bg-[#524646] border border-[#5E5252] rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
       >
-        <div className="flex items-center justify-between p-6 border-b border-slate-800">
-          <h2 className="text-lg font-bold text-white">
+        <div className="flex items-center justify-between p-6 border-b border-[#5E5252]">
+          <h2 className="text-lg font-bold text-[#FCF2E5]">
             {isEditing ? 'Edit Event' : 'Add New Event'}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-xl hover:bg-[#5E5252] text-[#A8A492] hover:text-[#FCF2E5] transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
@@ -203,7 +203,7 @@ function EventFormModal({
                   <option key={r} value={r}>{r}</option>
                 ))}
               </select>
-              <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+              <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#A8A492] pointer-events-none" />
             </div>
           </div>
 
@@ -222,7 +222,7 @@ function EventFormModal({
               placeholder="https://i.imgur.com/event-photo.jpg"
               className={inputClass}
             />
-            <p className="text-[10px] text-slate-600 mt-1">
+            <p className="text-[10px] text-[#8A7B7B] mt-1">
               Use a direct image link (Imgur, Cloudinary, Supabase Storage, etc.)
             </p>
           </div>
@@ -266,7 +266,7 @@ function EventFormModal({
               <button
                 type="button"
                 onClick={addTag}
-                className="px-4 py-2 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+                className="px-4 py-2 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] rounded-xl text-xs font-semibold transition-colors cursor-pointer"
               >
                 Add
               </button>
@@ -276,13 +276,13 @@ function EventFormModal({
                 {form.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 text-[#b6d9e0]"
+                    className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-[#EC5B38]/10 border border-[#EC5B38]/20 text-[#EC5B38]"
                   >
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="hover:text-red-400 cursor-pointer transition-colors"
+                      className="hover:text-[#EC5B38] cursor-pointer transition-colors"
                     >
                       <X size={10} />
                     </button>
@@ -297,7 +297,7 @@ function EventFormModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 rounded-xl border border-slate-700 text-slate-400 hover:text-white hover:border-slate-600 text-sm font-semibold transition-all cursor-pointer"
+              className="flex-1 py-3 rounded-xl border border-[#7A6B6B] text-[#A8A492] hover:text-[#FCF2E5] hover:border-[#A8A492] text-sm font-semibold transition-all cursor-pointer"
             >
               Cancel
             </button>
@@ -305,7 +305,7 @@ function EventFormModal({
               type="submit"
               disabled={saving}
               whileTap={{ scale: 0.98 }}
-              className="flex-1 py-3 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#b6d9e0]/20 cursor-pointer disabled:opacity-60 transition-all"
+              className="flex-1 py-3 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#EC5B38]/20 cursor-pointer disabled:opacity-60 transition-all"
             >
               {saving ? (
                 <span className="flex gap-1">
@@ -343,28 +343,28 @@ function EventRow({
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -10 }}
-      className="flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl sm:rounded-2xl hover:border-slate-700/50 transition-all group"
+      className="flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 bg-[#524646]/40 border border-[#5E5252]/80 rounded-xl sm:rounded-2xl hover:border-[#7A6B6B]/50 transition-all group"
     >
       {event.image_url ? (
         <img
           src={event.image_url}
           alt={event.title}
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-slate-800 shrink-0"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-[#5E5252] shrink-0"
         />
       ) : (
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 flex items-center justify-center shrink-0">
-          <Calendar size={16} className="text-[#b6d9e0] sm:w-[18px] sm:h-[18px]" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#EC5B38]/10 border border-[#EC5B38]/20 flex items-center justify-center shrink-0">
+          <Calendar size={16} className="text-[#EC5B38] sm:w-[18px] sm:h-[18px]" />
         </div>
       )}
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
-          <p className="text-xs sm:text-sm font-semibold text-white truncate">{event.title}</p>
-          <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 text-[#b6d9e0] shrink-0">
+          <p className="text-xs sm:text-sm font-semibold text-[#FCF2E5] truncate">{event.title}</p>
+          <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-[#EC5B38]/10 border border-[#EC5B38]/20 text-[#EC5B38] shrink-0">
             {event.role}
           </span>
         </div>
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-slate-500">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-[#A8A492]">
           <span className="flex items-center gap-1">
             <Calendar size={10} />
             {new Date(event.event_date).toLocaleDateString('en-US', {
@@ -385,13 +385,13 @@ function EventRow({
       <div className="flex items-center gap-1 sm:gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shrink-0">
         <button
           onClick={() => onEdit(event)}
-          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-slate-800 text-slate-400 hover:text-[#b6d9e0] transition-all cursor-pointer"
+          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-[#5E5252] text-[#A8A492] hover:text-[#EC5B38] transition-all cursor-pointer"
         >
           <Edit3 size={15} />
         </button>
         <button
           onClick={() => onDelete(event.id)}
-          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-red-950/40 text-slate-400 hover:text-red-400 transition-all cursor-pointer"
+          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-[#EC5B38]/20 text-[#A8A492] hover:text-[#EC5B38] transition-all cursor-pointer"
         >
           <Trash2 size={15} />
         </button>
@@ -417,18 +417,18 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#473D3D] text-[#FCF2E5] flex items-center justify-center p-6">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-sm"
       >
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-[#b6d9e0] text-[#080c10] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#b6d9e0]/20">
-            <Lock size={22} className="text-[#080c10]" />
+          <div className="w-14 h-14 rounded-2xl bg-[#EC5B38] text-[#524646] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#EC5B38]/20">
+            <Lock size={22} className="text-[#524646]" />
           </div>
-          <h1 className="text-2xl font-extrabold text-white">Admin Access</h1>
-          <p className="text-slate-500 text-sm mt-1">Events CMS — Mevin's Portfolio</p>
+          <h1 className="text-2xl font-extrabold text-[#FCF2E5]">Admin Access</h1>
+          <p className="text-[#A8A492] text-sm mt-1">Events CMS — Mevin's Portfolio</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -440,11 +440,11 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               setError('');
             }}
             placeholder="Enter admin password"
-            className="w-full px-4 py-3.5 bg-[#0d1218] border border-[#b6d9e0]/20 focus:border-[#b6d9e0] rounded-2xl text-[#eef4f6] placeholder-slate-600 outline-none transition-all text-center text-base tracking-widest"
+            className="w-full px-4 py-3.5 bg-[#5E5252] border border-[#EC5B38]/20 focus:border-[#EC5B38] rounded-2xl text-[#FCF2E5] placeholder-[#A8A492] outline-none transition-all text-center text-base tracking-widest"
             autoFocus
           />
           {error && (
-            <p className="text-red-400 text-xs text-center flex items-center justify-center gap-1">
+            <p className="text-[#EC5B38] text-xs text-center flex items-center justify-center gap-1">
               <AlertCircle size={12} />
               {error}
             </p>
@@ -452,7 +452,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           <motion.button
             type="submit"
             whileTap={{ scale: 0.98 }}
-            className="w-full py-3.5 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] font-bold rounded-2xl shadow-lg shadow-[#b6d9e0]/20 cursor-pointer transition-all"
+            className="w-full py-3.5 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] font-bold rounded-2xl shadow-lg shadow-[#EC5B38]/20 cursor-pointer transition-all"
           >
             Unlock Dashboard
           </motion.button>
@@ -542,27 +542,27 @@ export default function AdminEvents() {
   if (!authed) return <LoginScreen onLogin={() => setAuthed(true)} />;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-[#473D3D] text-[#FCF2E5]">
       {/* Header */}
-      <div className="border-b border-slate-900 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-40">
+      <div className="border-b border-[#524646] bg-[#473D3D]/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-extrabold text-white">Events CMS</h1>
-            <p className="text-[11px] text-slate-500">Manage your portfolio events</p>
+            <h1 className="text-lg font-extrabold text-[#FCF2E5]">Events CMS</h1>
+            <p className="text-[11px] text-[#A8A492]">Manage your portfolio events</p>
           </div>
           <div className="flex items-center gap-3">
             <motion.button
               onClick={openAdd}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-2 px-4 py-2 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] text-xs font-bold rounded-xl shadow-lg shadow-[#b6d9e0]/20 cursor-pointer transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] text-xs font-bold rounded-xl shadow-lg shadow-[#EC5B38]/20 cursor-pointer transition-all"
             >
               <Plus size={14} />
               Add Event
             </motion.button>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 text-xs transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[#5E5252] text-[#A8A492] hover:text-[#FCF2E5] hover:border-[#7A6B6B] text-xs transition-all cursor-pointer"
             >
               <LogOut size={13} />
               Logout
@@ -576,19 +576,19 @@ export default function AdminEvents() {
         {loading ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="h-20 bg-slate-900/40 rounded-2xl animate-pulse" />
+              <div key={i} className="h-20 bg-[#524646]/40 rounded-2xl animate-pulse" />
             ))}
           </div>
         ) : events.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#b6d9e0]/10 border border-[#b6d9e0]/20 flex items-center justify-center mb-4">
-              <Calendar size={24} className="text-[#b6d9e0]" />
+            <div className="w-16 h-16 rounded-2xl bg-[#EC5B38]/10 border border-[#EC5B38]/20 flex items-center justify-center mb-4">
+              <Calendar size={24} className="text-[#EC5B38]" />
             </div>
-            <p className="text-slate-300 font-semibold mb-1">No events yet</p>
-            <p className="text-slate-500 text-sm mb-6">Add your first event to get started</p>
+            <p className="text-[#D9CEBB] font-semibold mb-1">No events yet</p>
+            <p className="text-[#A8A492] text-sm mb-6">Add your first event to get started</p>
             <button
               onClick={openAdd}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#b6d9e0] hover:bg-[#cbe3ea] text-[#080c10] rounded-xl text-sm font-semibold cursor-pointer transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] rounded-xl text-sm font-semibold cursor-pointer transition-colors"
             >
               <Plus size={15} />
               Add First Event
@@ -597,7 +597,7 @@ export default function AdminEvents() {
         ) : (
           <div className="space-y-3">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#A8A492]">
                 {events.length} event{events.length !== 1 ? 's' : ''} total
               </p>
             </div>
