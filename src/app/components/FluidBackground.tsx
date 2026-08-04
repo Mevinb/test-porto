@@ -35,14 +35,14 @@ export function FluidBackground() {
 
   const orbStyles = isLight
     ? {
-        orb1: 'radial-gradient(circle, rgba(236, 91, 56, 0.10) 0%, transparent 70%)',
+        orb1: 'radial-gradient(circle, rgba(144, 184, 0, 0.10) 0%, transparent 70%)',
         orb2: 'radial-gradient(circle, rgba(168, 164, 146, 0.22) 0%, transparent 70%)',
-        spotlight: 'radial-gradient(circle, rgba(236, 91, 56, 0.10) 0%, transparent 70%)',
+        spotlight: 'radial-gradient(circle, rgba(144, 184, 0, 0.10) 0%, transparent 70%)',
       }
     : {
-        orb1: 'radial-gradient(circle, rgba(236, 91, 56, 0.16) 0%, transparent 70%)',
+        orb1: 'radial-gradient(circle, rgba(144, 184, 0, 0.16) 0%, transparent 70%)',
         orb2: 'radial-gradient(circle, rgba(168, 164, 146, 0.14) 0%, transparent 70%)',
-        spotlight: 'radial-gradient(circle, rgba(236, 91, 56, 0.13) 0%, transparent 70%)',
+        spotlight: 'radial-gradient(circle, rgba(144, 184, 0, 0.13) 0%, transparent 70%)',
       };
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export function FluidBackground() {
     window.addEventListener('resize', handleResize);
 
     const isLightMode = theme === 'light';
-    const particleRgb = isLightMode ? '82, 70, 70' : '236, 91, 56';
+    const particleRgb = isLightMode ? '82, 70, 70' : '144, 184, 0';
 
     const particleCount = Math.min(Math.floor((width * height) / 16000), 70);
     const particles: Particle[] = Array.from({ length: particleCount }, () => ({

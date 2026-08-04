@@ -326,13 +326,13 @@ const DETAILED_PROJECTS: DetailedProject[] = [
 function getCategoryIcon(category: DetailedProject['category']) {
   switch (category) {
     case 'AI & Vision':
-      return <Cpu size={15} className="text-[#EC5B38] light:text-[#EC5B38]" />;
+      return <Cpu size={15} className="text-[#90B800] light:text-[#90B800]" />;
     case 'Security & Systems':
-      return <Shield size={15} className="text-[#A8A492] light:text-[#EC5B38]" />;
+      return <Shield size={15} className="text-[#A8A492] light:text-[#90B800]" />;
     case 'Web & Cloud':
-      return <Globe size={15} className="text-[#EC5B38] light:text-[#EC5B38]" />;
+      return <Globe size={15} className="text-[#90B800] light:text-[#90B800]" />;
     case 'Mobile':
-      return <Smartphone size={15} className="text-[#A8A492] light:text-[#EC5B38]" />;
+      return <Smartphone size={15} className="text-[#A8A492] light:text-[#90B800]" />;
   }
 }
 
@@ -371,23 +371,23 @@ function ProjectDetailModal({
         animate={{ scale: 1, y: 0, opacity: 1 }}
         exit={{ scale: 0.92, y: 20, opacity: 0 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-3xl bg-[#5E5252] light:bg-white border border-[#EC5B38]/25 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl shadow-[#524646]/90 light:shadow-[#A8A492]/40 max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-3xl bg-[#5E5252] light:bg-white border border-[#90B800]/25 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl shadow-[#524646]/90 light:shadow-[#A8A492]/40 max-h-[90vh] overflow-y-auto"
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-xl bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] hover:text-[#FCF2E5] light:hover:text-[#524646] transition-all cursor-pointer"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-xl bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] hover:text-[#FCF2E5] light:hover:text-[#524646] transition-all cursor-pointer"
         >
           <X size={18} />
         </button>
 
         {/* Header Badge & Category */}
         <div className="flex items-center gap-2 mb-4">
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#524646] light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[11px] font-semibold uppercase tracking-wider text-[#A8A492] light:text-[#524646]">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#524646] light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[11px] font-semibold uppercase tracking-wider text-[#A8A492] light:text-[#524646]">
             {getCategoryIcon(project.category)}
             <span>{project.category}</span>
           </div>
-          <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#EC5B38]/10 light:bg-[#EC5B38]/10 text-[#EC5B38] light:text-[#EC5B38] font-mono font-medium">
+          <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#90B800]/10 light:bg-[#90B800]/10 text-[#90B800] light:text-[#90B800] font-mono font-medium">
             {project.language}
           </span>
         </div>
@@ -396,7 +396,7 @@ function ProjectDetailModal({
         <h2 className="text-2xl sm:text-3xl font-extrabold text-[#FCF2E5] light:text-[#524646] tracking-tight mb-2">
           {project.title}
         </h2>
-        <p className="text-xs sm:text-sm text-[#EC5B38] light:text-[#EC5B38] font-semibold mb-6">
+        <p className="text-xs sm:text-sm text-[#90B800] light:text-[#90B800] font-semibold mb-6">
           {project.tagline}
         </p>
 
@@ -419,9 +419,9 @@ function ProjectDetailModal({
             {project.features.map((feature, i) => (
               <div
                 key={i}
-                className="flex items-start gap-2.5 p-3 rounded-xl bg-[#524646]/70 light:bg-[#F7EBDD] border border-[#EC5B38]/15 light:border-[#D9CEBB]/80 text-xs text-[#FCF2E5] light:text-[#524646]"
+                className="flex items-start gap-2.5 p-3 rounded-xl bg-[#524646]/70 light:bg-[#F7EBDD] border border-[#90B800]/15 light:border-[#D9CEBB]/80 text-xs text-[#FCF2E5] light:text-[#524646]"
               >
-                <CheckCircle2 size={15} className="text-[#EC5B38] light:text-[#EC5B38] shrink-0 mt-0.5" />
+                <CheckCircle2 size={15} className="text-[#90B800] light:text-[#90B800] shrink-0 mt-0.5" />
                 <span>{feature}</span>
               </div>
             ))}
@@ -437,7 +437,7 @@ function ProjectDetailModal({
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="text-xs px-3 py-1 rounded-lg bg-[#524646] light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#524646] font-medium"
+                className="text-xs px-3 py-1 rounded-lg bg-[#524646] light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#524646] font-medium"
               >
                 {tech}
               </span>
@@ -446,10 +446,10 @@ function ProjectDetailModal({
         </div>
 
         {/* Modal Action Footer Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-[#EC5B38]/15 light:border-[#D9CEBB]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-[#90B800]/15 light:border-[#D9CEBB]">
           <div className="flex items-center gap-3 text-xs text-[#A8A492] light:text-[#A8A492]">
             <span className="flex items-center gap-1">
-              <Terminal size={14} className="text-[#EC5B38] light:text-[#EC5B38]" />
+              <Terminal size={14} className="text-[#90B800] light:text-[#90B800]" />
               <span>Public Repository</span>
             </span>
           </div>
@@ -461,7 +461,7 @@ function ProjectDetailModal({
                   onClose();
                   onViewArch(archData);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 bg-[#EC5B38]/15 hover:bg-[#EC5B38]/25 text-[#EC5B38] border border-[#EC5B38]/30 text-xs font-bold rounded-xl transition-all"
+                className="flex items-center gap-2 px-4 py-2.5 bg-[#90B800]/15 hover:bg-[#90B800]/25 text-[#90B800] border border-[#90B800]/30 text-xs font-bold rounded-xl transition-all"
               >
                 <Layers size={15} />
                 <span>View Architecture Diagram</span>
@@ -472,7 +472,7 @@ function ProjectDetailModal({
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 bg-[#EC5B38] light:bg-[#EC5B38] hover:bg-[#F06745] light:hover:bg-[#D64A28] text-[#524646] light:text-[#FCF2E5] text-xs font-bold rounded-xl shadow-lg shadow-[#EC5B38]/20 light:shadow-[#EC5B38]/20 cursor-pointer transition-all"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 bg-[#90B800] light:bg-[#90B800] hover:bg-[#A8D500] light:hover:bg-[#789900] text-[#524646] light:text-[#FCF2E5] text-xs font-bold rounded-xl shadow-lg shadow-[#90B800]/20 light:shadow-[#90B800]/20 cursor-pointer transition-all"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -511,7 +511,7 @@ function ProjectCard({
   };
 
   const isLight = theme === 'light';
-  const spotlightColor = isLight ? 'rgba(236, 91, 56, 0.12)' : 'rgba(236, 91, 56, 0.15)';
+  const spotlightColor = isLight ? 'rgba(144, 184, 0, 0.12)' : 'rgba(144, 184, 0, 0.15)';
   const archData = PROJECT_ARCHITECTURES[project.id];
 
   return (
@@ -521,7 +521,7 @@ function ProjectCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:bg-[#5E5252] light:hover:bg-white hover:border-[#EC5B38]/35 light:hover:border-[#C9BEAA] transition-all duration-300 h-full shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] cursor-pointer"
+      className="group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:bg-[#5E5252] light:hover:bg-white hover:border-[#90B800]/35 light:hover:border-[#C9BEAA] transition-all duration-300 h-full shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] cursor-pointer"
     >
       {/* Border hover spotlight glow */}
       {isHovered && (
@@ -536,7 +536,7 @@ function ProjectCard({
       <div className="relative z-10">
         {/* Card Header */}
         <div className="flex items-center justify-between mb-3.5">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#524646] light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[10px] font-semibold uppercase tracking-wider text-[#A8A492] light:text-[#524646]">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#524646] light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[10px] font-semibold uppercase tracking-wider text-[#A8A492] light:text-[#524646]">
             {getCategoryIcon(project.category)}
             <span>{project.category}</span>
           </div>
@@ -549,7 +549,7 @@ function ProjectCard({
                   e.stopPropagation();
                   onOpenArch(archData);
                 }}
-                className="flex items-center justify-center p-2 rounded-xl bg-[#EC5B38]/10 border border-[#EC5B38]/20 hover:border-[#EC5B38] text-[#EC5B38] transition-colors cursor-pointer"
+                className="flex items-center justify-center p-2 rounded-xl bg-[#90B800]/10 border border-[#90B800]/20 hover:border-[#90B800] text-[#90B800] transition-colors cursor-pointer"
               >
                 <Layers size={15} />
               </button>
@@ -561,7 +561,7 @@ function ProjectCard({
               rel="noopener noreferrer"
               title="Open GitHub Repository"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-center p-2 rounded-xl bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] hover:border-[#EC5B38] light:hover:border-[#EC5B38] hover:bg-[#EC5B38]/10 light:hover:bg-[#EC5B38]/10 text-[#A8A492] light:text-[#A8A492] hover:text-[#EC5B38] light:hover:text-[#EC5B38] transition-colors cursor-pointer"
+              className="flex items-center justify-center p-2 rounded-xl bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] hover:border-[#90B800] light:hover:border-[#90B800] hover:bg-[#90B800]/10 light:hover:bg-[#90B800]/10 text-[#A8A492] light:text-[#A8A492] hover:text-[#90B800] light:hover:text-[#90B800] transition-colors cursor-pointer"
               whileHover={{ scale: 1.05, rotate: 10 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -571,11 +571,11 @@ function ProjectCard({
         </div>
 
         {/* Title & Tagline */}
-        <h3 className="text-lg sm:text-xl font-bold text-[#FCF2E5] light:text-[#524646] mb-1 group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors duration-300 flex items-center justify-between">
+        <h3 className="text-lg sm:text-xl font-bold text-[#FCF2E5] light:text-[#524646] mb-1 group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors duration-300 flex items-center justify-between">
           <span>{project.title}</span>
-          <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-[#EC5B38] light:text-[#EC5B38]" />
+          <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-[#90B800] light:text-[#90B800]" />
         </h3>
-        <p className="text-xs text-[#EC5B38] light:text-[#EC5B38] font-semibold mb-3">
+        <p className="text-xs text-[#90B800] light:text-[#90B800] font-semibold mb-3">
           {project.tagline}
         </p>
 
@@ -588,20 +588,20 @@ function ProjectCard({
         <div className="space-y-1.5 mb-4">
           {project.features.slice(0, 2).map((feat, idx) => (
             <div key={idx} className="flex items-center gap-1.5 text-[11px] text-[#A8A492] light:text-[#524646]">
-              <Zap size={12} className="text-[#EC5B38] light:text-[#EC5B38] shrink-0" />
+              <Zap size={12} className="text-[#90B800] light:text-[#90B800] shrink-0" />
               <span className="truncate">{feat}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="relative z-10 mt-auto pt-3.5 border-t border-[#EC5B38]/10 light:border-[#D9CEBB]/80 flex items-center justify-between gap-2">
+      <div className="relative z-10 mt-auto pt-3.5 border-t border-[#90B800]/10 light:border-[#D9CEBB]/80 flex items-center justify-between gap-2">
         {/* Tech Stack Tags */}
         <div className="flex flex-wrap gap-1 sm:gap-1.5">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#524646]/60 light:bg-[#F4E9D8] border border-[#EC5B38]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] font-medium"
+              className="text-[10px] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#524646]/60 light:bg-[#F4E9D8] border border-[#90B800]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] font-medium"
             >
               {tag}
             </span>
@@ -614,7 +614,7 @@ function ProjectCard({
               e.stopPropagation();
               onOpenArch(archData);
             }}
-            className="text-[10px] font-mono px-2 py-1 rounded bg-[#EC5B38]/10 hover:bg-[#EC5B38]/20 text-[#EC5B38] border border-[#EC5B38]/25 transition-all whitespace-nowrap"
+            className="text-[10px] font-mono px-2 py-1 rounded bg-[#90B800]/10 hover:bg-[#90B800]/20 text-[#90B800] border border-[#90B800]/25 transition-all whitespace-nowrap"
           >
             Diagram
           </button>
@@ -640,7 +640,7 @@ export function Projects() {
     <section id="projects" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       {/* Ambient background glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/3 right-10 w-[500px] h-[350px] bg-[#EC5B38]/5 light:bg-[#EC5B38]/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/3 right-10 w-[500px] h-[350px] bg-[#90B800]/5 light:bg-[#90B800]/5 blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -652,7 +652,7 @@ export function Projects() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-[#EC5B38] light:text-[#EC5B38] mb-2 sm:mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#90B800] light:text-[#90B800] mb-2 sm:mb-3"
             >
               Curated Showcase
             </motion.p>
@@ -679,7 +679,7 @@ export function Projects() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center gap-1.5 p-1 bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] rounded-xl sm:rounded-2xl max-w-full overflow-x-auto no-scrollbar scrollbar-none md:self-end"
+            className="flex items-center gap-1.5 p-1 bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] rounded-xl sm:rounded-2xl max-w-full overflow-x-auto no-scrollbar scrollbar-none md:self-end"
           >
             {CATEGORIES.map((category) => {
               const isActive = activeCategory === category;
@@ -696,7 +696,7 @@ export function Projects() {
                   {isActive && (
                     <motion.div
                       layoutId="activeFilterPill"
-                      className="absolute inset-0 bg-[#EC5B38] light:bg-[#EC5B38] rounded-lg sm:rounded-xl -z-10 shadow-[0_0_15px_rgba(236,91,56,0.35)] light:shadow-[0_0_15px_rgba(236,91,56,0.25)]"
+                      className="absolute inset-0 bg-[#90B800] light:bg-[#90B800] rounded-lg sm:rounded-xl -z-10 shadow-[0_0_15px_rgba(144, 184, 0,0.35)] light:shadow-[0_0_15px_rgba(144, 184, 0,0.25)]"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}

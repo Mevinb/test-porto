@@ -17,10 +17,13 @@ import {
   CheckCircle2,
   AlertCircle,
   ChevronDown,
+  Upload,
+  Loader2,
 } from 'lucide-react';
 import { supabase, type Event } from '../../lib/supabase';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD as string;
+const STORAGE_BUCKET = (import.meta.env.VITE_SUPABASE_STORAGE_BUCKET || 'event-images') as string;
 
 const ROLE_OPTIONS = ['Participant', 'Speaker', 'Organizer', 'Winner', 'Volunteer', 'Mentor', 'Judge'];
 
@@ -47,7 +50,7 @@ function Toast({ message, type }: { message: string; type: 'success' | 'error' }
       className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl border shadow-2xl text-sm font-medium ${
         type === 'success'
           ? 'bg-[#A8A492]/15 border-[#A8A492]/40 text-[#C4BFAF]'
-          : 'bg-[#EC5B38]/15 border-[#EC5B38]/40 text-[#F06745]'
+          : 'bg-[#90B800]/15 border-[#90B800]/40 text-[#A8D500]'
       }`}
     >
       {type === 'success' ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
@@ -69,6 +72,8 @@ function EventFormModal({
   const [form, setForm] = useState<FormData & { id?: string }>(initial);
   const [tagInput, setTagInput] = useState('');
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState('');
 
   const isEditing = Boolean(initial.id);
 
@@ -91,15 +96,46 @@ function EventFormModal({
     setForm((prev) => ({ ...prev, tags: prev.tags.filter((t) => t !== tag) }));
   };
 
+  const uploadImage = async (file: File) => {
+    setUploadError('');
+
+    if (!file.type.startsWith('image/')) {
+      setUploadError('Please choose an image file.');
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setUploadError('Images must be smaller than 8 MB.');
+      return;
+    }
+
+    setUploadingImage(true);
+    const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+    const filePath = `events/${crypto.randomUUID()}.${extension}`;
+    const { error } = await supabase.storage.from(STORAGE_BUCKET).upload(filePath, file, {
+      cacheControl: '3600',
+      contentType: file.type,
+      upsert: false,
+    });
+
+    if (error) {
+      setUploadError(`Upload failed: ${error.message}`);
+    } else {
+      const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(filePath);
+      setForm((prev) => ({ ...prev, image_url: data.publicUrl }));
+    }
+    setUploadingImage(false);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (uploadingImage) return;
     setSaving(true);
     await onSave(form);
     setSaving(false);
   };
 
   const inputClass =
-    'w-full px-4 py-3 bg-[#524646]/80 border border-[#EC5B38]/20 focus:border-[#EC5B38] focus:ring-1 focus:ring-[#EC5B38]/30 rounded-xl text-[#FCF2E5] placeholder-[#A8A492]/40 text-sm outline-none transition-all';
+    'w-full px-4 py-3 bg-[#524646]/80 border border-[#90B800]/20 focus:border-[#90B800] focus:ring-1 focus:ring-[#90B800]/30 rounded-xl text-[#FCF2E5] placeholder-[#A8A492]/40 text-sm outline-none transition-all';
   const labelClass = 'block text-[10px] uppercase font-bold tracking-wider text-[#A8A492] mb-1.5';
 
   return (
@@ -207,24 +243,44 @@ function EventFormModal({
             </div>
           </div>
 
-          {/* Image URL */}
+          {/* Image upload */}
           <div>
             <label className={labelClass}>
               <Image size={10} className="inline mr-1" />
-              Image URL
+              Event Image
             </label>
-            <input
-              name="image_url"
-              value={form.image_url ?? ''}
-              onChange={(e) =>
-                setForm((prev) => ({ ...prev, image_url: e.target.value || null }))
-              }
-              placeholder="https://i.imgur.com/event-photo.jpg"
-              className={inputClass}
-            />
-            <p className="text-[10px] text-[#8A7B7B] mt-1">
-              Use a direct image link (Imgur, Cloudinary, Supabase Storage, etc.)
-            </p>
+            <label className="flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-[#90B800]/35 bg-[#524646]/50 px-4 py-4 text-center transition-colors hover:border-[#90B800] hover:bg-[#90B800]/5">
+              {uploadingImage ? (
+                <Loader2 size={20} className="animate-spin text-[#90B800]" />
+              ) : (
+                <Upload size={20} className="text-[#90B800]" />
+              )}
+              <span className="text-xs font-semibold text-[#FCF2E5]">
+                {uploadingImage ? 'Uploading to Supabase...' : 'Choose an image'}
+              </span>
+              <span className="text-[10px] text-[#8A7B7B]">PNG, JPG, WEBP up to 8 MB</span>
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+                className="sr-only"
+                disabled={uploadingImage}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) void uploadImage(file);
+                  e.currentTarget.value = '';
+                }}
+              />
+            </label>
+            {form.image_url && (
+              <div className="mt-3 flex items-center gap-3 rounded-xl border border-[#90B800]/20 bg-[#524646]/40 p-2">
+                <img src={form.image_url} alt="Selected event" className="h-14 w-20 rounded-lg object-cover" />
+                <span className="min-w-0 flex-1 truncate text-[10px] text-[#A8A492]">Uploaded successfully</span>
+                <button type="button" onClick={() => setForm((prev) => ({ ...prev, image_url: null }))} className="p-1 text-[#A8A492] hover:text-[#90B800] cursor-pointer">
+                  <X size={14} />
+                </button>
+              </div>
+            )}
+            {uploadError && <p className="mt-1 text-[10px] text-[#A8D500]">{uploadError}</p>}
           </div>
 
           {/* Certificate URL */}
@@ -266,7 +322,7 @@ function EventFormModal({
               <button
                 type="button"
                 onClick={addTag}
-                className="px-4 py-2 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+                className="px-4 py-2 bg-[#90B800] hover:bg-[#A8D500] text-[#524646] rounded-xl text-xs font-semibold transition-colors cursor-pointer"
               >
                 Add
               </button>
@@ -276,13 +332,13 @@ function EventFormModal({
                 {form.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-[#EC5B38]/10 border border-[#EC5B38]/20 text-[#EC5B38]"
+                    className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-[#90B800]/10 border border-[#90B800]/20 text-[#90B800]"
                   >
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="hover:text-[#EC5B38] cursor-pointer transition-colors"
+                      className="hover:text-[#90B800] cursor-pointer transition-colors"
                     >
                       <X size={10} />
                     </button>
@@ -303,9 +359,9 @@ function EventFormModal({
             </button>
             <motion.button
               type="submit"
-              disabled={saving}
+              disabled={saving || uploadingImage}
               whileTap={{ scale: 0.98 }}
-              className="flex-1 py-3 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#EC5B38]/20 cursor-pointer disabled:opacity-60 transition-all"
+              className="flex-1 py-3 bg-[#90B800] hover:bg-[#A8D500] text-[#524646] font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#90B800]/20 cursor-pointer disabled:opacity-60 transition-all"
             >
               {saving ? (
                 <span className="flex gap-1">
@@ -352,15 +408,15 @@ function EventRow({
           className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-[#5E5252] shrink-0"
         />
       ) : (
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#EC5B38]/10 border border-[#EC5B38]/20 flex items-center justify-center shrink-0">
-          <Calendar size={16} className="text-[#EC5B38] sm:w-[18px] sm:h-[18px]" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#90B800]/10 border border-[#90B800]/20 flex items-center justify-center shrink-0">
+          <Calendar size={16} className="text-[#90B800] sm:w-[18px] sm:h-[18px]" />
         </div>
       )}
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
           <p className="text-xs sm:text-sm font-semibold text-[#FCF2E5] truncate">{event.title}</p>
-          <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-[#EC5B38]/10 border border-[#EC5B38]/20 text-[#EC5B38] shrink-0">
+          <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-[#90B800]/10 border border-[#90B800]/20 text-[#90B800] shrink-0">
             {event.role}
           </span>
         </div>
@@ -385,13 +441,13 @@ function EventRow({
       <div className="flex items-center gap-1 sm:gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shrink-0">
         <button
           onClick={() => onEdit(event)}
-          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-[#5E5252] text-[#A8A492] hover:text-[#EC5B38] transition-all cursor-pointer"
+          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-[#5E5252] text-[#A8A492] hover:text-[#90B800] transition-all cursor-pointer"
         >
           <Edit3 size={15} />
         </button>
         <button
           onClick={() => onDelete(event.id)}
-          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-[#EC5B38]/20 text-[#A8A492] hover:text-[#EC5B38] transition-all cursor-pointer"
+          className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl hover:bg-[#90B800]/20 text-[#A8A492] hover:text-[#90B800] transition-all cursor-pointer"
         >
           <Trash2 size={15} />
         </button>
@@ -424,7 +480,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
         className="w-full max-w-sm"
       >
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-[#EC5B38] text-[#524646] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#EC5B38]/20">
+          <div className="w-14 h-14 rounded-2xl bg-[#90B800] text-[#524646] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#90B800]/20">
             <Lock size={22} className="text-[#524646]" />
           </div>
           <h1 className="text-2xl font-extrabold text-[#FCF2E5]">Admin Access</h1>
@@ -440,11 +496,11 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               setError('');
             }}
             placeholder="Enter admin password"
-            className="w-full px-4 py-3.5 bg-[#5E5252] border border-[#EC5B38]/20 focus:border-[#EC5B38] rounded-2xl text-[#FCF2E5] placeholder-[#A8A492] outline-none transition-all text-center text-base tracking-widest"
+            className="w-full px-4 py-3.5 bg-[#5E5252] border border-[#90B800]/20 focus:border-[#90B800] rounded-2xl text-[#FCF2E5] placeholder-[#A8A492] outline-none transition-all text-center text-base tracking-widest"
             autoFocus
           />
           {error && (
-            <p className="text-[#EC5B38] text-xs text-center flex items-center justify-center gap-1">
+            <p className="text-[#90B800] text-xs text-center flex items-center justify-center gap-1">
               <AlertCircle size={12} />
               {error}
             </p>
@@ -452,7 +508,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           <motion.button
             type="submit"
             whileTap={{ scale: 0.98 }}
-            className="w-full py-3.5 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] font-bold rounded-2xl shadow-lg shadow-[#EC5B38]/20 cursor-pointer transition-all"
+            className="w-full py-3.5 bg-[#90B800] hover:bg-[#A8D500] text-[#524646] font-bold rounded-2xl shadow-lg shadow-[#90B800]/20 cursor-pointer transition-all"
           >
             Unlock Dashboard
           </motion.button>
@@ -555,7 +611,7 @@ export default function AdminEvents() {
               onClick={openAdd}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-2 px-4 py-2 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] text-xs font-bold rounded-xl shadow-lg shadow-[#EC5B38]/20 cursor-pointer transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#90B800] hover:bg-[#A8D500] text-[#524646] text-xs font-bold rounded-xl shadow-lg shadow-[#90B800]/20 cursor-pointer transition-all"
             >
               <Plus size={14} />
               Add Event
@@ -581,14 +637,14 @@ export default function AdminEvents() {
           </div>
         ) : events.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#EC5B38]/10 border border-[#EC5B38]/20 flex items-center justify-center mb-4">
-              <Calendar size={24} className="text-[#EC5B38]" />
+            <div className="w-16 h-16 rounded-2xl bg-[#90B800]/10 border border-[#90B800]/20 flex items-center justify-center mb-4">
+              <Calendar size={24} className="text-[#90B800]" />
             </div>
             <p className="text-[#D9CEBB] font-semibold mb-1">No events yet</p>
             <p className="text-[#A8A492] text-sm mb-6">Add your first event to get started</p>
             <button
               onClick={openAdd}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#EC5B38] hover:bg-[#F06745] text-[#524646] rounded-xl text-sm font-semibold cursor-pointer transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#90B800] hover:bg-[#A8D500] text-[#524646] rounded-xl text-sm font-semibold cursor-pointer transition-colors"
             >
               <Plus size={15} />
               Add First Event

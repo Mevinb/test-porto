@@ -8,7 +8,7 @@ const skillCategories = [
   {
     title: 'AI & Image Generation',
     icon: Sparkles,
-    color: 'bg-[#EC5B38]/10 border-[#EC5B38]/25 text-[#EC5B38]',
+    color: 'bg-[#90B800]/10 border-[#90B800]/25 text-[#90B800]',
     skills: ['Stable Diffusion', 'ComfyUI Workflows', 'LoRA Training', 'Prompt Engineering'],
     desc: 'Fine-tuning, custom pipeline assemblies, and specialized generative imaging node creation.',
   },
@@ -22,7 +22,7 @@ const skillCategories = [
   {
     title: 'Languages & UI',
     icon: Layers,
-    color: 'bg-[#EC5B38]/10 border-[#EC5B38]/25 text-[#EC5B38]',
+    color: 'bg-[#90B800]/10 border-[#90B800]/25 text-[#90B800]',
     skills: ['React', 'Python', 'Java', 'Kotlin', 'C'],
     desc: 'Robust script creation, desktop software packaging, and responsive modern web builds.',
   },
@@ -60,7 +60,7 @@ function BentoCard({
   };
 
   const isLight = theme === 'light';
-  const spotlightColor = isLight ? 'rgba(236, 91, 56, 0.12)' : 'rgba(236, 91, 56, 0.15)';
+  const spotlightColor = isLight ? 'rgba(144, 184, 0, 0.12)' : 'rgba(144, 184, 0, 0.15)';
 
   return (
     <motion.div
@@ -72,7 +72,7 @@ function BentoCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.5, delay }}
-      className={`group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 rounded-3xl p-6 transition-all duration-300 hover:bg-[#5E5252] light:hover:bg-white hover:border-[#EC5B38]/35 light:hover:border-[#C9BEAA] shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] ${className}`}
+      className={`group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 rounded-3xl p-6 transition-all duration-300 hover:bg-[#5E5252] light:hover:bg-white hover:border-[#90B800]/35 light:hover:border-[#C9BEAA] shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] ${className}`}
     >
       {/* Dynamic Border spotlight light */}
       {isHovered && (
@@ -104,7 +104,7 @@ export function About() {
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-xs font-bold uppercase tracking-widest text-[#EC5B38] light:text-[#EC5B38] mb-2 sm:mb-3"
+            className="text-xs font-bold uppercase tracking-widest text-[#90B800] light:text-[#90B800] mb-2 sm:mb-3"
           >
             Capabilities
           </motion.p>
@@ -124,7 +124,7 @@ export function About() {
           {/* Bento Card 1: Bio Detail Spotlight (Spans 2 columns on medium+) */}
           <BentoCard className="md:col-span-2 flex flex-col justify-between min-h-[280px] p-5 sm:p-6" delay={0.1}>
             <div>
-              <div className="flex items-center gap-2 text-[#EC5B38] light:text-[#EC5B38] mb-4 sm:mb-6">
+              <div className="flex items-center gap-2 text-[#90B800] light:text-[#90B800] mb-4 sm:mb-6">
                 <Cpu size={18} className="sm:w-[20px] sm:h-[20px]" />
                 <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase">Background</span>
               </div>
@@ -137,9 +137,9 @@ export function About() {
             </div>
             
             {/* Quick Metrics Grid */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 sm:pt-6 border-t border-[#EC5B38]/15 light:border-[#D9CEBB]">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 sm:pt-6 border-t border-[#90B800]/15 light:border-[#D9CEBB]">
               <div>
-                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#EC5B38] to-[#A8A492] light:from-[#EC5B38] light:to-[#F06745]">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] to-[#A8A492] light:from-[#90B800] light:to-[#A8D500]">
                   10+
                 </div>
                 <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#A8A492] light:text-[#A8A492] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
@@ -147,7 +147,7 @@ export function About() {
                 </div>
               </div>
               <div>
-                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#EC5B38] to-[#A8A492] light:from-[#EC5B38] light:to-[#F06745]">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] to-[#A8A492] light:from-[#90B800] light:to-[#A8D500]">
                   20+
                 </div>
                 <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#A8A492] light:text-[#A8A492] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
@@ -155,7 +155,7 @@ export function About() {
                 </div>
               </div>
               <div>
-                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#EC5B38] to-[#A8A492] light:from-[#EC5B38] light:to-[#F06745]">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] to-[#A8A492] light:from-[#90B800] light:to-[#A8D500]">
                   SecOps
                 </div>
                 <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#A8A492] light:text-[#A8A492] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
@@ -170,7 +170,7 @@ export function About() {
             <div className="h-full flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 text-[#A8A492] light:text-[#524646] mb-4 sm:mb-6">
-                  <Zap size={18} className="sm:w-[20px] sm:h-[20px] text-[#EC5B38] light:text-[#EC5B38]" />
+                  <Zap size={18} className="sm:w-[20px] sm:h-[20px] text-[#90B800] light:text-[#90B800]" />
                   <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase">Focus</span>
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-[#FCF2E5] light:text-[#524646] mb-2 sm:mb-3">
@@ -180,9 +180,9 @@ export function About() {
                   Developed high-resolution face restoration, running complex model weights, merging custom checkpoints, and preserving specific identities through specialized prompt matrices.
                 </p>
               </div>
-              <div className="mt-6 sm:mt-8 flex items-center justify-between text-[11px] sm:text-xs font-semibold text-[#EC5B38] light:text-[#EC5B38] bg-[#EC5B38]/5 light:bg-[#EC5B38]/5 border border-[#EC5B38]/15 light:border-[#EC5B38]/20 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl">
+              <div className="mt-6 sm:mt-8 flex items-center justify-between text-[11px] sm:text-xs font-semibold text-[#90B800] light:text-[#90B800] bg-[#90B800]/5 light:bg-[#90B800]/5 border border-[#90B800]/15 light:border-[#90B800]/20 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl">
                 <span>Face Enhancement Focus</span>
-                <span className="w-2 h-2 rounded-full bg-[#EC5B38] light:bg-[#EC5B38] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#90B800] light:bg-[#90B800] animate-pulse" />
               </div>
             </div>
           </BentoCard>
@@ -196,7 +196,7 @@ export function About() {
                   <div>
                     {/* Category Title & Icon */}
                     <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
-                      <div className={`p-2 sm:p-2.5 rounded-xl border ${category.color} light:bg-[#EC5B38]/10 light:border-[#EC5B38]/25 light:text-[#EC5B38]`}>
+                      <div className={`p-2 sm:p-2.5 rounded-xl border ${category.color} light:bg-[#90B800]/10 light:border-[#90B800]/25 light:text-[#90B800]`}>
                         <Icon size={16} className="sm:w-[18px] sm:h-[18px]" />
                       </div>
                       <h4 className="text-xs sm:text-sm font-bold text-[#FCF2E5] light:text-[#524646] uppercase tracking-wider">
@@ -214,7 +214,7 @@ export function About() {
                     {category.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#EC5B38]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#524646] font-medium"
+                        className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#90B800]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#524646] font-medium"
                       >
                         {skill}
                       </span>

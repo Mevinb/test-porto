@@ -55,11 +55,11 @@ export function Footer() {
   };
 
   return (
-    <footer id="contact" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden border-t border-[#EC5B38]/15">
+    <footer id="contact" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden border-t border-[#90B800]/15">
       
       {/* Background radial spotlight */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-radial from-[#EC5B38]/10 via-[#A8A492]/5 to-transparent blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-radial from-[#90B800]/10 via-[#A8A492]/5 to-transparent blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -71,7 +71,7 @@ export function Footer() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-[#EC5B38] light:text-[#EC5B38] mb-2 sm:mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#90B800] light:text-[#90B800] mb-2 sm:mb-3"
             >
               Get In Touch
             </motion.p>
@@ -103,10 +103,10 @@ export function Footer() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 onClick={copyEmailToClipboard}
-                className="group relative flex items-center justify-between p-3.5 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 hover:border-[#EC5B38]/40 light:hover:border-[#C9BEAA] rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
+                className="group relative flex items-center justify-between p-3.5 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 hover:border-[#90B800]/40 light:hover:border-[#C9BEAA] rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
               >
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1 mr-2">
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[#EC5B38] light:text-[#EC5B38] group-hover:bg-[#EC5B38]/10 light:group-hover:bg-[#EC5B38]/10 transition-all shrink-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[#90B800] light:text-[#90B800] group-hover:bg-[#90B800]/10 light:group-hover:bg-[#90B800]/10 transition-all shrink-0">
                     <Mail size={17} className="sm:w-[18px] sm:h-[18px]" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -116,7 +116,7 @@ export function Footer() {
                 </div>
                 
                 {/* Copy Status Icon */}
-                <div className="p-1.5 text-[#A8A492] light:text-[#A8A492] group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors shrink-0">
+                <div className="p-1.5 text-[#A8A492] light:text-[#A8A492] group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors shrink-0">
                   <AnimatePresence mode="wait">
                     {copied ? (
                       <motion.div
@@ -124,7 +124,7 @@ export function Footer() {
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.8, opacity: 0 }}
-                        className="text-[#EC5B38] light:text-[#EC5B38]"
+                        className="text-[#90B800] light:text-[#90B800]"
                       >
                         <Check size={16} />
                       </motion.div>
@@ -152,14 +152,14 @@ export function Footer() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 hover:border-[#EC5B38]/40 light:hover:border-[#C9BEAA] rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
+                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 hover:border-[#90B800]/40 light:hover:border-[#C9BEAA] rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
                 >
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors shrink-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors shrink-0">
                     <Github size={17} className="sm:w-[18px] sm:h-[18px]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[9px] sm:text-[10px] text-[#A8A492] light:text-[#A8A492] uppercase font-semibold tracking-wider">GitHub</div>
-                    <div className="text-xs font-semibold text-[#FCF2E5] light:text-[#524646] group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors truncate">@Mevinb</div>
+                    <div className="text-xs font-semibold text-[#FCF2E5] light:text-[#524646] group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors truncate">@Mevinb</div>
                   </div>
                 </motion.a>
 
@@ -170,14 +170,14 @@ export function Footer() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 hover:border-[#EC5B38]/40 light:hover:border-[#C9BEAA] rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
+                  className="group flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 hover:border-[#90B800]/40 light:hover:border-[#C9BEAA] rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] min-w-0"
                 >
-                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors shrink-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors shrink-0">
                     <Linkedin size={17} className="sm:w-[18px] sm:h-[18px]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[9px] sm:text-[10px] text-[#A8A492] light:text-[#A8A492] uppercase font-semibold tracking-wider">LinkedIn</div>
-                    <div className="text-xs font-semibold text-[#FCF2E5] light:text-[#524646] group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors truncate">Mevin Benty</div>
+                    <div className="text-xs font-semibold text-[#FCF2E5] light:text-[#524646] group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors truncate">Mevin Benty</div>
                   </div>
                 </motion.a>
               </div>
@@ -187,9 +187,9 @@ export function Footer() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 rounded-xl sm:rounded-2xl select-none shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+                className="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 rounded-xl sm:rounded-2xl select-none shadow-md light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
               >
-                <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#EC5B38]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] shrink-0">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-[#524646] light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] shrink-0">
                   <MapPin size={17} className="sm:w-[18px] sm:h-[18px]" />
                 </div>
                 <div>
@@ -205,7 +205,7 @@ export function Footer() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-7 bg-[#5E5252]/60 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/20 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl light:shadow-[0_4px_25px_rgba(0,0,0,0.05)]"
+            className="lg:col-span-7 bg-[#5E5252]/60 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/20 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl light:shadow-[0_4px_25px_rgba(0,0,0,0.05)]"
           >
             <h3 className="text-base sm:text-lg font-bold text-[#FCF2E5] light:text-[#524646] mb-4 sm:mb-6 text-left">Send a Quick Message</h3>
             
@@ -225,7 +225,7 @@ export function Footer() {
                     required
                     disabled={formState !== 'idle'}
                     placeholder="John Doe"
-                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#524646]/80 light:bg-[#F7EBDD] border border-[#EC5B38]/20 light:border-[#C9BEAA] focus:border-[#EC5B38] light:focus:border-[#EC5B38] focus:ring-1 focus:ring-[#EC5B38]/30 light:focus:ring-[#EC5B38]/20 rounded-xl text-[#FCF2E5] light:text-[#524646] placeholder-[#A8A492]/40 light:placeholder-[#A8A492] text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#524646]/80 light:bg-[#F7EBDD] border border-[#90B800]/20 light:border-[#C9BEAA] focus:border-[#90B800] light:focus:border-[#90B800] focus:ring-1 focus:ring-[#90B800]/30 light:focus:ring-[#90B800]/20 rounded-xl text-[#FCF2E5] light:text-[#524646] placeholder-[#A8A492]/40 light:placeholder-[#A8A492] text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
                   />
                 </div>
                 <div>
@@ -241,7 +241,7 @@ export function Footer() {
                     required
                     disabled={formState !== 'idle'}
                     placeholder="john@example.com"
-                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#524646]/80 light:bg-[#F7EBDD] border border-[#EC5B38]/20 light:border-[#C9BEAA] focus:border-[#EC5B38] light:focus:border-[#EC5B38] focus:ring-1 focus:ring-[#EC5B38]/30 light:focus:ring-[#EC5B38]/20 rounded-xl text-[#FCF2E5] light:text-[#524646] placeholder-[#A8A492]/40 light:placeholder-[#A8A492] text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
+                    className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#524646]/80 light:bg-[#F7EBDD] border border-[#90B800]/20 light:border-[#C9BEAA] focus:border-[#90B800] light:focus:border-[#90B800] focus:ring-1 focus:ring-[#90B800]/30 light:focus:ring-[#90B800]/20 rounded-xl text-[#FCF2E5] light:text-[#524646] placeholder-[#A8A492]/40 light:placeholder-[#A8A492] text-xs sm:text-sm font-medium outline-none transition-all disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -259,14 +259,14 @@ export function Footer() {
                   rows={3}
                   disabled={formState !== 'idle'}
                   placeholder="Tell me about your project needs..."
-                  className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#524646]/80 light:bg-[#F7EBDD] border border-[#EC5B38]/20 light:border-[#C9BEAA] focus:border-[#EC5B38] light:focus:border-[#EC5B38] focus:ring-1 focus:ring-[#EC5B38]/30 light:focus:ring-[#EC5B38]/20 rounded-xl text-[#FCF2E5] light:text-[#524646] placeholder-[#A8A492]/40 light:placeholder-[#A8A492] text-xs sm:text-sm font-medium outline-none transition-all resize-none disabled:opacity-50"
+                  className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[#524646]/80 light:bg-[#F7EBDD] border border-[#90B800]/20 light:border-[#C9BEAA] focus:border-[#90B800] light:focus:border-[#90B800] focus:ring-1 focus:ring-[#90B800]/30 light:focus:ring-[#90B800]/20 rounded-xl text-[#FCF2E5] light:text-[#524646] placeholder-[#A8A492]/40 light:placeholder-[#A8A492] text-xs sm:text-sm font-medium outline-none transition-all resize-none disabled:opacity-50"
                 />
               </div>
 
               <motion.button
                 type="submit"
                 disabled={formState !== 'idle'}
-                className="w-full py-3 sm:py-3.5 bg-[#EC5B38] light:bg-[#EC5B38] hover:bg-[#F06745] light:hover:bg-[#D64A28] rounded-xl text-[#524646] light:text-[#FCF2E5] font-bold text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(236,91,56,0.3)] light:shadow-[0_4px_20px_rgba(236,91,56,0.25)] flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
+                className="w-full py-3 sm:py-3.5 bg-[#90B800] light:bg-[#90B800] hover:bg-[#A8D500] light:hover:bg-[#789900] rounded-xl text-[#524646] light:text-[#FCF2E5] font-bold text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(144, 184, 0,0.3)] light:shadow-[0_4px_20px_rgba(144, 184, 0,0.25)] flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
                 whileTap={{ scale: 0.98 }}
               >
                 {formState === 'idle' && (
@@ -294,7 +294,7 @@ export function Footer() {
         </div>
 
         {/* Footer Base Details */}
-        <div className="pt-8 border-t border-[#EC5B38]/10 light:border-[#D9CEBB] flex flex-col sm:flex-row items-center justify-between gap-4 text-center select-none">
+        <div className="pt-8 border-t border-[#90B800]/10 light:border-[#D9CEBB] flex flex-col sm:flex-row items-center justify-between gap-4 text-center select-none">
           <p className="text-[10px] sm:text-xs text-[#A8A492] light:text-[#A8A492]">
             © {new Date().getFullYear()} Mevin Benty. All rights reserved.
           </p>

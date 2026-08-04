@@ -16,11 +16,11 @@ import { supabase, type Event } from '../../lib/supabase';
 import { useTheme } from '../context/ThemeContext';
 
 const ROLE_ICONS: Record<string, React.ReactNode> = {
-  Participant: <Users size={14} className="text-[#EC5B38]" />,
+  Participant: <Users size={14} className="text-[#90B800]" />,
   Speaker: <Mic size={14} className="text-[#A8A492]" />,
-  Organizer: <Presentation size={14} className="text-[#EC5B38]" />,
+  Organizer: <Presentation size={14} className="text-[#90B800]" />,
   Winner: <Trophy size={14} className="text-[#A8A492]" />,
-  Volunteer: <Users size={14} className="text-[#EC5B38]" />,
+  Volunteer: <Users size={14} className="text-[#90B800]" />,
 };
 
 const getRoleIcon = (role: string) =>
@@ -28,13 +28,13 @@ const getRoleIcon = (role: string) =>
 
 const getRoleColor = (role: string) => {
   const map: Record<string, string> = {
-    Participant: 'text-[#EC5B38] light:text-[#EC5B38] border-[#EC5B38]/30 light:border-[#EC5B38]/30 bg-[#EC5B38]/10 light:bg-[#EC5B38]/10',
+    Participant: 'text-[#90B800] light:text-[#90B800] border-[#90B800]/30 light:border-[#90B800]/30 bg-[#90B800]/10 light:bg-[#90B800]/10',
     Speaker: 'text-[#A8A492] light:text-[#524646] border-[#A8A492]/30 light:border-[#C9BEAA] bg-[#A8A492]/10 light:bg-[#F4E9D8]',
-    Organizer: 'text-[#EC5B38] light:text-[#EC5B38] border-[#EC5B38]/30 light:border-[#EC5B38]/30 bg-[#EC5B38]/10 light:bg-[#EC5B38]/10',
+    Organizer: 'text-[#90B800] light:text-[#90B800] border-[#90B800]/30 light:border-[#90B800]/30 bg-[#90B800]/10 light:bg-[#90B800]/10',
     Winner: 'text-[#A8A492] light:text-[#524646] border-[#A8A492]/30 light:border-[#C9BEAA] bg-[#A8A492]/10 light:bg-[#F4E9D8]',
-    Volunteer: 'text-[#EC5B38] light:text-[#EC5B38] border-[#EC5B38]/30 light:border-[#EC5B38]/30 bg-[#EC5B38]/10 light:bg-[#EC5B38]/10',
+    Volunteer: 'text-[#90B800] light:text-[#90B800] border-[#90B800]/30 light:border-[#90B800]/30 bg-[#90B800]/10 light:bg-[#90B800]/10',
   };
-  return map[role] ?? 'text-[#A8A492] light:text-[#8A7B7B] border-[#EC5B38]/15 light:border-[#D9CEBB] bg-[#524646]/40 light:bg-[#F4E9D8]';
+  return map[role] ?? 'text-[#A8A492] light:text-[#8A7B7B] border-[#90B800]/15 light:border-[#D9CEBB] bg-[#524646]/40 light:bg-[#F4E9D8]';
 };
 
 function EventCard({ event, index }: { event: Event; index: number }) {
@@ -50,7 +50,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
   };
 
   const isLight = theme === 'light';
-  const spotlightColor = isLight ? 'rgba(236, 91, 56, 0.12)' : 'rgba(236, 91, 56, 0.12)';
+  const spotlightColor = isLight ? 'rgba(144, 184, 0, 0.12)' : 'rgba(144, 184, 0, 0.12)';
 
   const formattedDate = new Date(event.event_date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -67,7 +67,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/15 light:border-[#D9CEBB]/90 rounded-2xl sm:rounded-3xl flex flex-col hover:bg-[#5E5252] light:hover:bg-white hover:border-[#EC5B38]/35 light:hover:border-[#C9BEAA] transition-all duration-300 shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+      className="group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 rounded-2xl sm:rounded-3xl flex flex-col hover:bg-[#5E5252] light:hover:bg-white hover:border-[#90B800]/35 light:hover:border-[#C9BEAA] transition-all duration-300 shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
     >
       {/* Spotlight glow */}
       {isHovered && (
@@ -108,7 +108,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         )}
 
         {/* Title */}
-        <h3 className="text-base sm:text-lg font-bold text-[#FCF2E5] light:text-[#524646] mb-2 group-hover:text-[#EC5B38] light:group-hover:text-[#EC5B38] transition-colors duration-300 leading-tight">
+        <h3 className="text-base sm:text-lg font-bold text-[#FCF2E5] light:text-[#524646] mb-2 group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors duration-300 leading-tight">
           {event.title}
         </h3>
 
@@ -123,12 +123,12 @@ function EventCard({ event, index }: { event: Event; index: number }) {
           {/* Meta: Date & Location */}
           <div className="flex flex-wrap gap-2.5 sm:gap-3">
             <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#A8A492] light:text-[#A8A492]">
-              <Calendar size={12} className="text-[#EC5B38] light:text-[#EC5B38] shrink-0" />
+              <Calendar size={12} className="text-[#90B800] light:text-[#90B800] shrink-0" />
               <span>{formattedDate}</span>
             </div>
             {event.location && (
               <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#A8A492] light:text-[#A8A492]">
-                <MapPin size={12} className="text-[#EC5B38] light:text-[#EC5B38] shrink-0" />
+                <MapPin size={12} className="text-[#90B800] light:text-[#90B800] shrink-0" />
                 <span>{event.location}</span>
               </div>
             )}
@@ -141,7 +141,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
               {event.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] px-2 py-0.5 rounded-lg bg-[#524646]/60 light:bg-[#F4E9D8] border border-[#EC5B38]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B]"
+                  className="text-[10px] px-2 py-0.5 rounded-lg bg-[#524646]/60 light:bg-[#F4E9D8] border border-[#90B800]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B]"
                 >
                   {tag}
                 </span>
@@ -155,7 +155,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
               href={event.certificate_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#EC5B38] light:text-[#EC5B38] hover:text-[#FCF2E5] light:hover:text-[#D64A28]"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#90B800] light:text-[#90B800] hover:text-[#FCF2E5] light:hover:text-[#789900]"
               whileHover={{ x: 3 }}
             >
               <Award size={13} />
@@ -172,7 +172,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 // ─── Placeholder skeleton for loading state ───────────────────────────────────
 function EventCardSkeleton() {
   return (
-    <div className="bg-[#5E5252]/40 light:bg-white/60 border border-[#EC5B38]/15 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-5 sm:p-6 animate-pulse">
+    <div className="bg-[#5E5252]/40 light:bg-white/60 border border-[#90B800]/15 light:border-[#D9CEBB] rounded-2xl sm:rounded-3xl p-5 sm:p-6 animate-pulse">
       <div className="h-3 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-16 mb-4" />
       <div className="h-5 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-3/4 mb-2" />
       <div className="h-3 bg-[#6B5D5D] light:bg-[#EFE3D0] rounded-full w-full mb-1" />
@@ -219,7 +219,7 @@ export function Events() {
     <section id="events" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#EC5B38]/5 light:bg-[#EC5B38]/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#90B800]/5 light:bg-[#90B800]/5 blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -230,7 +230,7 @@ export function Events() {
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-xs font-bold uppercase tracking-widest text-[#EC5B38] light:text-[#EC5B38] mb-2 sm:mb-3"
+              className="text-xs font-bold uppercase tracking-widest text-[#90B800] light:text-[#90B800] mb-2 sm:mb-3"
             >
               Experience
             </motion.p>

@@ -171,27 +171,27 @@ export function GithubStats() {
       case 'python':
         return '#A8A492';
       case 'typescript':
-        return '#EC5B38';
+        return '#90B800';
       case 'javascript':
-        return '#F06745';
+        return '#A8D500';
       case 'shell':
       case 'bash':
         return '#A8A492';
       case 'html':
-        return '#EC5B38';
+        return '#90B800';
       case 'css':
         return '#524646';
       default:
-        return '#EC5B38';
+        return '#90B800';
     }
   };
 
   return (
-    <div className="w-full mt-12 bg-[#463D3D]/90 light:bg-white/90 backdrop-blur-xl border border-[#EC5B38]/20 light:border-[#D9CEBB] rounded-3xl p-6 sm:p-8 shadow-xl">
+    <div className="w-full mt-12 bg-[#463D3D]/90 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/20 light:border-[#D9CEBB] rounded-3xl p-6 sm:p-8 shadow-xl">
       {/* Header Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#EC5B38]/15 light:border-[#D9CEBB]">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#90B800]/15 light:border-[#D9CEBB]">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-2xl bg-[#EC5B38]/10 border border-[#EC5B38]/25 text-[#EC5B38] light:text-[#524646]">
+          <div className="p-2.5 rounded-2xl bg-[#90B800]/10 border border-[#90B800]/25 text-[#90B800] light:text-[#524646]">
             <Github className="w-6 h-6" />
           </div>
           <div>
@@ -201,13 +201,13 @@ export function GithubStats() {
                 Live API
               </span>
             </h3>
-            <p className="text-xs text-[#EC5B38]/70 light:text-[#A8A492] font-sans">
+            <p className="text-xs text-[#90B800]/70 light:text-[#A8A492] font-sans">
               Real-time commit telemetry & repository analytics for{' '}
               <a
                 href={user.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-[#EC5B38] transition-colors"
+                className="underline hover:text-[#90B800] transition-colors"
               >
                 @{user.login}
               </a>
@@ -219,7 +219,7 @@ export function GithubStats() {
           <button
             onClick={fetchGithubData}
             disabled={loading}
-            className="p-2 rounded-xl bg-[#EC5B38]/10 hover:bg-[#EC5B38]/20 border border-[#EC5B38]/20 text-[#EC5B38] transition-all text-xs flex items-center gap-1.5"
+            className="p-2 rounded-xl bg-[#90B800]/10 hover:bg-[#90B800]/20 border border-[#90B800]/20 text-[#90B800] transition-all text-xs flex items-center gap-1.5"
             title="Refresh GitHub Feed"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
@@ -230,7 +230,7 @@ export function GithubStats() {
             href={user.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#EC5B38]/15 hover:bg-[#EC5B38]/25 text-[#EC5B38] border border-[#EC5B38]/30 text-xs font-mono font-medium transition-all"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#90B800]/15 hover:bg-[#90B800]/25 text-[#90B800] border border-[#90B800]/30 text-xs font-mono font-medium transition-all"
           >
             <span>Visit Profile</span>
             <ExternalLink className="w-3.5 h-3.5" />
@@ -240,52 +240,52 @@ export function GithubStats() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6">
-        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#EC5B38]/15 light:border-[#D9CEBB] flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-[#EC5B38]/10 border border-[#EC5B38]/30 text-[#EC5B38]">
+        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#90B800]/15 light:border-[#D9CEBB] flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-[#90B800]/10 border border-[#90B800]/30 text-[#90B800]">
             <BookOpen className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xl font-bold font-mono text-[#FCF2E5] light:text-[#524646]">{user.public_repos}</div>
-            <div className="text-[11px] text-[#EC5B38]/60 light:text-[#A8A492] font-mono">Public Repos</div>
+            <div className="text-[11px] text-[#90B800]/60 light:text-[#A8A492] font-mono">Public Repos</div>
           </div>
         </div>
 
-        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#EC5B38]/15 light:border-[#D9CEBB] flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-[#EC5B38]/10 border border-[#EC5B38]/30 text-[#EC5B38]">
+        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#90B800]/15 light:border-[#D9CEBB] flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-[#90B800]/10 border border-[#90B800]/30 text-[#90B800]">
             <Star className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xl font-bold font-mono text-[#FCF2E5] light:text-[#524646]">{totalStarCount}</div>
-            <div className="text-[11px] text-[#EC5B38]/60 light:text-[#A8A492] font-mono">Total Stars</div>
+            <div className="text-[11px] text-[#90B800]/60 light:text-[#A8A492] font-mono">Total Stars</div>
           </div>
         </div>
 
-        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#EC5B38]/15 light:border-[#D9CEBB] flex items-center gap-3">
+        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#90B800]/15 light:border-[#D9CEBB] flex items-center gap-3">
           <div className="p-2 rounded-xl bg-[#A8A492]/10 border border-[#A8A492]/30 text-[#A8A492]">
             <GitFork className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xl font-bold font-mono text-[#FCF2E5] light:text-[#524646]">{totalForkCount}</div>
-            <div className="text-[11px] text-[#EC5B38]/60 light:text-[#A8A492] font-mono">Total Forks</div>
+            <div className="text-[11px] text-[#90B800]/60 light:text-[#A8A492] font-mono">Total Forks</div>
           </div>
         </div>
 
-        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#EC5B38]/15 light:border-[#D9CEBB] flex items-center gap-3">
+        <div className="bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#90B800]/15 light:border-[#D9CEBB] flex items-center gap-3">
           <div className="p-2 rounded-xl bg-[#A8A492]/10 border border-[#A8A492]/30 text-[#A8A492]">
             <Flame className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xl font-bold font-mono text-[#FCF2E5] light:text-[#524646]">{events.length}</div>
-            <div className="text-[11px] text-[#EC5B38]/60 light:text-[#A8A492] font-mono">Recent Pushes</div>
+            <div className="text-[11px] text-[#90B800]/60 light:text-[#A8A492] font-mono">Recent Pushes</div>
           </div>
         </div>
       </div>
 
       {/* Language Breakdown Progress Bar */}
-      <div className="mb-6 bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#EC5B38]/15 light:border-[#D9CEBB]">
-        <div className="flex items-center justify-between text-xs font-mono text-[#EC5B38]/70 light:text-[#8A7B7B] mb-2">
+      <div className="mb-6 bg-[#403737] light:bg-[#F7EBDD] p-4 rounded-2xl border border-[#90B800]/15 light:border-[#D9CEBB]">
+        <div className="flex items-center justify-between text-xs font-mono text-[#90B800]/70 light:text-[#8A7B7B] mb-2">
           <span className="flex items-center gap-1.5">
-            <Code2 className="w-3.5 h-3.5 text-[#EC5B38]" /> Language Ecosystem Breakdown
+            <Code2 className="w-3.5 h-3.5 text-[#90B800]" /> Language Ecosystem Breakdown
           </span>
           <span>Top Repos</span>
         </div>
@@ -306,7 +306,7 @@ export function GithubStats() {
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-4 mt-3 text-xs font-mono text-[#EC5B38]/80 light:text-[#8A7B7B]">
+        <div className="flex flex-wrap gap-4 mt-3 text-xs font-mono text-[#90B800]/80 light:text-[#8A7B7B]">
           {Object.entries(languageCounts).map(([lang]) => (
             <div key={lang} className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: getLanguageColor(lang) }} />
@@ -318,13 +318,13 @@ export function GithubStats() {
 
       {/* Tab Controls & Live Feed */}
       <div>
-        <div className="flex border-b border-[#EC5B38]/15 light:border-[#D9CEBB] mb-4 gap-4">
+        <div className="flex border-b border-[#90B800]/15 light:border-[#D9CEBB] mb-4 gap-4">
           <button
             onClick={() => setActiveTab('activity')}
             className={`pb-2 text-xs font-mono font-medium transition-colors flex items-center gap-2 border-b-2 ${
               activeTab === 'activity'
-                ? 'border-[#EC5B38] text-[#EC5B38] light:border-[#524646] light:text-[#524646]'
-                : 'border-transparent text-[#EC5B38]/50 hover:text-[#EC5B38]/80'
+                ? 'border-[#90B800] text-[#90B800] light:border-[#524646] light:text-[#524646]'
+                : 'border-transparent text-[#90B800]/50 hover:text-[#90B800]/80'
             }`}
           >
             <GitCommit className="w-3.5 h-3.5" /> Recent Commit Stream
@@ -333,8 +333,8 @@ export function GithubStats() {
             onClick={() => setActiveTab('repos')}
             className={`pb-2 text-xs font-mono font-medium transition-colors flex items-center gap-2 border-b-2 ${
               activeTab === 'repos'
-                ? 'border-[#EC5B38] text-[#EC5B38] light:border-[#524646] light:text-[#524646]'
-                : 'border-transparent text-[#EC5B38]/50 hover:text-[#EC5B38]/80'
+                ? 'border-[#90B800] text-[#90B800] light:border-[#524646] light:text-[#524646]'
+                : 'border-transparent text-[#90B800]/50 hover:text-[#90B800]/80'
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" /> Active Repositories
@@ -358,26 +358,26 @@ export function GithubStats() {
               return (
                 <div
                   key={ev.id}
-                  className="bg-[#403737] light:bg-[#F7EBDD] border border-[#EC5B38]/15 light:border-[#D9CEBB] p-3.5 rounded-xl flex items-start justify-between gap-3 text-xs font-mono group hover:border-[#EC5B38]/40 transition-colors"
+                  className="bg-[#403737] light:bg-[#F7EBDD] border border-[#90B800]/15 light:border-[#D9CEBB] p-3.5 rounded-xl flex items-start justify-between gap-3 text-xs font-mono group hover:border-[#90B800]/40 transition-colors"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="p-1.5 rounded-lg bg-[#EC5B38]/10 border border-[#EC5B38]/20 text-[#EC5B38] mt-0.5">
+                    <div className="p-1.5 rounded-lg bg-[#90B800]/10 border border-[#90B800]/20 text-[#90B800] mt-0.5">
                       <GitCommit className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-bold text-[#FCF2E5] light:text-[#524646]">{repoName}</span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#EC5B38]/15 text-[#EC5B38]">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#90B800]/15 text-[#90B800]">
                           {sha}
                         </span>
                       </div>
-                      <p className="text-[#EC5B38]/70 light:text-[#8A7B7B] mt-1 font-sans text-xs line-clamp-1">
+                      <p className="text-[#90B800]/70 light:text-[#8A7B7B] mt-1 font-sans text-xs line-clamp-1">
                         {commitMsg}
                       </p>
                     </div>
                   </div>
 
-                  <span className="text-[10px] text-[#EC5B38]/40 light:text-[#A8A492] whitespace-nowrap">{timeAgo}</span>
+                  <span className="text-[10px] text-[#90B800]/40 light:text-[#A8A492] whitespace-nowrap">{timeAgo}</span>
                 </div>
               );
             })}
@@ -391,19 +391,19 @@ export function GithubStats() {
                 href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#403737] light:bg-[#F7EBDD] border border-[#EC5B38]/15 light:border-[#D9CEBB] p-4 rounded-xl block group hover:border-[#EC5B38]/40 transition-all"
+                className="bg-[#403737] light:bg-[#F7EBDD] border border-[#90B800]/15 light:border-[#D9CEBB] p-4 rounded-xl block group hover:border-[#90B800]/40 transition-all"
               >
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-mono font-bold text-sm text-[#FCF2E5] light:text-[#524646] group-hover:text-[#EC5B38] transition-colors flex items-center gap-1.5">
+                  <span className="font-mono font-bold text-sm text-[#FCF2E5] light:text-[#524646] group-hover:text-[#90B800] transition-colors flex items-center gap-1.5">
                     {repo.name}
                   </span>
-                  <ExternalLink className="w-3.5 h-3.5 text-[#EC5B38]/40 group-hover:text-[#EC5B38]" />
+                  <ExternalLink className="w-3.5 h-3.5 text-[#90B800]/40 group-hover:text-[#90B800]" />
                 </div>
-                <p className="text-xs text-[#EC5B38]/60 light:text-[#A8A492] line-clamp-2 mb-3 font-sans">
+                <p className="text-xs text-[#90B800]/60 light:text-[#A8A492] line-clamp-2 mb-3 font-sans">
                   {repo.description || 'No description provided'}
                 </p>
 
-                <div className="flex items-center gap-4 text-[11px] font-mono text-[#EC5B38]/70 light:text-[#8A7B7B]">
+                <div className="flex items-center gap-4 text-[11px] font-mono text-[#90B800]/70 light:text-[#8A7B7B]">
                   {repo.language && (
                     <span className="flex items-center gap-1">
                       <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLanguageColor(repo.language) }} />
@@ -411,7 +411,7 @@ export function GithubStats() {
                     </span>
                   )}
                   <span className="flex items-center gap-1">
-                    <Star className="w-3 h-3 text-[#EC5B38]" /> {repo.stargazers_count}
+                    <Star className="w-3 h-3 text-[#90B800]" /> {repo.stargazers_count}
                   </span>
                   <span className="flex items-center gap-1">
                     <GitFork className="w-3 h-3 text-[#A8A492]" /> {repo.forks_count}

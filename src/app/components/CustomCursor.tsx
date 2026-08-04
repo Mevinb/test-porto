@@ -74,16 +74,16 @@ export function CustomCursor() {
   if (!isVisible) return null;
 
   const isLight = theme === 'light';
-  const primaryColor = isLight ? '#EC5B38' : '#EC5B38';
-  const ringHoverBorder = isLight ? 'rgba(236, 91, 56, 0.9)' : 'rgba(236, 91, 56, 0.9)';
-  const ringDefaultBorder = isLight ? 'rgba(236, 91, 56, 0.4)' : 'rgba(168, 164, 146, 0.35)';
-  const ringHoverBg = isLight ? 'rgba(236, 91, 56, 0.08)' : 'rgba(236, 91, 56, 0.08)';
+  const primaryColor = isLight ? '#90B800' : '#90B800';
+  const ringHoverBorder = isLight ? 'rgba(144, 184, 0, 0.9)' : 'rgba(144, 184, 0, 0.9)';
+  const ringDefaultBorder = isLight ? 'rgba(144, 184, 0, 0.4)' : 'rgba(168, 164, 146, 0.35)';
+  const ringHoverBg = isLight ? 'rgba(144, 184, 0, 0.08)' : 'rgba(144, 184, 0, 0.08)';
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
       {/* Precision Center Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#EC5B38] light:bg-[#EC5B38] shadow-[0_0_10px_#EC5B38] light:shadow-[0_0_10px_#EC5B38]"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#90B800] light:bg-[#90B800] shadow-[0_0_10px_#90B800] light:shadow-[0_0_10px_#90B800]"
         style={{
           x: cursorX,
           y: cursorY,
@@ -99,7 +99,7 @@ export function CustomCursor() {
 
       {/* Trailing Reticle Ring */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full border border-[#EC5B38]/40 light:border-[#EC5B38]/40 backdrop-blur-[1px] flex items-center justify-center"
+        className="fixed top-0 left-0 rounded-full border border-[#90B800]/40 light:border-[#90B800]/40 backdrop-blur-[1px] flex items-center justify-center"
         style={{
           x: smoothX,
           y: smoothY,
@@ -112,8 +112,8 @@ export function CustomCursor() {
           borderColor: isHovered ? ringHoverBorder : ringDefaultBorder,
           backgroundColor: isHovered ? ringHoverBg : 'transparent',
           boxShadow: isHovered
-            ? `0 0 20px ${isLight ? 'rgba(236, 91, 56, 0.3)' : 'rgba(236, 91, 56, 0.3)'}, inset 0 0 10px ${isLight ? 'rgba(236, 91, 56, 0.15)' : 'rgba(236, 91, 56, 0.15)'}`
-            : `0 0 10px ${isLight ? 'rgba(236, 91, 56, 0.1)' : 'rgba(236, 91, 56, 0.1)'}`,
+            ? `0 0 20px ${isLight ? 'rgba(144, 184, 0, 0.3)' : 'rgba(144, 184, 0, 0.3)'}, inset 0 0 10px ${isLight ? 'rgba(144, 184, 0, 0.15)' : 'rgba(144, 184, 0, 0.15)'}`
+            : `0 0 10px ${isLight ? 'rgba(144, 184, 0, 0.1)' : 'rgba(144, 184, 0, 0.1)'}`,
         }}
         transition={{ type: 'spring', damping: 25, stiffness: 300, mass: 0.2 }}
       >
@@ -132,7 +132,7 @@ export function CustomCursor() {
       {clickParticles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="fixed top-0 left-0 rounded-full border border-[#EC5B38] light:border-[#EC5B38]"
+          className="fixed top-0 left-0 rounded-full border border-[#90B800] light:border-[#90B800]"
           style={{
             left: particle.x,
             top: particle.y,

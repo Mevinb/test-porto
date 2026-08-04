@@ -8,6 +8,7 @@ createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/admin" element={<AdminEvents />} />
       <Route path="/admin/events" element={<AdminEvents />} />
     </Routes>
   </BrowserRouter>,
