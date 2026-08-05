@@ -18,7 +18,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         return saved;
       }
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {
