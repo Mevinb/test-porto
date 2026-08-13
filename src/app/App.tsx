@@ -24,10 +24,12 @@ export default function App() {
         {/* Site Sections */}
         <div className="relative z-10">
           <Navigation />
-          <Hero />
-          <About />
-          <Projects />
-          <Events />
+          <main id="main-content">
+            <Hero />
+            <About />
+            <Projects />
+            <Events />
+          </main>
           <Footer />
         </div>
       </div>

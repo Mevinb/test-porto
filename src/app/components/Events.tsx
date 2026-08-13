@@ -84,7 +84,9 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         <div className="relative h-40 sm:h-48 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
           <img
             src={event.image_url}
-            alt={event.title}
+            alt={`${event.title} event`}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#524646] light:from-[#524646]/60 via-transparent to-transparent" />

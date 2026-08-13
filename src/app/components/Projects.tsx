@@ -376,6 +376,7 @@ function ProjectDetailModal({
         {/* Close Button */}
         <button
           onClick={onClose}
+          aria-label={`Close ${project.title} project details`}
           className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-xl bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] text-[#A8A492] light:text-[#8A7B7B] hover:text-[#FCF2E5] light:hover:text-[#524646] transition-all cursor-pointer"
         >
           <X size={18} />
@@ -545,6 +546,7 @@ function ProjectCard({
             {archData && onOpenArch && (
               <button
                 title="View System Architecture Diagram"
+                aria-label={`View ${project.title} system architecture diagram`}
                 onClick={(e) => {
                   e.stopPropagation();
                   onOpenArch(archData);
@@ -560,6 +562,7 @@ function ProjectCard({
               target="_blank"
               rel="noopener noreferrer"
               title="Open GitHub Repository"
+              aria-label={`View ${project.title} source code on GitHub`}
               onClick={(e) => e.stopPropagation()}
               className="flex items-center justify-center p-2 rounded-xl bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#D9CEBB] hover:border-[#90B800] light:hover:border-[#90B800] hover:bg-[#90B800]/10 light:hover:bg-[#90B800]/10 text-[#A8A492] light:text-[#A8A492] hover:text-[#90B800] light:hover:text-[#90B800] transition-colors cursor-pointer"
               whileHover={{ scale: 1.05, rotate: 10 }}
@@ -610,6 +613,7 @@ function ProjectCard({
 
         {archData && onOpenArch && (
           <button
+            aria-label={`View ${project.title} architecture diagram`}
             onClick={(e) => {
               e.stopPropagation();
               onOpenArch(archData);

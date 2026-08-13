@@ -75,6 +75,7 @@ export function Navigation() {
         top: offsetPosition,
         behavior: 'smooth',
       });
+      window.history.replaceState(null, '', `#${id}`);
       setIsMobileMenuOpen(false);
     }
   };
@@ -97,7 +98,8 @@ export function Navigation() {
             }`}
           >
             {/* Logo */}
-            <motion.button
+            <motion.a
+              href="#main-content"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center gap-2 sm:gap-2.5 group cursor-pointer"
               whileHover={{ scale: 1.02 }}
@@ -108,15 +110,16 @@ export function Navigation() {
               <span className="font-semibold tracking-tight text-xs sm:text-base text-[#FCF2E5] light:text-[#524646] group-hover:text-[#90B800] light:group-hover:text-[#90B800] transition-colors whitespace-nowrap">
                 Mevin Benty
               </span>
-            </motion.button>
+            </motion.a>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-1.5 bg-[#524646]/60 light:bg-[#F4E9D8]/90 p-1 border border-[#90B800]/15 light:border-[#D9CEBB]/80 rounded-full">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
-                  <button
+                  <a
                     key={item.id}
+                    href={`#${item.id}`}
                     onClick={() => scrollToSection(item.id)}
                     className={`relative px-4 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                       isActive 
@@ -132,7 +135,7 @@ export function Navigation() {
                       />
                     )}
                     {item.label}
-                  </button>
+                  </a>
                 );
               })}
             </nav>
@@ -142,6 +145,7 @@ export function Navigation() {
               {/* Theme Toggle Button */}
               <motion.button
                 onClick={toggleTheme}
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
                 className="flex items-center justify-center p-2 rounded-full bg-[#524646]/70 light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#C9BEAA] text-[#90B800] light:text-[#90B800] hover:bg-[#90B800]/15 light:hover:bg-[#EFE3D0] transition-all cursor-pointer shadow-sm"
                 whileHover={{ scale: 1.08, rotate: 15 }}
@@ -173,6 +177,7 @@ export function Navigation() {
             <div className="md:hidden flex items-center gap-2">
               <motion.button
                 onClick={toggleTheme}
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
                 className="flex items-center justify-center p-2 rounded-full text-[#90B800] light:text-[#90B800] bg-[#524646]/60 light:bg-[#F4E9D8] border border-[#90B800]/20 light:border-[#C9BEAA] transition-colors cursor-pointer"
                 whileTap={{ scale: 0.9 }}
@@ -182,6 +187,8 @@ export function Navigation() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isMobileMenuOpen}
                 className="flex items-center justify-center p-2 rounded-full text-[#A8A492] light:text-[#524646] hover:text-[#FCF2E5] light:hover:text-black hover:bg-[#6B5D5D] light:hover:bg-[#F4E9D8] transition-colors cursor-pointer"
               >
                 {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -219,14 +226,15 @@ export function Navigation() {
                   </button>
                 </div>
                 {NAV_ITEMS.map((item) => (
-                  <button
+                  <a
                     key={item.id}
+                    href={`#${item.id}`}
                     onClick={() => scrollToSection(item.id)}
                     className="flex items-center justify-between text-left py-2.5 px-3.5 rounded-xl hover:bg-[#6B5D5D] light:hover:bg-[#F4E9D8] text-[#FCF2E5] light:text-[#524646] transition-all text-sm font-medium cursor-pointer"
                   >
                     <span>{item.label}</span>
                     <span className="text-[#90B800] light:text-[#90B800]">→</span>
-                  </button>
+                  </a>
                 ))}
                 <div className="border-t border-[#90B800]/15 light:border-[#D9CEBB] my-1 pt-3">
                   <motion.button

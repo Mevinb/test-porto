@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Mevin Benty developer portfolio</title>
+  <desc id="desc">Social preview for Mevin Benty, a developer and engineering student building AI pipelines and secure systems.</desc>
+  <defs>
+    <radialGradient id="glow" cx="82%" cy="18%" r="75%">
+      <stop offset="0" stop-color="#90B800" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#524646" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#3F3636"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <path d="M0 525C220 465 390 575 610 515s388-58 590 8v107H0Z" fill="#524646"/>
+  <g transform="translate(820 145)">
+    <rect width="230" height="230" rx="52" fill="#524646" stroke="#90B800" stroke-width="3"/>
+    <path d="M39 179V51l44 55 37-55v128M138 51h29c18 0 29 11 29 27 0 13-8 22-19 26 15 4 26 17 26 35 0 25-18 40-44 40h-21V51Zm3 57h32" fill="none" stroke="#90B800" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="92" y="185" fill="#90B800" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="5">DEVELOPER PORTFOLIO</text>
+  <text x="88" y="300" fill="#FCF2E5" font-family="Arial, sans-serif" font-size="78" font-weight="800">Mevin Benty</text>
+  <text x="92" y="374" fill="#D6D1C4" font-family="Arial, sans-serif" font-size="35">Developer &amp; Engineering Student</text>
+  <text x="92" y="440" fill="#A8A492" font-family="Arial, sans-serif" font-size="25">AI pipelines · secure systems · open-source tools</text>
+  <text x="92" y="563" fill="#90B800" font-family="monospace" font-size="25">mevin.tech</text>
+</svg>

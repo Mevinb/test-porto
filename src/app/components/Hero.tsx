@@ -47,6 +47,9 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#FCF2E5] light:text-[#524646] tracking-tight leading-[1.15] mb-6"
           >
+            <span className="block text-base sm:text-xl md:text-2xl text-[#A8A492] light:text-[#8A7B7B] mb-2">
+              Mevin Benty - Developer &amp; Engineering Student
+            </span>
             Building{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] via-[#A8D500] to-[#FCF2E5] light:from-[#90B800] light:via-[#789900] light:to-[#524646] font-black">
               Next-Gen AI
@@ -64,8 +67,8 @@ export function Hero() {
             transition={{ duration: 0.75, delay: 0.64, ease: [0.22, 1, 0.36, 1] }}
             className="text-[#A8A492] light:text-[#8A7B7B] text-sm sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-8"
           >
-            I specialize in optimizing generative imaging workflows, developing robust facial restoration
-            pipelines (Reactorv3), and creating secure backend architectures with automated systems.
+            I am a software developer and engineering student specializing in generative imaging workflows,
+            facial restoration pipelines, and secure backend architectures with automated systems.
           </motion.p>
 
           {/* Focus Tags */}
