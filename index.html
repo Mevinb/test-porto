@@ -14,6 +14,18 @@
       rel="stylesheet"
     />
 
+    <!-- Hero portrait is the LCP element; fetch it alongside the JS bundle
+         instead of waiting for React to mount and discover the <picture>. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/mevin-portrait.webp"
+      imagesrcset="/images/mevin-portrait-400.webp 400w, /images/mevin-portrait.webp 706w"
+      imagesizes="(min-width: 1024px) 430px, 90vw"
+      type="image/webp"
+      fetchpriority="high"
+    />
+
     <title>Mevin Benty | AI Systems &amp; Software Engineer</title>
     <meta
       name="description"

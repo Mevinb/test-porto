@@ -73,12 +73,27 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.95, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.018, rotate: -0.6 }}
-            className="relative z-10 mx-auto my-10 aspect-[4/5] w-full max-w-[430px] overflow-hidden border border-[var(--hero-line)] bg-[#dbe4ff] shadow-[18px_18px_0_var(--highlight)] will-change-transform"
+            className="group relative z-10 mx-auto my-10 aspect-[4/5] w-full max-w-[430px] overflow-hidden border border-[var(--hero-line)] bg-[#dbe4ff] shadow-[18px_18px_0_var(--highlight)] will-change-transform"
           >
-            <motion.div animate={{ backgroundPosition: ['0px 0px', '30px 30px'] }} transition={{ duration: 6, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 bg-[linear-gradient(135deg,transparent_48%,rgba(21,87,255,0.14)_48%,rgba(21,87,255,0.14)_52%,transparent_52%)] bg-[length:30px_30px]" />
-            <motion.div animate={{ scale: [1, 1.025, 1] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} className="absolute inset-x-[12%] bottom-0 h-[72%] rounded-t-[45%] border border-black/30 bg-[#121722]" />
-            <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute left-1/2 top-[17%] h-[34%] w-[46%] -translate-x-1/2 rounded-[46%] border border-black/30 bg-[var(--signal)]" />
-            <div className="absolute bottom-4 left-4 right-4 flex justify-between border-t border-black/20 pt-3 text-[#303746]"><span className="label-mono">Portrait placeholder</span><span className="label-mono">Replace / JPG</span></div>
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="/images/mevin-portrait-400.webp 400w, /images/mevin-portrait.webp 706w"
+                sizes="(min-width: 1024px) 430px, 90vw"
+              />
+              <img
+                src="/images/mevin-portrait.jpg"
+                alt="Mevin Benty"
+                width={706}
+                height={882}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+              />
+            </picture>
+            <motion.div animate={{ backgroundPosition: ['0px 0px', '30px 30px'] }} transition={{ duration: 6, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 bg-[linear-gradient(135deg,transparent_48%,rgba(21,87,255,0.14)_48%,rgba(21,87,255,0.14)_52%,transparent_52%)] bg-[length:30px_30px] opacity-40 mix-blend-soft-light" aria-hidden="true" />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_top,rgba(8,12,24,0.78),transparent)]" aria-hidden="true" />
+            <div className="absolute bottom-4 left-4 right-4 flex justify-between border-t border-white/25 pt-3 text-white"><span className="label-mono">Mevin Benty</span><span className="label-mono text-[var(--highlight)]">AI / Systems</span></div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.82, duration: 0.65 }} className="relative z-10 grid grid-cols-3 border border-[var(--hero-line)] bg-black/20">
             {[['AI', 'Vision pipelines'], ['SEC', 'Systems audit'], ['OPS', 'GPU deployment']].map(([code, label], index) => (
