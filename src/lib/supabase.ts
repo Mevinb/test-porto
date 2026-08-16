@@ -15,6 +15,12 @@ export const supabase = createClient(
   isSupabaseConfigured ? SUPABASE_ANON_KEY : 'placeholder-anon-key'
 );
 
+export const storageBucket = (import.meta.env.VITE_SUPABASE_STORAGE_BUCKET || 'event-images') as string;
+
+export function getPublicAssetUrl(path: string) {
+  return supabase.storage.from(storageBucket).getPublicUrl(path).data.publicUrl;
+}
+
 export type Event = {
   id: string;
   title: string;

@@ -7,7 +7,9 @@ import {
   useSpring,
 } from 'motion/react';
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
+import { Link } from 'react-router';
 import { useTheme } from '../context/ThemeContext';
+import { prefetchEvents } from '../../lib/events';
 
 const NAV_ITEMS = [
   { id: 'capabilities', label: 'Capabilities', href: '/#capabilities' },
@@ -80,11 +82,7 @@ export function Navigation() {
           {NAV_ITEMS.map((item) => {
             const isActive = active === item.id;
             return (
-              <a
-                key={item.id}
-                href={item.href}
-                className={`nav-link relative rounded-full px-4 py-2 text-[13px] font-semibold tracking-[-0.01em] transition-colors ${isActive ? 'text-[var(--ink)]' : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'}`}
-              >
+              item.id === 'events' ? <Link key={item.id} to={item.href} onMouseEnter={prefetchEvents} onFocus={prefetchEvents} className={`nav-link relative rounded-full px-4 py-2 text-[13px] font-semibold tracking-[-0.01em] transition-colors ${isActive ? 'text-[var(--ink)]' : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'}`}>
                 {isActive && (
                   <motion.span
                     layoutId="nav-active-pill"
@@ -92,6 +90,9 @@ export function Navigation() {
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                   />
                 )}
+                {item.label}
+              </Link> : <a key={item.id} href={item.href} className={`nav-link relative rounded-full px-4 py-2 text-[13px] font-semibold tracking-[-0.01em] transition-colors ${isActive ? 'text-[var(--ink)]' : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'}`}>
+                {isActive && <motion.span layoutId="nav-active-pill" className="absolute inset-0 -z-10 rounded-full bg-[var(--paper-strong)] shadow-[0_3px_12px_rgba(10,18,40,0.08)]" transition={{ type: 'spring', stiffness: 420, damping: 34 }} />}
                 {item.label}
               </a>
             );
@@ -154,15 +155,10 @@ export function Navigation() {
           >
             <div className="grid px-5 py-4">
               {NAV_ITEMS.map((item, index) => (
-                <motion.a
-                  key={item.id}
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  initial={{ opacity: 0, x: -14 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + index * 0.045 }}
-                  className="nav-brand group flex items-center justify-between border-b border-[var(--line)] py-4 text-lg font-semibold tracking-[-0.025em]"
-                >
+                item.id === 'events' ? <motion.div key={item.id} initial={{ opacity: 0, x: -14 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 + index * 0.045 }}><Link to={item.href} onMouseEnter={prefetchEvents} onFocus={prefetchEvents} onClick={() => setMenuOpen(false)} className="nav-brand group flex items-center justify-between border-b border-[var(--line)] py-4 text-lg font-semibold tracking-[-0.025em]">
+                  <span className="transition-transform group-hover:translate-x-1">{item.label}</span>
+                  <span className="font-mono text-[10px] tracking-[0.14em] text-[var(--accent)]">0{index + 1}</span>
+                </Link></motion.div> : <motion.a key={item.id} href={item.href} onClick={() => setMenuOpen(false)} initial={{ opacity: 0, x: -14 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 + index * 0.045 }} className="nav-brand group flex items-center justify-between border-b border-[var(--line)] py-4 text-lg font-semibold tracking-[-0.025em]">
                   <span className="transition-transform group-hover:translate-x-1">{item.label}</span>
                   <span className="font-mono text-[10px] tracking-[0.14em] text-[var(--accent)]">0{index + 1}</span>
                 </motion.a>

@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, CalendarDays, GitBranch, MapPin } from 'lucide-react';
-import { supabase, type Event } from '../../lib/supabase';
+import { Link } from 'react-router';
+import { fetchEvents, getCachedEvents, prefetchEvents } from '../../lib/events';
+import type { Event } from '../../lib/supabase';
 
 const MILESTONES = [
   { year: '2026', title: 'Story Teller multi-agent engine', type: 'Build', text: 'Designed a long-form generation workflow with semantic memory and multiple model backends.', url: 'https://github.com/Mevinb/story-teller-' },
@@ -10,14 +12,18 @@ const MILESTONES = [
 ];
 
 export function Events() {
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
+  const initialEvents = useRef(getCachedEvents());
+  const [events, setEvents] = useState<Event[]>(initialEvents.current?.slice(0, 3) ?? []);
+  const [loading, setLoading] = useState(!initialEvents.current);
 
   useEffect(() => {
     const load = async () => {
-      const { data, error } = await supabase.from('events').select('*').order('event_date', { ascending: false }).limit(3);
-      if (!error) setEvents(data ?? []);
-      setLoading(false);
+      try {
+        const data = await fetchEvents(Boolean(initialEvents.current));
+        setEvents(data.slice(0, 3));
+      } finally {
+        setLoading(false);
+      }
     };
     void load();
   }, []);
@@ -41,8 +47,8 @@ export function Events() {
             </motion.article>
           ))}
           {(loading || events.length > 0) && <div className="p-6 md:p-8">
-            <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><div><h3 className="text-lg font-semibold">Recent public activity</h3><span className="label-mono mt-1 block text-[var(--ink-faint)]">Latest from the event archive</span></div><a href="/events" className="group inline-flex w-fit items-center gap-2 border border-[var(--line-strong)] px-4 py-2.5 text-xs font-semibold text-[var(--ink)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-ink)]">View all events <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a></div>
-            {loading ? <div className="h-20 animate-pulse border border-[var(--line)] bg-[var(--paper-strong)]" /> : <div className="grid gap-px border border-[var(--line)] bg-[var(--line)] md:grid-cols-3">{events.map((event) => <article key={event.id} className="bg-[var(--card)] p-5"><span className="label-mono text-[var(--accent)]">{event.role}</span><h4 className="mt-4 font-semibold">{event.title}</h4><div className="mt-5 space-y-2 text-xs text-[var(--ink-faint)]"><span className="flex items-center gap-2"><CalendarDays size={13} />{new Date(event.event_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>{event.location && <span className="flex items-center gap-2"><MapPin size={13} />{event.location}</span>}</div></article>)}</div>}
+            <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><div><h3 className="text-lg font-semibold">Recent public activity</h3><span className="label-mono mt-1 block text-[var(--ink-faint)]">Latest from the event archive</span></div><Link to="/events" onMouseEnter={prefetchEvents} onFocus={prefetchEvents} className="group inline-flex w-fit items-center gap-2 border border-[var(--line-strong)] px-4 py-2.5 text-xs font-semibold text-[var(--ink)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-ink)]">View all events <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link></div>
+            {loading ? <div className="relative h-20 overflow-hidden border border-[var(--line)] bg-[var(--paper-strong)]"><motion.div animate={{ x: ['-100%', '220%'] }} transition={{ duration: 1.2, repeat: Infinity, ease: 'linear' }} className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/45 to-transparent dark:via-white/5" /></div> : <div className="grid gap-px border border-[var(--line)] bg-[var(--line)] md:grid-cols-3">{events.map((event, index) => <motion.article key={event.id} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -5 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }} className="bg-[var(--card)] p-5"><span className="label-mono text-[var(--accent)]">{event.role}</span><h4 className="mt-4 font-semibold">{event.title}</h4><div className="mt-5 space-y-2 text-xs text-[var(--ink-faint)]"><span className="flex items-center gap-2"><CalendarDays size={13} />{new Date(event.event_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>{event.location && <span className="flex items-center gap-2"><MapPin size={13} />{event.location}</span>}</div></motion.article>)}</div>}
           </div>}
         </div>
       </div>

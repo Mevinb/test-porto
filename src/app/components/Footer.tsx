@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Check, Clapperboard, Copy, Download, Github, Linkedin, Mail, MapPin, Send } from 'lucide-react';
+import { getPublicAssetUrl } from '../../lib/supabase';
 
 const EMAIL = 'mevinbenty507@gmail.com';
+const RESUME_URL = getPublicAssetUrl('resume/Mevin_Benty_Resume.pdf');
 
 export function Footer({ onReplayIntro }: { onReplayIntro?: () => void }) {
   const [copied, setCopied] = useState(false);
@@ -30,7 +32,7 @@ export function Footer({ onReplayIntro }: { onReplayIntro?: () => void }) {
           <div className="flex items-center gap-3 bg-[var(--contact-card)] p-5 sm:col-span-2"><MapPin size={17} className="text-[#1557ff]" /><span><span className="label-mono block text-[#6e7480]">Base</span><span className="text-sm font-semibold">Thrissur, Kerala / Remote-friendly</span></span></div>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          <button disabled title="Resume PDF will be added soon" className="inline-flex items-center gap-2 border border-[var(--contact-line)] px-4 py-3 text-xs font-semibold text-[var(--contact-muted)] opacity-75"><Download size={15} /> Resume coming soon</button>
+          <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} href={RESUME_URL} target="_blank" rel="noreferrer" download="Mevin_Benty_Resume.pdf" className="inline-flex items-center gap-2 border border-[var(--contact-line)] px-4 py-3 text-xs font-semibold text-[var(--contact-ink)] transition-colors hover:bg-[var(--contact-ink)] hover:text-[var(--contact-panel)]"><Download size={15} /> Download résumé</motion.a>
           {onReplayIntro && <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} type="button" onClick={onReplayIntro} className="inline-flex items-center gap-2 border border-[var(--contact-line)] bg-[var(--contact-ink)] px-4 py-3 text-xs font-semibold text-[var(--contact-panel)]"><Clapperboard size={15} /> Replay cinematic</motion.button>}
         </div>
       </div>
