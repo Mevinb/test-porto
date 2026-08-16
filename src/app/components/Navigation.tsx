@@ -135,9 +135,15 @@ export function Navigation() {
           <motion.nav
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            /* No height on exit: a concurrent height animation makes Chrome
+               cancel any in-flight smooth scroll started by the link tap. The
+               panel is an absolute overlay, so fading it out shifts nothing. */
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-[var(--line)] bg-[var(--paper)] lg:hidden"
+            /* Absolute, not in flow: collapsing an in-flow panel inside the
+               sticky header shifts the document mid-scroll, which makes the
+               browser abort the anchor's smooth scroll and the tap look dead. */
+            className="absolute inset-x-0 top-full overflow-hidden border-t border-[var(--line)] bg-[var(--paper)] shadow-[0_18px_40px_rgba(10,18,40,0.14)] lg:hidden"
           >
             <div className="grid px-5 py-4">
               {NAV_ITEMS.map((item, index) => (
