@@ -70,7 +70,8 @@ export function CinematicLanding({ onComplete }: CinematicLandingProps) {
 
   const leavingRef = useRef(false);
   const exitTimer = useRef(0);
-  const finishRef = useRef<() => void>(() => {});
+  const nameHoldTimer = useRef(0);
+  const finishRef = useRef<(immediate?: boolean) => void>(() => {});
 
   const handleReady = useCallback(() => setReady(true), []);
   const handleUnavailable = useCallback(() => {
@@ -78,15 +79,28 @@ export function CinematicLanding({ onComplete }: CinematicLandingProps) {
     setReady(true);
   }, []);
 
-  const finish = useCallback(() => {
+  // `immediate` is true only when the skip button is clicked — scroll-triggered
+  // completions pause for 2 s so the finale name has time to be read.
+  const finish = useCallback((immediate = false) => {
     if (leavingRef.current) return;
-    leavingRef.current = true;
-    setLeaving(true);
-    exitTimer.current = window.setTimeout(onComplete, CINEMATIC_EXIT_MS);
+    const startExit = () => {
+      if (leavingRef.current) return;
+      leavingRef.current = true;
+      setLeaving(true);
+      exitTimer.current = window.setTimeout(onComplete, CINEMATIC_EXIT_MS);
+    };
+    if (immediate) {
+      startExit();
+    } else {
+      nameHoldTimer.current = window.setTimeout(startExit, 1000);
+    }
   }, [onComplete]);
 
   useEffect(() => { finishRef.current = finish; }, [finish]);
-  useEffect(() => () => { if (exitTimer.current) window.clearTimeout(exitTimer.current); }, []);
+  useEffect(() => () => {
+    if (exitTimer.current) window.clearTimeout(exitTimer.current);
+    if (nameHoldTimer.current) window.clearTimeout(nameHoldTimer.current);
+  }, []);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -110,6 +124,7 @@ export function CinematicLanding({ onComplete }: CinematicLandingProps) {
     const update = () => {
       const value = range > 0 ? scroller.scrollTop / range : 0;
       progress.set(value);
+      // Pass no argument so the 2-second name-hold applies before the exit wipe.
       if (value > 0.995) finishRef.current();
     };
 
@@ -140,8 +155,9 @@ export function CinematicLanding({ onComplete }: CinematicLandingProps) {
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') finish();
-      if (event.key === 'Enter' && reducedMotion) finish();
+      // Keyboard shortcuts always skip immediately — they are intentional exits.
+      if (event.key === 'Escape') finish(true);
+      if (event.key === 'Enter' && reducedMotion) finish(true);
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
@@ -166,7 +182,7 @@ export function CinematicLanding({ onComplete }: CinematicLandingProps) {
                 <motion.div className="cinematic-chrome-layer" style={{ opacity: chromeOpacity }}>
                   <div className="cinematic-chrome">
                     <div className="cinematic-brand"><span aria-hidden="true">MB</span><p>Mevin Benty<br />Systems journey</p></div>
-                    <button type="button" onClick={finish} className="cinematic-skip">Skip intro <FastForward size={14} aria-hidden="true" /></button>
+                    <button type="button" onClick={() => finish(true)} className="cinematic-skip">Skip intro <FastForward size={14} aria-hidden="true" /></button>
                   </div>
                   <ProgressRail progress={progress} />
                   {/* Reduced motion collapses the track to one screen, so a
@@ -175,7 +191,7 @@ export function CinematicLanding({ onComplete }: CinematicLandingProps) {
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="cinematic-scroll-cue" aria-hidden="true"><span>Scroll to travel</span><ArrowDown size={15} /></motion.div>
                   )}
                 </motion.div>
-                {reducedMotion && <button type="button" onClick={finish} className="cinematic-enter">Enter portfolio</button>}
+                {reducedMotion && <button type="button" onClick={() => finish(true)} className="cinematic-enter">Enter portfolio</button>}
               </div>
             </div>
           </div>
