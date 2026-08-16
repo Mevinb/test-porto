@@ -52,10 +52,14 @@ export function Navigation() {
       initial={{ y: -90 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`sticky top-0 z-50 border-b border-[var(--line)] backdrop-blur-xl transition-[background-color,box-shadow] duration-500 ${
-        isScrolled
-          ? 'bg-[color-mix(in_srgb,var(--paper)_88%,transparent)] shadow-[0_10px_35px_rgba(10,18,40,0.08)]'
-          : 'bg-[color-mix(in_srgb,var(--paper)_96%,transparent)]'
+      className={`sticky top-0 z-50 border-b border-[var(--line)] transition-[background-color,box-shadow] duration-500 ${
+        isEventsPage
+          ? `bg-[var(--paper)] ${isScrolled ? 'shadow-[0_10px_35px_rgba(10,18,40,0.08)]' : ''}`
+          : `backdrop-blur-xl ${
+              isScrolled
+                ? 'bg-[color-mix(in_srgb,var(--paper)_88%,transparent)] shadow-[0_10px_35px_rgba(10,18,40,0.08)]'
+                : 'bg-[color-mix(in_srgb,var(--paper)_96%,transparent)]'
+            }`
       }`}
     >
       <div className={`mx-auto flex max-w-[1440px] items-center justify-between px-5 transition-[height] duration-500 md:px-10 ${isScrolled ? 'h-16' : 'h-[72px]'}`}>

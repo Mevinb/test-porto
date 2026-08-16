@@ -3,8 +3,6 @@ import {
   AnimatePresence,
   motion,
   MotionConfig,
-  useScroll,
-  useTransform,
 } from 'motion/react';
 import {
   ArrowLeft,
@@ -32,30 +30,14 @@ function EventCard({ event, index }: { event: Event; index: number }) {
   const year = event.event_date.slice(0, 4);
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ x: -6 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.58, delay: Math.min(index * 0.05, 0.25), ease: [0.22, 1, 0.36, 1] }}
-      style={{ contentVisibility: 'auto', containIntrinsicSize: '260px' }}
+    <article
       className="group relative grid overflow-hidden border-b border-[var(--line)] bg-[var(--card)] transition-colors hover:bg-[var(--project-wash)] md:grid-cols-[112px_220px_1fr]"
     >
-      <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.08 + Math.min(index * 0.04, 0.2), ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-x-0 top-0 z-10 h-[3px] origin-left bg-[var(--signal)]"
-      />
+      <div className="absolute inset-x-0 top-0 z-10 h-[3px] bg-[var(--signal)]" />
       <div className="flex items-center justify-between border-b border-[var(--line)] p-5 md:block md:border-b-0 md:border-r md:p-6">
-        <motion.span
-          animate={{ opacity: [0.68, 1, 0.68] }}
-          transition={{ duration: 3.2, delay: index * 0.18, repeat: Infinity, ease: 'easeInOut' }}
-          className="font-mono text-2xl font-semibold text-[var(--accent)]"
-        >
+        <span className="font-mono text-2xl font-semibold text-[var(--accent)]">
           {year}
-        </motion.span>
+        </span>
         <span className="label-mono mt-2 block text-[var(--ink-faint)]">Record {String(index + 1).padStart(2, '0')}</span>
       </div>
 
@@ -68,23 +50,19 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             className="block h-full min-h-44 overflow-hidden border border-[var(--line)] bg-white"
             aria-label={`Open ${event.title}`}
           >
-            <motion.img
+            <img
               src={event.image_url}
               alt={`${event.title} certificate preview`}
               loading={index < 2 ? 'eager' : 'lazy'}
               decoding="async"
-              initial={{ opacity: 0, scale: 1.06 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035]"
             />
           </a>
         ) : (
           <div className="grid h-full min-h-44 place-items-center border border-dashed border-[var(--line-strong)] bg-[var(--card)]">
-            <motion.div animate={{ y: [0, -6, 0], rotate: [0, -4, 0] }} transition={{ duration: 4.2, delay: index * 0.2, repeat: Infinity, ease: 'easeInOut' }}>
+            <div>
               <Award size={28} className="text-[var(--ink-faint)]" />
-            </motion.div>
+            </div>
           </div>
         )}
       </div>
@@ -127,20 +105,15 @@ function EventCard({ event, index }: { event: Event; index: number }) {
           )}
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
 function EventsArchive() {
   const initialEvents = useRef(getCachedEvents());
-  const heroRef = useRef<HTMLElement>(null);
   const [events, setEvents] = useState<Event[]>(initialEvents.current ?? []);
   const [loading, setLoading] = useState(!initialEvents.current);
   const [error, setError] = useState('');
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const heroCopyY = useTransform(scrollYProgress, [0, 1], [0, 72]);
-  const certificateY = useTransform(scrollYProgress, [0, 1], [0, -52]);
-  const certificateRotate = useTransform(scrollYProgress, [0, 1], [-5, 10]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -169,9 +142,9 @@ function EventsArchive() {
 
   return (
     <main id="main-content" tabIndex={-1}>
-      <section ref={heroRef} className="relative overflow-hidden border-b border-[var(--line)] bg-[var(--paper)]">
+      <section className="relative overflow-hidden border-b border-[var(--line)] bg-[var(--paper)]">
         <div className="hero-copy mx-auto grid max-w-[1440px] lg:grid-cols-[1.15fr_0.85fr]">
-          <motion.div style={{ y: heroCopyY }} className="border-b border-[var(--line)] px-5 py-16 will-change-transform md:px-10 md:py-24 lg:border-b-0 lg:border-r">
+          <div className="border-b border-[var(--line)] px-5 py-16 md:px-10 md:py-24 lg:border-b-0 lg:border-r">
             <motion.a
               href="/#notes"
               initial={{ opacity: 0, x: -12 }}
@@ -202,17 +175,16 @@ function EventsArchive() {
             <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }} className="mt-8 max-w-xl text-base leading-relaxed text-[var(--ink-soft)] md:text-lg">
               Conferences, workshops, certifications, and community work—documented as a chronological verification ledger.
             </motion.p>
-          </motion.div>
+          </div>
 
           <div className="relative flex min-h-[360px] flex-col justify-between overflow-hidden bg-[var(--accent)] p-6 text-[var(--accent-ink)] md:p-10 lg:min-h-0">
-            <motion.div animate={{ y: [0, 12, 0], x: [0, -8, 0] }} transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute -left-8 bottom-28 h-24 w-24 rounded-full bg-[var(--signal)]" aria-hidden="true" />
-            <motion.div animate={{ rotate: [0, 12, 0], y: [0, -8, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} className="absolute right-10 top-10 h-14 w-14 bg-[var(--highlight)]" aria-hidden="true" />
+            <div className="absolute -left-8 bottom-28 h-24 w-24 rounded-full bg-[var(--signal)]" aria-hidden="true" />
+            <div className="absolute right-10 top-10 h-14 w-14 rotate-6 bg-[var(--highlight)]" aria-hidden="true" />
             <motion.div
               initial={{ rotate: -8, y: 50, opacity: 0 }}
               animate={{ rotate: -5, y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ scale: 1.025 }}
-              style={{ y: certificateY, rotate: certificateRotate }}
               className="absolute right-[-7%] top-[14%] h-48 w-64 border-2 border-white/70 bg-white/10 shadow-[18px_18px_0_rgba(246,217,74,0.95)] md:h-60 md:w-80"
               aria-hidden="true"
             >
@@ -223,14 +195,14 @@ function EventsArchive() {
             </motion.div>
             <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }} className="label-mono relative z-10 text-white/70">Archive status</motion.span>
             <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.58, duration: 0.65, ease: [0.22, 1, 0.36, 1] }} className="relative z-10 grid grid-cols-2 gap-px border border-white/35 bg-white/35">
-              {[['Event records', events.length], ['Certificates', certificateCount]].map(([label, value], index) => (
+              {[['Event records', events.length], ['Certificates', certificateCount]].map(([label, value]) => (
                 <motion.div key={label} whileHover={{ backgroundColor: 'rgba(255,255,255,0.12)' }} className="bg-[var(--accent)] p-5">
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.span key={loading ? 'loading' : String(value)} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="block font-mono text-4xl font-semibold">
                       {loading ? '—' : value}
                     </motion.span>
                   </AnimatePresence>
-                  <motion.span animate={{ opacity: [0.62, 0.9, 0.62] }} transition={{ duration: 2.8, delay: index * 0.35, repeat: Infinity }} className="label-mono mt-2 block text-white/65">{label}</motion.span>
+                  <span className="label-mono mt-2 block text-white/65">{label}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -240,10 +212,10 @@ function EventsArchive() {
 
       <section className="bg-[var(--paper)]">
         <div className="mx-auto max-w-[1440px] border-x border-[var(--line)]">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col justify-between gap-4 border-b border-[var(--line)] bg-[var(--paper-strong)] px-5 py-7 sm:flex-row sm:items-center md:px-8">
+          <div className="flex flex-col justify-between gap-4 border-b border-[var(--line)] bg-[var(--paper-strong)] px-5 py-7 sm:flex-row sm:items-center md:px-8">
             <div><p className="label-mono text-[var(--accent)]">Chronological ledger</p><p className="mt-2 text-sm text-[var(--ink-soft)]">Newest activity first. Certificates open from Supabase storage.</p></div>
             <span className="label-mono text-[var(--ink-faint)]">{loading ? 'Syncing records' : `${events.length} total entries`}</span>
-          </motion.div>
+          </div>
 
           <AnimatePresence mode="wait" initial={false}>
             {loading && (
