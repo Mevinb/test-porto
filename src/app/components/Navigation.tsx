@@ -10,16 +10,18 @@ import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 const NAV_ITEMS = [
-  { id: 'capabilities', label: 'Capabilities' },
-  { id: 'work', label: 'Selected work' },
-  { id: 'notes', label: 'Field notes' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'capabilities', label: 'Capabilities', href: '/#capabilities' },
+  { id: 'work', label: 'Selected work', href: '/#work' },
+  { id: 'notes', label: 'Field notes', href: '/#notes' },
+  { id: 'events', label: 'Events', href: '/events' },
+  { id: 'contact', label: 'Contact', href: '/#contact' },
 ];
 
 export function Navigation() {
   const { theme, toggleTheme } = useTheme();
+  const isEventsPage = window.location.pathname === '/events';
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState(isEventsPage ? 'events' : '');
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY, scrollYProgress } = useScroll();
   const progressScale = useSpring(scrollYProgress, { stiffness: 160, damping: 28, mass: 0.25 });
@@ -27,6 +29,11 @@ export function Navigation() {
   useMotionValueEvent(scrollY, 'change', (latest) => setIsScrolled(latest > 24));
 
   useEffect(() => {
+    if (isEventsPage) {
+      setActive('events');
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting && setActive(entry.target.id)),
       { rootMargin: '-30% 0px -60%' },
@@ -36,7 +43,7 @@ export function Navigation() {
       if (section) observer.observe(section);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [isEventsPage]);
 
   return (
     <motion.header
@@ -51,7 +58,7 @@ export function Navigation() {
     >
       <div className={`mx-auto flex max-w-[1440px] items-center justify-between px-5 transition-[height] duration-500 md:px-10 ${isScrolled ? 'h-16' : 'h-[72px]'}`}>
         <motion.a
-          href="#main-content"
+          href={isEventsPage ? '/' : '#main-content'}
           className="group flex items-center gap-3"
           aria-label="Mevin Benty, back to top"
           whileHover="hover"
@@ -75,7 +82,7 @@ export function Navigation() {
             return (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={item.href}
                 className={`nav-link relative rounded-full px-4 py-2 text-[13px] font-semibold tracking-[-0.01em] transition-colors ${isActive ? 'text-[var(--ink)]' : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'}`}
               >
                 {isActive && (
@@ -106,7 +113,7 @@ export function Navigation() {
             </AnimatePresence>
           </motion.button>
           <motion.a
-            href="#contact"
+            href={isEventsPage ? '#contact' : '/#contact'}
             whileHover="hover"
             whileTap={{ scale: 0.97 }}
             className="shine-button group relative hidden h-10 items-center gap-2 overflow-hidden rounded-full bg-[var(--accent)] px-5 text-[13px] font-semibold tracking-[-0.01em] text-[var(--accent-ink)] sm:flex"
@@ -149,7 +156,7 @@ export function Navigation() {
               {NAV_ITEMS.map((item, index) => (
                 <motion.a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={item.href}
                   onClick={() => setMenuOpen(false)}
                   initial={{ opacity: 0, x: -14 }}
                   animate={{ opacity: 1, x: 0 }}
