@@ -8,7 +8,7 @@ import type { Event } from '../../lib/supabase';
 const MILESTONES = [
   { year: '2026', title: 'Story Teller multi-agent engine', type: 'Build', text: 'Designed a long-form generation workflow with semantic memory and multiple model backends.', url: 'https://github.com/Mevinb/story-teller-' },
   { year: '2025', title: 'Reactorv4 node suite', type: 'Open source', text: 'Released identity restoration tooling for ComfyUI and Stable Diffusion workflows.', url: 'https://github.com/Mevinb/Reactorv4' },
-  { year: '2025', title: 'Reactor Linux matrix', type: 'Infrastructure', text: 'Packaged repeatable CUDA and Python environment setup for headless GPU execution.', url: 'https://github.com/Mevinb/reactor-linux' },
+  { year: '2025', title: 'MediaHub desktop app', type: 'Build', text: 'Shipped a GPU-accelerated media library with AI face recognition, libmpv playback, and SQLite FTS5 search.', url: 'https://github.com/Mevinb/mediaplayer' },
 ];
 
 export function Events() {

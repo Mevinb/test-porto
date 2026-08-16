@@ -56,19 +56,19 @@ const TIMELINE_DATA: TimelineNode[] = [
   {
     id: 't3',
     year: '2025',
-    title: 'Reactor-Linux Cloud Matrix',
-    role: 'DevOps & GPU Architect',
+    title: 'MediaHub — Desktop Media Library',
+    role: 'Python & AI Engineer',
     category: 'Milestones',
     description:
-      'Created containerized cloud deployment scripts for executing automated face restoration headless on Linux cloud nodes.',
+      'Built a GPU-accelerated desktop media management application with AI face recognition, native video/audio playback, and full-text search.',
     highlights: [
-      'Automated headless CUDA 12.4 & PyTorch environment setup in single-line script',
-      'Integrated automated hardware telemetry and VRAM health monitoring',
-      'Deployed on remote server GPU clusters for background rendering pipelines',
+      'Integrated RetinaFace & ArcFace R100 for automatic face clustering via DBSCAN',
+      'Implemented libmpv-based video player with seek, volume, speed, and screenshot controls',
+      'Designed SQLite FTS5 full-text search across filenames, tags, and AI-generated metadata',
     ],
-    techStack: ['Bash Shell', 'Python', 'Linux Administration', 'CUDA Toolkit'],
-    link: 'https://github.com/Mevinb/reactor-linux',
-    linkLabel: 'View Deployment Scripts',
+    techStack: ['Python', 'PyQt6', 'SQLAlchemy', 'ONNX Runtime', 'FFmpeg'],
+    link: 'https://github.com/Mevinb/mediaplayer',
+    linkLabel: 'View Repository',
   },
   {
     id: 't4',

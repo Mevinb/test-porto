@@ -72,14 +72,14 @@ const FALLBACK_REPOS: GithubRepo[] = [
   },
   {
     id: 3,
-    name: 'reactor-linux',
-    full_name: 'Mevinb/reactor-linux',
-    description: 'Linux GPU Automated Build & Deployment Matrix for Reactor',
-    html_url: 'https://github.com/Mevinb/reactor-linux',
-    stargazers_count: 15,
-    forks_count: 3,
-    language: 'Shell',
-    updated_at: '2026-07-15T09:12:00Z',
+    name: 'mediaplayer',
+    full_name: 'Mevinb/mediaplayer',
+    description: 'GPU-accelerated desktop media library with AI face recognition, libmpv playback & SQLite FTS5 search',
+    html_url: 'https://github.com/Mevinb/mediaplayer',
+    stargazers_count: 12,
+    forks_count: 2,
+    language: 'Python',
+    updated_at: '2026-07-20T11:45:00Z',
   },
 ];
 
@@ -101,9 +101,9 @@ const FALLBACK_EVENTS: GithubEvent[] = [
   {
     id: 'e3',
     type: 'PushEvent',
-    repo: { name: 'Mevinb/reactor-linux', url: 'https://github.com/Mevinb/reactor-linux' },
+    repo: { name: 'Mevinb/mediaplayer', url: 'https://github.com/Mevinb/mediaplayer' },
     created_at: new Date(Date.now() - 3600000 * 72).toISOString(),
-    payload: { commits: [{ message: 'ci: add CUDA 12.4 driver auto-installation script', sha: 'f10287a' }] },
+    payload: { commits: [{ message: 'feat: add DBSCAN face clustering with ArcFace R100 embeddings', sha: 'b3d74c9' }] },
   },
 ];
 
