@@ -20,7 +20,7 @@ import {
   Upload,
   Loader2,
 } from 'lucide-react';
-import { supabase, type Event } from '../../lib/supabase';
+import { supabase, isSupabaseConfigured, type Event } from '../../lib/supabase';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD as string;
 const STORAGE_BUCKET = (import.meta.env.VITE_SUPABASE_STORAGE_BUCKET || 'event-images') as string;
@@ -461,8 +461,14 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const hasAdminPassword = Boolean(ADMIN_PASSWORD);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!hasAdminPassword) {
+      setError('VITE_ADMIN_PASSWORD is not configured in environment variables.');
+      return;
+    }
     if (password === ADMIN_PASSWORD) {
       sessionStorage.setItem('admin_auth', '1');
       onLogin();
@@ -486,6 +492,29 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           <h1 className="text-2xl font-extrabold text-[#FCF2E5]">Admin Access</h1>
           <p className="text-[#A8A492] text-sm mt-1">Events CMS — Mevin's Portfolio</p>
         </div>
+
+        {(!hasAdminPassword || !isSupabaseConfigured) && (
+          <div className="mb-6 p-4 rounded-2xl bg-[#90B800]/10 border border-[#90B800]/30 text-xs text-[#FCF2E5] space-y-2">
+            <p className="font-semibold text-[#90B800] flex items-center gap-1.5">
+              <AlertCircle size={14} /> Missing Vercel Environment Variables
+            </p>
+            <p className="text-[#D9CEBB] leading-relaxed">
+              On Vercel, go to <strong>Project Settings → Environment Variables</strong> and add:
+            </p>
+            <ul className="list-disc list-inside space-y-1 text-[#A8A492] font-mono text-[11px]">
+              {!hasAdminPassword && <li>VITE_ADMIN_PASSWORD</li>}
+              {!isSupabaseConfigured && (
+                <>
+                  <li>VITE_SUPABASE_URL</li>
+                  <li>VITE_SUPABASE_ANON_KEY</li>
+                </>
+              )}
+            </ul>
+            <p className="text-[10px] text-[#A8A492]">
+              *After adding, trigger a <strong>Redeploy</strong> in Vercel to rebuild with these variables.
+            </p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -531,7 +560,7 @@ export default function AdminEvents() {
 
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     setToast({ message, type });
-    setTimeout(() => setToast(null), 3000);
+    setTimeout(() => setToast(null), 4000);
   };
 
   const fetchEvents = async () => {
@@ -540,8 +569,12 @@ export default function AdminEvents() {
       .select('*')
       .order('event_date', { ascending: false });
 
-    if (error) showToast('Failed to load events', 'error');
-    else setEvents(data ?? []);
+    if (error) {
+      console.error('Failed to load events from Supabase:', error);
+      showToast(`Failed to load events: ${error.message}`, 'error');
+    } else {
+      setEvents(data ?? []);
+    }
     setLoading(false);
   };
 
@@ -571,11 +604,19 @@ export default function AdminEvents() {
     const { id, ...payload } = formData;
     if (id) {
       const { error } = await supabase.from('events').update(payload).eq('id', id);
-      if (error) { showToast('Failed to update event', 'error'); return; }
+      if (error) {
+        console.error('Supabase update error:', error);
+        showToast(`Failed to update: ${error.message}`, 'error');
+        return;
+      }
       showToast('Event updated successfully!');
     } else {
       const { error } = await supabase.from('events').insert([payload]);
-      if (error) { showToast('Failed to add event', 'error'); return; }
+      if (error) {
+        console.error('Supabase insert error:', error);
+        showToast(`Failed to add event: ${error.message}`, 'error');
+        return;
+      }
       showToast('Event added successfully!');
     }
     closeModal();
@@ -585,7 +626,11 @@ export default function AdminEvents() {
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this event? This cannot be undone.')) return;
     const { error } = await supabase.from('events').delete().eq('id', id);
-    if (error) { showToast('Failed to delete event', 'error'); return; }
+    if (error) {
+      console.error('Supabase delete error:', error);
+      showToast(`Failed to delete: ${error.message}`, 'error');
+      return;
+    }
     showToast('Event deleted');
     void fetchEvents();
   };
@@ -629,6 +674,18 @@ export default function AdminEvents() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-6 py-10">
+        {!isSupabaseConfigured && (
+          <div className="mb-6 p-4 rounded-2xl bg-[#90B800]/10 border border-[#90B800]/30 text-xs text-[#FCF2E5] flex items-start gap-3">
+            <AlertCircle size={18} className="text-[#90B800] shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-[#90B800]">Supabase Configuration Missing</p>
+              <p className="text-[#D9CEBB] mt-1">
+                Your events cannot be read or saved because <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> are not set in your Vercel Project Settings.
+              </p>
+            </div>
+          </div>
+        )}
+
         {loading ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (

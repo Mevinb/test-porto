@@ -1,9 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co') as string;
-const SUPABASE_ANON_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-anon-key') as string;
+const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL || '') as string;
+const SUPABASE_ANON_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY || '') as string;
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+export const isSupabaseConfigured = Boolean(
+  SUPABASE_URL &&
+  SUPABASE_URL !== 'https://placeholder.supabase.co' &&
+  SUPABASE_ANON_KEY &&
+  SUPABASE_ANON_KEY !== 'placeholder-anon-key'
+);
+
+export const supabase = createClient(
+  isSupabaseConfigured ? SUPABASE_URL : 'https://placeholder.supabase.co',
+  isSupabaseConfigured ? SUPABASE_ANON_KEY : 'placeholder-anon-key'
+);
 
 export type Event = {
   id: string;
