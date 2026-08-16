@@ -1,0 +1,387 @@
+.cinematic-root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #050711;
+  color: #f8faff;
+  overflow: hidden;
+}
+
+.cinematic-scroll {
+  height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  outline: none;
+}
+
+.cinematic-scroll::-webkit-scrollbar { display: none; }
+
+/*
+ * svh, not dvh: on iOS the URL bar collapsing mid-scroll would change dvh,
+ * resizing the track and making progress jump.
+ */
+.cinematic-track { height: 480svh; }
+
+.cinematic-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: #050711;
+}
+
+.cinematic-canvas,
+.cinematic-fallback,
+.cinematic-copy-layer,
+.cinematic-vignette {
+  position: absolute;
+  inset: 0;
+}
+
+.cinematic-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cinematic-vignette {
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, transparent 28%, rgba(2, 3, 9, 0.18) 62%, rgba(2, 3, 9, 0.78) 115%);
+}
+
+.cinematic-copy-layer {
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cinematic-prologue,
+.cinematic-finale,
+.cinematic-scene-copy {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 5rem);
+}
+
+/* Anchored to the top rather than centred: the opening camera pose puts the
+   core sculpture in the lower third, and a centred title card would sit on
+   top of it. */
+.cinematic-prologue {
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: clamp(3.5rem, 13svh, 9rem);
+  text-align: center;
+}
+
+.cinematic-kicker,
+.cinematic-scene-index,
+.cinematic-progress,
+.cinematic-scroll-cue,
+.cinematic-skip,
+.cinematic-brand {
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.cinematic-kicker {
+  color: #f6d94a;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.cinematic-prologue h1 {
+  max-width: 980px;
+  margin-top: 1.5rem;
+  font-size: clamp(3.2rem, 9vw, 8.6rem);
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  font-weight: 650;
+}
+
+.cinematic-prologue p {
+  margin-top: 1rem;
+  color: rgba(234, 239, 255, 0.62);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.cinematic-scene-copy {
+  max-width: 1440px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.cinematic-scene-index {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  color: rgba(230, 236, 255, 0.56);
+  font-size: 0.62rem;
+}
+
+.cinematic-scene-index span:first-child {
+  color: var(--act-accent, #f6d94a);
+  font-size: 0.76rem;
+}
+
+.cinematic-scene-title {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.4rem;
+  font-size: clamp(4.2rem, 12vw, 11rem);
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+  font-weight: 650;
+  text-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.cinematic-scene-title strong {
+  margin-top: 0.2em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+}
+
+/* Accent comes from --act-accent, set per act from cinematicTimeline. The old
+   :nth-of-type() rules were coupled to JSX sibling order. */
+.cinematic-scene-copy .cinematic-scene-title span { color: var(--act-accent, #79a2ff); }
+
+.cinematic-scene-copy > p {
+  max-width: 510px;
+  margin-top: 2rem;
+  color: rgba(232, 237, 255, 0.7);
+  font-size: clamp(0.95rem, 1.35vw, 1.15rem);
+  line-height: 1.65;
+}
+
+/* The finale lands after the scene has bloomed to `--paper`, so it is type on a
+   plate the same colour the site mounts on — hence theme tokens rather than the
+   light-on-dark values the rest of the overlay uses. The paper-coloured halo is
+   a hedge: the scene's damped follow can lag a fast scroll by a few frames, and
+   it keeps the type legible if the plate has not fully committed yet. */
+.cinematic-finale {
+  align-items: center;
+  text-align: center;
+  color: var(--ink);
+  text-shadow: 0 0 28px var(--paper), 0 0 8px var(--paper);
+}
+
+.cinematic-finale .cinematic-kicker {
+  color: var(--accent);
+}
+
+.cinematic-finale h2 {
+  margin-top: 1rem;
+  font-size: clamp(4rem, 12vw, 11rem);
+  line-height: 0.86;
+  letter-spacing: -0.075em;
+  font-weight: 700;
+}
+
+.cinematic-finale p {
+  max-width: 680px;
+  margin-top: 1.5rem;
+  color: var(--ink-soft);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  line-height: 1.7;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Wraps the overlay's own furniture so one opacity value retires all of it
+   before the whitewash, without disturbing each child's own entrance. */
+.cinematic-chrome-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.cinematic-chrome {
+  position: absolute;
+  z-index: 12;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1rem, 2.6vw, 2rem) clamp(1.2rem, 3.5vw, 3.5rem);
+  pointer-events: none;
+}
+
+.cinematic-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.55rem;
+  line-height: 1.55;
+  color: rgba(238, 243, 255, 0.58);
+}
+
+.cinematic-brand > span {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,0.36);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.65rem;
+  letter-spacing: 0;
+}
+
+.cinematic-skip {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 999px;
+  background: rgba(5, 7, 17, 0.46);
+  color: rgba(255,255,255,0.82);
+  padding: 0.7rem 1rem;
+  font-size: 0.58rem;
+  transition: color 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.cinematic-skip:hover,
+.cinematic-skip:focus-visible {
+  color: #fff;
+  border-color: rgba(255,255,255,0.72);
+  background: rgba(255,255,255,0.1);
+}
+
+.cinematic-progress {
+  position: absolute;
+  z-index: 12;
+  top: 50%;
+  right: clamp(1.2rem, 3.5vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.48);
+  font-size: 0.56rem;
+}
+
+.cinematic-progress > div { display: grid; gap: 0.45rem; }
+.cinematic-progress i { width: 2px; height: 2.4rem; background: rgba(255,255,255,0.2); transition: background-color 350ms ease, transform 350ms ease; will-change: transform; }
+.cinematic-progress i.active { background: #f6d94a; transform: scaleY(1.13); }
+
+.cinematic-scroll-cue {
+  position: absolute;
+  z-index: 12;
+  bottom: clamp(1.2rem, 3vw, 2.5rem);
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.58);
+  font-size: 0.55rem;
+  animation: cinematic-cue 1.8s ease-in-out infinite;
+}
+
+.cinematic-enter {
+  position: absolute;
+  z-index: 15;
+  left: 50%;
+  bottom: 4.5rem;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #f6d94a;
+  color: #0b1020;
+  padding: 0.9rem 1.25rem;
+  font-weight: 700;
+  transition: box-shadow 200ms ease;
+}
+
+.cinematic-enter:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #050711, 0 0 0 4px #f6d94a;
+}
+
+.cinematic-exit {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--paper);
+}
+
+.cinematic-fallback {
+  overflow: hidden;
+  background: #050711;
+  perspective: 900px;
+}
+
+.cinematic-fallback-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(46vw, 420px);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  translate: -50% -50%;
+}
+
+.cinematic-fallback-core span {
+  position: absolute;
+  inset: 8%;
+  border: 2px solid rgba(116, 157, 255, 0.78);
+  transform: rotateZ(calc(var(--i, 1) * 28deg)) translateZ(calc(var(--i, 1) * 26px));
+}
+.cinematic-fallback-core span:nth-child(2) { --i: 2; border-color: rgba(255, 89, 77, 0.75); }
+.cinematic-fallback-core span:nth-child(3) { --i: 3; border-color: rgba(246, 217, 74, 0.72); }
+
+.cinematic-fallback-grid {
+  position: absolute;
+  inset: 45% -20% -45%;
+  transform: rotateX(68deg);
+  background-image: linear-gradient(rgba(92,129,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(92,129,255,0.2) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.cinematic-fallback-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 45vw;
+  height: 45vw;
+  translate: -50% -50%;
+  background: radial-gradient(circle, rgba(47,109,255,0.32), transparent 68%);
+  filter: blur(32px);
+}
+
+@keyframes cinematic-cue {
+  0%, 100% { opacity: 0.45; transform: translate(-50%, 0); }
+  50% { opacity: 1; transform: translate(-50%, 7px); }
+}
+
+@media (max-width: 760px) {
+  .cinematic-track { height: 430svh; }
+  .cinematic-scene-copy { justify-content: flex-end; padding: 1.5rem 1.5rem 7.5rem; }
+  .cinematic-scene-title { font-size: clamp(3.6rem, 20vw, 6.5rem); line-height: 0.82; }
+  .cinematic-scene-title strong { -webkit-text-stroke-width: 1px; }
+  .cinematic-scene-copy > p { max-width: 82%; font-size: 0.9rem; }
+  .cinematic-prologue { padding-inline: 1.4rem; }
+  .cinematic-prologue h1 { font-size: clamp(3.2rem, 17vw, 6rem); }
+  .cinematic-progress { right: 1rem; }
+  .cinematic-brand p { display: none; }
+  .cinematic-skip { padding: 0.66rem 0.8rem; }
+  .cinematic-scroll-cue { left: 1.5rem; transform: none; }
+  @keyframes cinematic-cue {
+    0%, 100% { opacity: 0.45; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(7px); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-scroll-cue { animation: none; }
+  .cinematic-track { height: 100svh; }
+}

@@ -1,18 +1,18 @@
-@import './fonts.css';
+/* Fonts are linked from index.html so they are discovered in the initial HTML.
+   cinematic.css is imported by CinematicLanding so it ships with that chunk. */
 @import './tailwind.css';
 @import './theme.css';
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .shine-button::before {
+    display: none;
   }
 }

@@ -3,167 +3,185 @@
 
 :root {
   --font-size: 16px;
-
-  /* Brand palette */
-  --brand-sage: #a8a492;
-  --brand-ink: #524646;
-  --brand-cream: #fcf2e5;
-  --brand-terra: #90b800;
-
-  /* Dark theme (default) */
-  --background: #524646;
-  --foreground: #fcf2e5;
-  --card: #5e5252;
-  --card-foreground: #fcf2e5;
-  --popover: #5e5252;
-  --popover-foreground: #fcf2e5;
-  --primary: #90b800;
-  --primary-foreground: #fcf2e5;
-  --secondary: #a8a492;
-  --secondary-foreground: #fcf2e5;
-  --muted: #6b5d5d;
-  --muted-foreground: #a8a492;
-  --accent: #90b800;
-  --accent-foreground: #fcf2e5;
-  --destructive: #90b800;
-  --destructive-foreground: #fcf2e5;
-  --border: rgba(168, 164, 146, 0.22);
-  --input: rgba(168, 164, 146, 0.16);
-  --input-background: #5e5252;
-  --switch-background: #7a6b6b;
-  --ring: rgba(144, 184, 0, 0.5);
-  --radius: 0.75rem;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
+  --paper: #ffffff;
+  --paper-strong: #f1f3f7;
+  --ink: #101216;
+  --ink-soft: #515866;
+  --ink-faint: #7d8492;
+  --line: rgba(16, 18, 22, 0.14);
+  --line-strong: rgba(16, 18, 22, 0.32);
+  --pattern-dot: rgba(21, 87, 255, 0.18);
+  --accent: #1557ff;
+  --accent-bright: #3f75ff;
+  --accent-ink: #ffffff;
+  --signal: #ff594d;
+  --highlight: #f6d94a;
+  --hero-panel: #1557ff;
+  --hero-ink: #ffffff;
+  --hero-line: rgba(255, 255, 255, 0.32);
+  --feature-panel: #101216;
+  --feature-ink: #ffffff;
+  --feature-muted: #b7bdc9;
+  --feature-line: rgba(255, 255, 255, 0.2);
+  --project-wash: #edf3ff;
+  --contact-panel: #f6d94a;
+  --contact-ink: #101216;
+  --contact-muted: #554c1f;
+  --contact-line: rgba(16, 18, 22, 0.24);
+  --contact-card: #ffffff;
+  --form-panel: #101216;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --muted: var(--paper-strong);
+  --muted-foreground: var(--ink-soft);
+  --border: var(--line);
+  --input: rgba(22, 24, 23, 0.1);
+  --ring: rgba(37, 93, 40, 0.4);
+  --radius: 0.25rem;
 }
 
-.light {
-  --background: #fcf2e5;
-  --foreground: #524646;
-  --card: #ffffff;
-  --card-foreground: #524646;
-  --popover: #ffffff;
-  --popover-foreground: #524646;
-  --primary: #90b800;
-  --primary-foreground: #fcf2e5;
-  --secondary: #a8a492;
-  --secondary-foreground: #524646;
-  --muted: #efe3d0;
-  --muted-foreground: #8a7b7b;
-  --accent: #90b800;
-  --accent-foreground: #fcf2e5;
-  --destructive: #789900;
-  --destructive-foreground: #fcf2e5;
-  --border: rgba(82, 70, 70, 0.15);
-  --input: rgba(82, 70, 70, 0.12);
-  --input-background: #ffffff;
-  --switch-background: #d9cebb;
-  --ring: rgba(144, 184, 0, 0.45);
+.dark {
+  --paper: #0d1016;
+  --paper-strong: #171c26;
+  --ink: #f7f8fb;
+  --ink-soft: #b3bac8;
+  --ink-faint: #7d8799;
+  --line: rgba(247, 248, 251, 0.14);
+  --line-strong: rgba(247, 248, 251, 0.31);
+  --pattern-dot: rgba(105, 145, 255, 0.2);
+  --accent: #6b93ff;
+  --accent-bright: #91adff;
+  --accent-ink: #081127;
+  --signal: #ff7167;
+  --highlight: #ffe268;
+  --hero-panel: #163eaa;
+  --hero-ink: #ffffff;
+  --hero-line: rgba(255, 255, 255, 0.3);
+  --feature-panel: #172b63;
+  --feature-ink: #ffffff;
+  --feature-muted: #c0cbe5;
+  --feature-line: rgba(255, 255, 255, 0.2);
+  --project-wash: #111a2d;
+  --contact-panel: #e1c537;
+  --contact-ink: #101216;
+  --contact-muted: #504719;
+  --contact-line: rgba(16, 18, 22, 0.25);
+  --contact-card: #ffffff;
+  --form-panel: #07090d;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #131822;
+  --card-foreground: var(--ink);
+  --muted: var(--paper-strong);
+  --muted-foreground: var(--ink-soft);
+  --border: var(--line);
+  --input: rgba(241, 238, 230, 0.11);
+  --ring: rgba(169, 217, 91, 0.4);
 }
 
 @theme inline {
-  --color-brand-sage: #a8a492;
-  --color-brand-ink: #524646;
-  --color-brand-cream: #fcf2e5;
-  --color-brand-terra: #90b800;
-
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
-  --color-input-background: var(--input-background);
-  --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: 'Plus Jakarta Sans', 'Space Grotesk', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
+  * { @apply border-border outline-ring/50; }
+  html { font-size: var(--font-size); scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; }
+  h1, h2, h3, h4, p { margin: 0; }
+  button, a, input, textarea { font: inherit; }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+.nav-brand,
+.nav-link {
+  font-family: 'DM Sans', sans-serif;
+  font-optical-sizing: auto;
+  text-rendering: geometricPrecision;
+}
 
-  /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
+.shine-button::before {
+  content: '';
+  position: absolute;
+  inset: -100% auto -100% -45%;
+  width: 32%;
+  transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+  transition: left 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-  html {
-    font-size: var(--font-size);
-  }
+.shine-button:hover::before {
+  left: 120%;
+}
 
-  h1 {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+.site-shell {
+  position: relative;
+  isolation: isolate;
+  background: var(--paper);
+}
 
-  h2 {
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+.site-shell::before,
+.site-shell::after {
+  content: '';
+  position: fixed;
+  inset-block: 72px 0;
+  z-index: 45;
+  width: 5px;
+  pointer-events: none;
+}
 
-  h3 {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+.site-shell::before {
+  left: 0;
+  background: var(--accent);
+}
 
-  h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+.site-shell::after {
+  right: 0;
+  background: var(--signal);
+}
 
-  label {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+.hero-copy {
+  background-color: var(--paper);
+  background-image: radial-gradient(circle, var(--pattern-dot) 1.2px, transparent 1.3px);
+  background-size: 28px 28px;
+}
 
-  button {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+.project-card {
+  transform-origin: center;
+  will-change: transform;
+}
 
-  input {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
+.capability-card:nth-child(1) { box-shadow: inset 0 5px 0 var(--accent); }
+.capability-card:nth-child(2) { box-shadow: inset 0 5px 0 var(--signal); }
+.capability-card:nth-child(3) { box-shadow: inset 0 5px 0 var(--highlight); }
+.capability-card:nth-child(4) { box-shadow: inset 0 5px 0 var(--accent-bright); }
+
+@media (max-width: 640px) {
+  .site-shell::before,
+  .site-shell::after {
+    width: 3px;
   }
 }
 
-/* Hide scrollbars for smooth mobile touch sliders */
-.no-scrollbar::-webkit-scrollbar,
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
+.label-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
-.no-scrollbar,
-.scrollbar-none {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

@@ -1,309 +1,53 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { X, Play, RefreshCw, CheckCircle, Cpu, Database, Server, Zap, Layers, ArrowRight, Activity, Terminal } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import { useEffect, useState } from 'react';
+import { Activity, Cpu, Database, Play, Server, Terminal, X, Zap } from 'lucide-react';
 
-export interface ArchNode {
-  id: string;
-  name: string;
-  type: 'input' | 'process' | 'model' | 'storage' | 'output';
-  description: string;
-  tech: string;
-  latency?: string;
-  vram?: string;
-  details?: string[];
-}
+export interface ArchNode { id: string; name: string; type: 'input' | 'process' | 'model' | 'storage' | 'output'; description: string; tech: string; latency?: string; vram?: string; details?: string[] }
+export interface ProjectArchitecture { projectId: string; projectTitle: string; pipelineDescription: string; nodes: ArchNode[]; connections: { from: string; to: string; label?: string }[] }
 
-export interface ProjectArchitecture {
-  projectId: string;
-  projectTitle: string;
-  pipelineDescription: string;
-  nodes: ArchNode[];
-  connections: { from: string; to: string; label?: string }[];
-}
+const ICONS = { input: Terminal, process: Zap, model: Cpu, storage: Database, output: Server };
 
-interface ArchitectureModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  architecture?: ProjectArchitecture;
-}
-
-export function ArchitectureModal({ isOpen, onClose, architecture }: ArchitectureModalProps) {
-  const { theme } = useTheme();
-  const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
-  const [isSimulating, setIsSimulating] = useState(false);
-  const [simStep, setSimStep] = useState<number>(-1);
-
-  const isLight = theme === 'light';
+export function ArchitectureModal({ isOpen, onClose, architecture }: { isOpen: boolean; onClose: () => void; architecture?: ProjectArchitecture }) {
+  const [active, setActive] = useState(0);
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
-    if (architecture?.nodes && architecture.nodes.length > 0) {
-      setActiveNodeId(architecture.nodes[0].id);
-    }
-  }, [architecture]);
-
-  // Keyboard shortcut ESC to close
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    if (!isOpen) return;
+    document.body.style.overflow = 'hidden';
+    const close = (event: KeyboardEvent) => event.key === 'Escape' && onClose();
+    window.addEventListener('keydown', close);
+    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', close); };
   }, [isOpen, onClose]);
 
-  // Simulation execution loop
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isSimulating && architecture?.nodes) {
-      if (simStep < architecture.nodes.length - 1) {
-        timer = setTimeout(() => {
-          const nextStep = simStep + 1;
-          setSimStep(nextStep);
-          setActiveNodeId(architecture.nodes[nextStep].id);
-        }, 1100);
-      } else {
-        timer = setTimeout(() => {
-          setIsSimulating(false);
-          setSimStep(-1);
-        }, 1500);
-      }
+    if (!running || !architecture) return;
+    if (active >= architecture.nodes.length - 1) {
+      const end = window.setTimeout(() => setRunning(false), 700);
+      return () => window.clearTimeout(end);
     }
-    return () => clearTimeout(timer);
-  }, [isSimulating, simStep, architecture]);
-
-  const handleStartSimulation = () => {
-    setIsSimulating(true);
-    setSimStep(0);
-    if (architecture?.nodes[0]) {
-      setActiveNodeId(architecture.nodes[0].id);
-    }
-  };
+    const next = window.setTimeout(() => setActive((step) => step + 1), 700);
+    return () => window.clearTimeout(next);
+  }, [active, architecture, running]);
 
   if (!isOpen || !architecture) return null;
+  const selected = architecture.nodes[active];
+  const SelectedIcon = ICONS[selected.type];
 
-  const selectedNode = architecture.nodes.find((n) => n.id === activeNodeId) || architecture.nodes[0];
-
-  const getNodeIcon = (type: ArchNode['type']) => {
-    switch (type) {
-      case 'input':
-        return <Terminal className="w-5 h-5 text-[#90B800] light:text-[#789900]" />;
-      case 'process':
-        return <Zap className="w-5 h-5 text-[#90B800] light:text-[#789900]" />;
-      case 'model':
-        return <Cpu className="w-5 h-5 text-[#A8A492] light:text-[#8A7B7B]" />;
-      case 'storage':
-        return <Database className="w-5 h-5 text-[#A8A492] light:text-[#8A7B7B]" />;
-      case 'output':
-        return <Server className="w-5 h-5 text-[#A8A492] light:text-[#8A7B7B]" />;
-    }
-  };
-
-  return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="fixed inset-0 bg-black/75 backdrop-blur-md"
-        />
-
-        {/* Modal Window */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.3 }}
-          className="relative w-full max-w-5xl bg-[#473D3D] light:bg-[#524646] text-[#FCF2E5] border border-[#90B800]/25 light:border-[#7A6B6B] rounded-2xl shadow-2xl overflow-hidden z-10 my-auto max-h-[90vh] flex flex-col"
-        >
-          {/* Top Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-[#90B800]/15 light:border-[#5E5252] bg-[#3F3636]/80 light:bg-[#473D3D]/80 backdrop-blur-md">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-[#90B800]/10 light:bg-[#90B800]/10 border border-[#90B800]/20 text-[#90B800]">
-                <Layers className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold font-mono tracking-wide text-[#FCF2E5]">
-                  {architecture.projectTitle} <span className="text-[#90B800]/60 text-xs font-normal ml-2">// Architecture & Node Pipeline</span>
-                </h3>
-                <p className="text-xs text-[#90B800]/70 light:text-[#A8A492] line-clamp-1">{architecture.pipelineDescription}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleStartSimulation}
-                disabled={isSimulating}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
-                  isSimulating
-                    ? 'bg-[#90B800]/20 border border-[#90B800]/40 text-[#A8D500] animate-pulse cursor-wait'
-                    : 'bg-[#90B800]/15 hover:bg-[#90B800]/25 text-[#90B800] border border-[#90B800]/30 shadow-sm'
-                }`}
-              >
-                {isSimulating ? (
-                  <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    <span>Executing Pipeline (Step {simStep + 1}/{architecture.nodes.length})</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-3.5 h-3.5" />
-                    <span>Simulate Pipeline</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={onClose}
-                className="p-1.5 rounded-lg text-[#90B800]/70 hover:text-[#FCF2E5] hover:bg-white/10 transition-colors"
-                aria-label="Close architecture modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Modal Content Body */}
-          <div className="p-6 overflow-y-auto space-y-6 flex-1">
-            {/* Visual Node Diagram Flow */}
-            <div className="bg-[#05080d] border border-[#90B800]/15 rounded-xl p-6 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(144, 184, 0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(144, 184, 0,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] pointer-events-none" />
-
-              <div className="text-xs font-mono text-[#90B800]/50 mb-4 flex items-center justify-between">
-                <span>PIPELINE EXECUTION GRAPH</span>
-                <span>Click any node to inspect telemetry</span>
-              </div>
-
-              {/* Node Cards Row */}
-              <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-3 items-stretch">
-                {architecture.nodes.map((node, index) => {
-                  const isActive = activeNodeId === node.id;
-                  const isCurrentSimStep = simStep === index;
-                  const isPassedSimStep = simStep > index;
-
-                  return (
-                    <div key={node.id} className="relative flex flex-col items-center">
-                      {/* Node Box */}
-                      <button
-                        onClick={() => setActiveNodeId(node.id)}
-                        className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between h-full relative group ${
-                          isActive
-                            ? 'bg-[#544949] border-[#90B800] shadow-[0_0_20px_rgba(144, 184, 0,0.2)]'
-                            : 'bg-[#453B3B] border-[#90B800]/15 hover:border-[#90B800]/40 hover:bg-[#4D4343]'
-                        } ${isCurrentSimStep ? 'ring-2 ring-[#90B800] border-[#90B800] bg-[#524646]/30' : ''}`}
-                      >
-                        {/* Simulation Step Marker */}
-                        {isCurrentSimStep && (
-                          <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-[#90B800] animate-ping" />
-                        )}
-                        {isPassedSimStep && (
-                          <span className="absolute top-2 right-2 text-[#A8A492]">
-                            <CheckCircle className="w-3.5 h-3.5" />
-                          </span>
-                        )}
-
-                        <div>
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="p-1.5 rounded-lg bg-[#90B800]/10 border border-[#90B800]/20">
-                              {getNodeIcon(node.type)}
-                            </div>
-                            <span className="text-[10px] font-mono text-[#90B800]/50 uppercase tracking-widest">
-                              0{index + 1}
-                            </span>
-                          </div>
-                          <h4 className="text-sm font-semibold text-[#FCF2E5] group-hover:text-[#90B800] transition-colors line-clamp-1">
-                            {node.name}
-                          </h4>
-                          <p className="text-[11px] text-[#90B800]/60 line-clamp-2 mt-1 font-sans">
-                            {node.description}
-                          </p>
-                        </div>
-
-                        <div className="mt-3 pt-2 border-t border-[#90B800]/10 flex items-center justify-between text-[10px] font-mono text-[#90B800]/80">
-                          <span className="truncate max-w-[90px]">{node.tech}</span>
-                          {node.latency && <span className="text-[#A8D500]">{node.latency}</span>}
-                        </div>
-                      </button>
-
-                      {/* Arrow indicator between nodes for desktop */}
-                      {index < architecture.nodes.length - 1 && (
-                        <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 items-center justify-center text-[#90B800]/40">
-                          <ArrowRight className="w-4 h-4" />
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Selected Node Detailed Telemetry Box */}
-            {selectedNode && (
-              <div className="bg-[#433A3A] border border-[#90B800]/20 rounded-xl p-5 relative overflow-hidden">
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-[#90B800]/15">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-[#90B800]/10 border border-[#90B800]/25">
-                      {getNodeIcon(selectedNode.type)}
-                    </div>
-                    <div>
-                      <h4 className="text-base font-bold text-[#FCF2E5] font-mono flex items-center gap-2">
-                        {selectedNode.name}
-                        <span className="text-xs px-2 py-0.5 rounded bg-[#90B800]/15 text-[#90B800] font-normal uppercase">
-                          {selectedNode.type}
-                        </span>
-                      </h4>
-                      <p className="text-xs text-[#90B800]/70">{selectedNode.tech}</p>
-                    </div>
-                  </div>
-
-                  {/* Telemetry badges */}
-                  <div className="flex items-center gap-2 text-xs font-mono">
-                    {selectedNode.latency && (
-                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#90B800]/10 border border-[#90B800]/30 text-[#A8D500]">
-                        <Activity className="w-3.5 h-3.5" />
-                        <span>Latency: {selectedNode.latency}</span>
-                      </div>
-                    )}
-                    {selectedNode.vram && (
-                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#A8A492]/10 border border-[#A8A492]/30 text-[#C4BFAF]">
-                        <Cpu className="w-3.5 h-3.5" />
-                        <span>VRAM: {selectedNode.vram}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h5 className="text-xs font-mono text-[#90B800] mb-2 uppercase tracking-wider">Node Description</h5>
-                    <p className="text-xs text-[#90B800]/80 leading-relaxed bg-[#3B3333] p-3.5 rounded-lg border border-[#90B800]/10">
-                      {selectedNode.description}
-                    </p>
-                  </div>
-
-                  {selectedNode.details && (
-                    <div>
-                      <h5 className="text-xs font-mono text-[#90B800] mb-2 uppercase tracking-wider">Internal Operations</h5>
-                      <ul className="space-y-1.5 bg-[#3B3333] p-3.5 rounded-lg border border-[#90B800]/10 text-xs">
-                        {selectedNode.details.map((detail, i) => (
-                          <li key={i} className="flex items-start gap-2 text-[#90B800]/80">
-                            <span className="text-[#90B800] mt-0.5">•</span>
-                            <span>{detail}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
+  return <div className="fixed inset-0 z-[70] overflow-y-auto bg-[rgba(0,0,0,0.72)] p-3 md:p-8" role="dialog" aria-modal="true" aria-labelledby="blueprint-title" onClick={onClose}>
+    <div className="mx-auto my-4 max-w-6xl border border-[var(--line-strong)] bg-[var(--paper)]" onClick={(event) => event.stopPropagation()}>
+      <header className="flex items-start justify-between gap-5 border-b border-[var(--line)] p-5 md:p-7">
+        <div><p className="label-mono text-[var(--accent)]">System blueprint / interactive</p><h2 id="blueprint-title" className="mt-2 text-2xl font-semibold tracking-[-0.04em]">{architecture.projectTitle}</h2><p className="mt-1 text-sm text-[var(--ink-soft)]">{architecture.pipelineDescription}</p></div>
+        <button onClick={onClose} className="border border-[var(--line)] p-2" aria-label="Close blueprint"><X size={18} /></button>
+      </header>
+      <div className="p-5 md:p-7">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-4"><span className="label-mono text-[var(--ink-faint)]">Execution graph / select a node</span><button disabled={running} onClick={() => { setActive(0); setRunning(true); }} className="inline-flex items-center gap-2 bg-[var(--accent)] px-4 py-2 text-xs font-semibold text-[var(--accent-ink)] disabled:opacity-60"><Play size={13} /> {running ? `Running 0${active + 1}` : 'Run pipeline'}</button></div>
+        <div className="grid gap-px border border-[var(--line)] bg-[var(--line)] md:grid-cols-4">
+          {architecture.nodes.map((node, index) => { const Icon = ICONS[node.type]; return <button key={node.id} onClick={() => { setActive(index); setRunning(false); }} className={`min-h-48 bg-[var(--card)] p-5 text-left transition-colors ${active === index ? 'shadow-[inset_0_-4px_0_var(--accent)]' : 'hover:bg-[var(--paper-strong)]'}`}><div className="flex justify-between"><Icon size={18} className="text-[var(--accent)]" /><span className="label-mono text-[var(--ink-faint)]">0{index + 1}</span></div><h3 className="mt-10 font-semibold">{node.name}</h3><p className="mt-2 text-xs leading-relaxed text-[var(--ink-soft)]">{node.description}</p><span className="label-mono mt-5 block text-[var(--accent)]">{node.tech}</span></button>; })}
+        </div>
+        <div className="mt-5 grid border border-[var(--line)] bg-[var(--card)] md:grid-cols-[1fr_auto]">
+          <div className="p-5 md:p-7"><div className="flex items-center gap-3"><SelectedIcon size={20} className="text-[var(--accent)]" /><div><span className="label-mono text-[var(--ink-faint)]">Selected {selected.type}</span><h3 className="font-semibold">{selected.name}</h3></div></div><p className="mt-5 max-w-2xl text-sm leading-relaxed text-[var(--ink-soft)]">{selected.description}</p></div>
+          <div className="flex min-w-56 flex-col justify-center border-t border-[var(--line)] p-5 md:border-l md:border-t-0">{selected.latency && <span className="mb-3 flex items-center gap-2 font-mono text-xs"><Activity size={14} className="text-[var(--accent)]" /> Latency {selected.latency}</span>}{selected.vram && <span className="flex items-center gap-2 font-mono text-xs"><Cpu size={14} className="text-[var(--accent)]" /> VRAM {selected.vram}</span>}<span className="label-mono mt-4 text-[var(--ink-faint)]">Runtime telemetry</span></div>
+        </div>
       </div>
-    </AnimatePresence>
-  );
+    </div>
+  </div>;
 }

@@ -1,236 +1,38 @@
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'motion/react';
-import { Code, Sparkles, Layers, Wrench, Cpu, Shield, Zap } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
-import { CareerRoadmap } from './CareerRoadmap';
+import { motion } from 'motion/react';
+import { BrainCircuit, Code2, ShieldCheck, Wrench } from 'lucide-react';
 
-const skillCategories = [
-  {
-    title: 'AI & Image Generation',
-    icon: Sparkles,
-    color: 'bg-[#90B800]/10 border-[#90B800]/25 text-[#90B800]',
-    skills: ['Stable Diffusion', 'ComfyUI Workflows', 'LoRA Training', 'Prompt Engineering'],
-    desc: 'Fine-tuning, custom pipeline assemblies, and specialized generative imaging node creation.',
-  },
-  {
-    title: 'Backend & Systems',
-    icon: Code,
-    color: 'bg-[#A8A492]/10 border-[#A8A492]/25 text-[#A8A492]',
-    skills: ['FastAPI', 'Flask', 'Node.js', 'Express.js'],
-    desc: 'High-throughput secure APIs, custom server orchestration, and persistent databases.',
-  },
-  {
-    title: 'Languages & UI',
-    icon: Layers,
-    color: 'bg-[#90B800]/10 border-[#90B800]/25 text-[#90B800]',
-    skills: ['React', 'Python', 'Java', 'Kotlin', 'C'],
-    desc: 'Robust script creation, desktop software packaging, and responsive modern web builds.',
-  },
-  {
-    title: 'DevOps & Tooling',
-    icon: Wrench,
-    color: 'bg-[#A8A492]/10 border-[#A8A492]/25 text-[#A8A492]',
-    skills: ['Docker Containers', 'Git Versioning', 'PyInstaller Compilation'],
-    desc: 'Automated CI/CD deployments, reproducible dev nodes, and standalone executable bundling.',
-  },
+const CAPABILITIES = [
+  { number: '01', code: 'MODEL', title: 'AI vision systems', text: 'Stable Diffusion, ComfyUI node graphs, LoRA experiments, and identity-preserving pipelines.', icon: BrainCircuit, tags: ['ComfyUI', 'PyTorch', 'OpenCV', 'InsightFace'] },
+  { number: '02', code: 'API', title: 'Backend execution', text: 'FastAPI and Flask services for streaming workflows, long-running jobs, and structured automation.', icon: Code2, tags: ['FastAPI', 'Flask', 'Node.js', 'Postgres'] },
+  { number: '03', code: 'AUDIT', title: 'Security utilities', text: 'Network scanners, Windows audit scripts, local reconnaissance helpers, and reportable findings.', icon: ShieldCheck, tags: ['PowerShell', 'Python', 'Sockets', 'Scapy'] },
+  { number: '04', code: 'OPS', title: 'Deployment tooling', text: 'Linux GPU setup, dependency scripts, PyInstaller packaging, and reproducible project environments.', icon: Wrench, tags: ['Linux', 'Docker', 'CUDA', 'Git'] },
 ];
 
-// Helper component for mouse spotlight on cards
-function BentoCard({
-  children,
-  className = '',
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const { theme } = useTheme();
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setCoords({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
-
-  const isLight = theme === 'light';
-  const spotlightColor = isLight ? 'rgba(144, 184, 0, 0.12)' : 'rgba(144, 184, 0, 0.15)';
-
-  return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.5, delay }}
-      className={`group relative overflow-hidden bg-[#5E5252]/80 light:bg-white/90 backdrop-blur-xl border border-[#90B800]/15 light:border-[#D9CEBB]/90 rounded-3xl p-6 transition-all duration-300 hover:bg-[#5E5252] light:hover:bg-white hover:border-[#90B800]/35 light:hover:border-[#C9BEAA] shadow-lg light:shadow-[0_4px_20px_rgba(0,0,0,0.04)] ${className}`}
-    >
-      {/* Dynamic Border spotlight light */}
-      {isHovered && (
-        <div
-          className="pointer-events-none absolute -inset-px rounded-3xl transition-opacity duration-300"
-          style={{
-            background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, ${spotlightColor}, transparent 80%)`,
-          }}
-        />
-      )}
-      <div className="relative z-10 h-full flex flex-col justify-between">
-        {children}
-      </div>
-    </motion.div>
-  );
-}
-
 export function About() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-
   return (
-    <section id="about" ref={sectionRef} className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Section Heading */}
-        <div className="text-left mb-10 sm:mb-16 max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="text-xs font-bold uppercase tracking-widest text-[#90B800] light:text-[#90B800] mb-2 sm:mb-3"
-          >
-            Capabilities
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#FCF2E5] light:text-[#524646] tracking-tight leading-tight"
-          >
-            Engineering visual intelligence and secure server execution.
-          </motion.h2>
+    <section id="capabilities" className="scroll-mt-[72px] border-b border-[var(--feature-line)] bg-[var(--feature-panel)] text-[var(--feature-ink)]">
+      <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[0.75fr_1.25fr]">
+        <div className="border-b border-[var(--feature-line)] px-5 py-16 md:px-10 lg:border-b-0 lg:border-r lg:py-24">
+          <motion.p initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.55 }} className="label-mono text-[var(--highlight)]">Capability map</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.7, delay: 0.06, ease: [0.22, 1, 0.36, 1] }} className="mt-6 max-w-lg text-4xl font-semibold leading-[0.98] tracking-[-0.045em] md:text-6xl">From experimental model graph to usable system boundary.</motion.h2>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.65, delay: 0.14 }} className="mt-8 max-w-md text-base leading-relaxed text-[var(--feature-muted)]">The useful part is turning unstable experiments into something that can be run, inspected, and improved. My work sits between AI imaging, system automation, and practical security.</motion.p>
+          <div className="mt-12 border-t border-[var(--feature-line)]">
+            {['Prototype graph', 'Instrument runtime', 'Package service'].map((item, index) => (
+              <motion.div key={item} initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.18 + index * 0.08 }} className="group flex gap-5 border-b border-[var(--feature-line)] py-4 text-sm"><span className="font-mono text-[var(--highlight)] transition-transform group-hover:translate-x-1">0{index + 1}</span><span className="transition-transform group-hover:translate-x-1">{item}</span></motion.div>
+            ))}
+          </div>
         </div>
-
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          
-          {/* Bento Card 1: Bio Detail Spotlight (Spans 2 columns on medium+) */}
-          <BentoCard className="md:col-span-2 flex flex-col justify-between min-h-[280px] p-5 sm:p-6" delay={0.1}>
-            <div>
-              <div className="flex items-center gap-2 text-[#90B800] light:text-[#90B800] mb-4 sm:mb-6">
-                <Cpu size={18} className="sm:w-[20px] sm:h-[20px]" />
-                <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase">Background</span>
-              </div>
-              <h3 className="text-lg sm:text-2xl font-bold text-[#FCF2E5] light:text-[#524646] mb-3 sm:mb-4 leading-snug">
-                Optimizing generative processes for production-grade software architectures.
-              </h3>
-              <p className="text-[#A8A492] light:text-[#8A7B7B] text-xs sm:text-base leading-relaxed mb-5 sm:mb-6">
-                I am a software engineer focused on developing secure, high-performance backends and optimizing generative image systems. I bridge the gaps between stable model checkpoints, complex ComfyUI workflows, and programmatic execution.
-              </p>
-            </div>
-            
-            {/* Quick Metrics Grid */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 sm:pt-6 border-t border-[#90B800]/15 light:border-[#D9CEBB]">
-              <div>
-                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] to-[#A8A492] light:from-[#90B800] light:to-[#A8D500]">
-                  10+
-                </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#A8A492] light:text-[#A8A492] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
-                  Active Projects
-                </div>
-              </div>
-              <div>
-                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] to-[#A8A492] light:from-[#90B800] light:to-[#A8D500]">
-                  20+
-                </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#A8A492] light:text-[#A8A492] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
-                  Custom Workflows
-                </div>
-              </div>
-              <div>
-                <div className="text-xl xs:text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] to-[#A8A492] light:from-[#90B800] light:to-[#A8D500]">
-                  SecOps
-                </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs text-[#A8A492] light:text-[#A8A492] uppercase font-medium tracking-wider mt-0.5 sm:mt-1">
-                  Secure Auditing
-                </div>
-              </div>
-            </div>
-          </BentoCard>
-
-          {/* Bento Card 2: Interactive Feature Spotlight (Spans 1 column) */}
-          <BentoCard className="md:col-span-1 p-5 sm:p-6" delay={0.2}>
-            <div className="h-full flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-2 text-[#A8A492] light:text-[#524646] mb-4 sm:mb-6">
-                  <Zap size={18} className="sm:w-[20px] sm:h-[20px] text-[#90B800] light:text-[#90B800]" />
-                  <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase">Focus</span>
-                </div>
-                <h3 className="text-base sm:text-lg font-bold text-[#FCF2E5] light:text-[#524646] mb-2 sm:mb-3">
-                  Reactorv3 Face Pipeline
-                </h3>
-                <p className="text-[#A8A492] light:text-[#8A7B7B] text-xs sm:text-sm leading-relaxed">
-                  Developed high-resolution face restoration, running complex model weights, merging custom checkpoints, and preserving specific identities through specialized prompt matrices.
-                </p>
-              </div>
-              <div className="mt-6 sm:mt-8 flex items-center justify-between text-[11px] sm:text-xs font-semibold text-[#90B800] light:text-[#90B800] bg-[#90B800]/5 light:bg-[#90B800]/5 border border-[#90B800]/15 light:border-[#90B800]/20 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl">
-                <span>Face Enhancement Focus</span>
-                <span className="w-2 h-2 rounded-full bg-[#90B800] light:bg-[#90B800] animate-pulse" />
-              </div>
-            </div>
-          </BentoCard>
-
-          {/* Bento Skill Categories Map (Cards 3, 4, 5, 6) */}
-          {skillCategories.map((category, idx) => {
-            const Icon = category.icon;
-            return (
-              <BentoCard key={category.title} className="p-5 sm:p-6" delay={0.2 + idx * 0.1}>
-                <div className="flex flex-col justify-between h-full">
-                  <div>
-                    {/* Category Title & Icon */}
-                    <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
-                      <div className={`p-2 sm:p-2.5 rounded-xl border ${category.color} light:bg-[#90B800]/10 light:border-[#90B800]/25 light:text-[#90B800]`}>
-                        <Icon size={16} className="sm:w-[18px] sm:h-[18px]" />
-                      </div>
-                      <h4 className="text-xs sm:text-sm font-bold text-[#FCF2E5] light:text-[#524646] uppercase tracking-wider">
-                        {category.title}
-                      </h4>
-                    </div>
-
-                    <p className="text-[#A8A492] light:text-[#8A7B7B] text-xs leading-relaxed mb-4 sm:mb-6">
-                      {category.desc}
-                    </p>
-                  </div>
-
-                  {/* Skills tags list */}
-                  <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-auto">
-                    {category.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg bg-[#524646]/80 light:bg-[#F4E9D8] border border-[#90B800]/15 light:border-[#D9CEBB] text-[#A8A492] light:text-[#524646] font-medium"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </BentoCard>
-            );
+        <div className="grid sm:grid-cols-2">
+          {CAPABILITIES.map((item, index) => {
+            const Icon = item.icon;
+            return <motion.article key={item.number} initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} whileHover={{ y: -7, backgroundColor: 'rgba(255,255,255,0.055)' }} viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.6, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }} className="capability-card group min-h-[280px] border-b border-[var(--feature-line)] p-6 last:border-b-0 sm:p-8 sm:nth-[3]:border-b-0 sm:nth-[4]:border-b-0 sm:nth-[odd]:border-r">
+              <div className="flex items-start justify-between"><motion.span whileHover={{ rotate: -10, scale: 1.12 }}><Icon size={21} className="text-[var(--highlight)]" /></motion.span><span className="label-mono text-[var(--feature-muted)]">{item.code}</span></div>
+              <h3 className="mt-12 text-2xl font-semibold tracking-[-0.03em]">{item.title}</h3>
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--feature-muted)]">{item.text}</p>
+              <div className="mt-7 flex flex-wrap gap-2">{item.tags.map((tag) => <motion.span key={tag} whileHover={{ y: -2, borderColor: 'rgba(255,255,255,0.5)' }} className="border border-[var(--feature-line)] px-2 py-1 font-mono text-[10px] text-[var(--feature-muted)]">{tag}</motion.span>)}</div>
+            </motion.article>;
           })}
         </div>
-
-        {/* Career & Innovation Roadmap Timeline */}
-        <CareerRoadmap />
-
-        {/* Anchor point for Skills navigation item */}
-        <div id="skills" className="w-full h-px mt-12 sm:mt-16" />
       </div>
     </section>
   );

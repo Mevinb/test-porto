@@ -4,21 +4,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mevin - Developer &amp; Engineering Student | Portfolio</title>
+
+    <!-- Discovered in the initial HTML, not behind the CSS bundle: an @import
+         chain would serialize app CSS -> font CSS -> WOFF2 on the critical path. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Mevin Benty | AI Systems &amp; Software Engineer</title>
     <meta
       name="description"
-      content="Mevin Benty is a software developer and engineering student building AI pipelines, secure backend systems, open-source tools, and modern web applications."
+      content="Mevin Benty builds generative imaging pipelines, secure backend systems, open-source tools, and Linux GPU automation. Explore selected engineering work."
     />
     <meta name="author" content="Mevin Benty" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#524646" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="canonical" href="https://mevin.tech/" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mevin - Developer &amp; Engineering Student | Portfolio" />
+    <meta property="og:title" content="Mevin Benty | AI Systems &amp; Software Engineer" />
     <meta
       property="og:description"
-      content="Explore Mevin Benty's software engineering portfolio, including AI pipelines, secure systems, open-source tools, and web projects."
+      content="Selected work across generative imaging, secure systems, backend execution, and Linux GPU automation."
     />
     <meta property="og:url" content="https://mevin.tech/" />
     <meta property="og:image" content="https://mevin.tech/mevin-portfolio-og.png" />
@@ -28,23 +38,16 @@
     <meta property="og:site_name" content="Mevin Benty Portfolio" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mevin - Developer &amp; Engineering Student | Portfolio" />
+    <meta name="twitter:title" content="Mevin Benty | AI Systems &amp; Software Engineer" />
     <meta
       name="twitter:description"
-      content="Explore Mevin Benty's software engineering portfolio, including AI pipelines, secure systems, open-source tools, and web projects."
+      content="Selected work across generative imaging, secure systems, backend execution, and Linux GPU automation."
     />
     <meta name="twitter:image" content="https://mevin.tech/mevin-portfolio-og.png" />
     <meta name="twitter:image:alt" content="Mevin Benty developer portfolio preview" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;family=Space+Grotesk:wght@400..700&amp;display=swap"
-      rel="stylesheet"
-    />
-
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

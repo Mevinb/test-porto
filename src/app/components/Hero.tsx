@@ -1,223 +1,89 @@
-import { motion } from 'motion/react';
-import { Github, Mail, Sparkles, Shield, Cpu, MapPin, ArrowUpRight, BadgeCheck, Code2 } from 'lucide-react';
-import { Rockets } from './Rockets';
-import { Planet } from './Planet';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { ArrowDownRight, ArrowUpRight, Github, MapPin } from 'lucide-react';
 
-const PROFILE_LINKS = {
+const PROFILE = {
   github: 'https://github.com/Mevinb',
-  email: 'mailto:mevinbenty507@gmail.com',
   linkedin: 'https://www.linkedin.com/in/mevin-benty-17305a322',
 };
 
-const FOCUS_AREAS = [
-  { icon: Cpu, label: 'Stable Diffusion' },
-  { icon: Sparkles, label: 'ComfyUI Workflows' },
-  { icon: Shield, label: 'Python & PowerShell Security' },
-];
-
-const HIGHLIGHTS = [
-  { value: '10+', label: 'Active Projects' },
-  { value: '20+', label: 'Custom Workflows' },
-  { value: '42', label: 'GitHub Stars' },
-];
+const headline = ['I build AI systems', 'that survive', 'the real world.'];
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, -54]);
+  const shapeRotate = useTransform(scrollYProgress, [0, 1], [12, 48]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 sm:pt-28 pb-12 px-4 sm:px-6 overflow-hidden">
-      <Planet />
-      <Rockets />
-      <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-        {/* Left Column: Headline and Actions */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left">
-          {/* Floating badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#90B800]/10 light:bg-[#90B800]/10 border border-[#90B800]/30 light:border-[#90B800]/30 text-[#90B800] text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(144, 184, 0,0.12)]"
-          >
-            <Sparkles size={13} className="animate-pulse shrink-0" />
-            <span>AI Workflow Engineer & DevSecOps</span>
-          </motion.div>
-
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#FCF2E5] light:text-[#524646] tracking-tight leading-[1.15] mb-6"
-          >
-            <span className="block text-base sm:text-xl md:text-2xl text-[#A8A492] light:text-[#8A7B7B] mb-2">
-              Mevin Benty - Developer &amp; Engineering Student
-            </span>
-            Building{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#90B800] via-[#A8D500] to-[#FCF2E5] light:from-[#90B800] light:via-[#789900] light:to-[#524646] font-black">
-              Next-Gen AI
-            </span>{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#A8A492] to-[#A8D500] light:from-[#90B800] light:to-[#8A7B7B] font-black">
-              Pipelines
-            </span>{' '}
-            and Secure Systems.
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.64, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[#A8A492] light:text-[#8A7B7B] text-sm sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-8"
-          >
-            I am a software developer and engineering student specializing in generative imaging workflows,
-            facial restoration pipelines, and secure backend architectures with automated systems.
-          </motion.p>
-
-          {/* Focus Tags */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.78 }}
-            className="flex flex-wrap gap-2 sm:gap-3 mb-10"
-          >
-            {FOCUS_AREAS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.label}
-                  whileHover={{ y: -3 }}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#5E5252]/80 light:bg-white border border-[#A8A492]/25 light:border-[#D9CEBB] text-[11px] sm:text-xs text-[#FCF2E5] light:text-[#524646] shadow-md"
-                >
-                  <Icon size={13} className="text-[#90B800] shrink-0" />
-                  <span>{item.label}</span>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.88, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
-          >
-            <motion.a
-              href={PROFILE_LINKS.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#90B800] hover:bg-[#A8D500] text-[#FCF2E5] text-xs sm:text-sm font-bold rounded-xl shadow-[0_0_25px_rgba(144, 184, 0,0.25)] transition-all overflow-hidden cursor-pointer"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+    <section ref={sectionRef} className="relative overflow-hidden border-b border-[var(--line)]">
+      <div className="mx-auto grid min-h-[calc(100vh-72px)] max-w-[1440px] lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,0.65fr)]">
+        <motion.div style={{ y: copyY }} className="hero-copy flex flex-col justify-between px-5 py-16 will-change-transform md:px-10 md:py-20 lg:border-r lg:border-[var(--line)] lg:py-24">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[var(--accent)]"
             >
-              <Github size={17} />
-              <span>Explore Repositories</span>
-            </motion.a>
+              <span className="label-mono flex items-center gap-2"><MapPin size={13} /> Thrissur, Kerala</span>
+              <span className="label-mono flex items-center gap-2"><span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--signal)] opacity-60" /><span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--signal)]" /></span>Available for engineering roles</span>
+            </motion.div>
 
-            <motion.a
-              href={PROFILE_LINKS.email}
-              className="flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#5E5252]/90 light:bg-white/90 hover:bg-[#6B5D5D] light:hover:bg-[#F4E9D8] backdrop-blur-sm border border-[#A8A492]/30 light:border-[#D9CEBB] rounded-xl text-[#FCF2E5] light:text-[#524646] text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-md"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Mail size={17} />
-              <span>Get In Touch</span>
-            </motion.a>
-          </motion.div>
-        </div>
-
-        {/* Right Column: Professional Profile Card */}
-        <div className="lg:col-span-5 relative w-full flex items-center justify-center">
-          {/* Soft glow behind card */}
-          <div className="absolute -z-10 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-radial from-[#90B800]/15 light:from-[#90B800]/10 via-[#A8A492]/8 to-transparent blur-[70px]" />
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.62, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-md bg-[#5E5252]/85 light:bg-white/95 backdrop-blur-xl border border-[#A8A492]/25 light:border-[#D9CEBB] rounded-3xl shadow-2xl overflow-hidden"
-          >
-            {/* Top accent bar */}
-            <div className="h-1.5 w-full bg-gradient-to-r from-[#90B800] via-[#A8D500] to-[#A8A492]" />
-
-            <div className="p-6 sm:p-8">
-              {/* Header: monogram + identity */}
-              <div className="flex items-center gap-4">
-                <div className="relative shrink-0">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#90B800] text-[#FCF2E5] flex items-center justify-center text-xl sm:text-2xl font-black shadow-lg shadow-[#90B800]/30">
-                    MB
-                  </div>
-                  <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#A8A492] border-2 border-[#5E5252] light:border-white" />
-                </div>
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#FCF2E5] light:text-[#524646] leading-tight">
-                    Mevin Benty
-                  </h2>
-                  <p className="text-[11px] sm:text-xs font-medium text-[#A8A492] light:text-[#8A7B7B] mt-0.5">
-                    Software Engineer · AI Pipeline Specialist
-                  </p>
-                  <span className="inline-flex items-center gap-1 mt-2 px-2.5 py-0.5 rounded-full bg-[#A8A492]/15 border border-[#A8A492]/30 text-[10px] font-semibold text-[#A8A492] light:text-[#8A7B7B]">
-                    <BadgeCheck size={11} className="text-[#90B800]" />
-                    Open to opportunities
-                  </span>
-                </div>
-              </div>
-
-              {/* Location line */}
-              <div className="flex items-center gap-1.5 mt-4 text-[11px] text-[#A8A492] light:text-[#8A7B7B]">
-                <MapPin size={12} className="text-[#90B800] shrink-0" />
-                <span>Thrissur, Kerala · Remote-friendly</span>
-              </div>
-
-              {/* Quick stats */}
-              <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-5">
-                {HIGHLIGHTS.map((item) => (
-                  <div
-                    key={item.label}
-                    className="p-3 rounded-xl bg-[#4F4444] light:bg-[#F7EBDD] border border-[#A8A492]/20 light:border-[#EFE3D0] text-center"
+            <h1 className="max-w-5xl text-[clamp(3.3rem,8.2vw,8.5rem)] font-semibold leading-[0.86] tracking-[-0.075em]">
+              {headline.map((line, index) => (
+                <span key={line} className="block overflow-hidden pb-[0.08em]">
+                  <motion.span
+                    className="block"
+                    initial={{ y: '115%', rotate: 2 }}
+                    animate={{ y: 0, rotate: 0 }}
+                    transition={{ duration: 0.85, delay: 0.18 + index * 0.11, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <div className="text-base sm:text-lg font-extrabold text-[#A8D500] light:text-[#90B800]">
-                      {item.value}
-                    </div>
-                    <div className="text-[9px] sm:text-[10px] uppercase tracking-wider font-medium text-[#A8A492] light:text-[#8A7B7B] mt-0.5">
-                      {item.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Quick links */}
-              <div className="flex items-center gap-2 mt-6">
-                {[
-                  { href: PROFILE_LINKS.github, label: 'GitHub', icon: Github },
-                  { href: PROFILE_LINKS.linkedin, label: 'LinkedIn', icon: ArrowUpRight },
-                  { href: PROFILE_LINKS.email, label: 'Email', icon: Mail },
-                ].map((link) => {
-                  const Icon = link.icon;
-                  return (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-[#4F4444] light:bg-[#F4E9D8] border border-[#A8A492]/25 light:border-[#D9CEBB] text-[11px] font-semibold text-[#FCF2E5] light:text-[#524646] hover:border-[#90B800] hover:text-[#A8D500] light:hover:text-[#90B800] transition-all cursor-pointer"
-                      whileHover={{ y: -2 }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      <Icon size={14} />
-                      <span className="hidden xs:inline sm:inline">{link.label}</span>
-                    </motion.a>
-                  );
-                })}
-              </div>
-
-              {/* Mono footer */}
-              <div className="mt-6 pt-4 border-t border-[#A8A492]/20 light:border-[#EFE3D0] flex items-center justify-between text-[10px] font-mono text-[#A8A492]/80 light:text-[#A8A492]">
-                <span className="flex items-center gap-1.5">
-                  <Code2 size={11} className="text-[#90B800]" />
-                  React · TypeScript · Tailwind
+                    {line}
+                  </motion.span>
                 </span>
-                <span>MB-2026</span>
+              ))}
+            </h1>
+          </div>
+
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.72, duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="mt-16 grid gap-8 md:grid-cols-[minmax(0,560px)_auto] md:items-end md:justify-between">
+            <div>
+              <p className="max-w-xl text-lg leading-relaxed text-[var(--ink-soft)] md:text-xl">Software developer and engineering student working across generative imaging, secure backend systems, and Linux GPU automation.</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <motion.a href="#work" whileHover="hover" whileTap={{ scale: 0.97 }} className="shine-button group relative inline-flex h-12 items-center gap-2 overflow-hidden rounded-full bg-[var(--accent)] px-6 text-sm font-semibold text-[var(--accent-ink)]">
+                  <span className="relative z-10">View selected work</span><motion.span variants={{ hover: { x: 3, y: 3 } }} className="relative z-10"><ArrowDownRight size={16} /></motion.span>
+                </motion.a>
+                <motion.a href={PROFILE.github} target="_blank" rel="noreferrer" whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }} className="inline-flex h-12 items-center gap-2 rounded-full border border-[var(--line-strong)] bg-[var(--card)] px-6 text-sm font-semibold shadow-[0_7px_20px_rgba(10,18,40,0.06)]">GitHub <Github size={16} /></motion.a>
               </div>
             </div>
+            <motion.a href={PROFILE.linkedin} target="_blank" rel="noreferrer" whileHover={{ x: 4 }} className="label-mono inline-flex items-center gap-2 text-[var(--ink-soft)] hover:text-[var(--accent)]">LinkedIn <ArrowUpRight size={14} /></motion.a>
+          </motion.div>
+        </motion.div>
+
+        <div className="relative flex min-h-[620px] flex-col justify-between overflow-hidden bg-[var(--hero-panel)] p-5 text-[var(--hero-ink)] md:p-10 lg:min-h-0">
+          <motion.div style={{ rotate: shapeRotate }} className="absolute -right-24 top-24 h-64 w-64 border-[36px] border-[var(--signal)] opacity-90 will-change-transform" aria-hidden="true" />
+          <motion.div animate={{ y: [0, 12, 0], x: [0, -7, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} className="absolute -left-7 bottom-32 h-24 w-24 rounded-full bg-[var(--highlight)] opacity-95" aria-hidden="true" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65, duration: 0.6 }} className="relative z-10 flex items-center justify-between border-b border-[var(--hero-line)] pb-4">
+            <span className="label-mono text-[var(--highlight)]">Profile study / 2026</span><span className="label-mono text-white/65">Frame 01</span>
+          </motion.div>
+          <motion.div
+            style={{ y: portraitY }}
+            initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.95, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.018, rotate: -0.6 }}
+            className="relative z-10 mx-auto my-10 aspect-[4/5] w-full max-w-[430px] overflow-hidden border border-[var(--hero-line)] bg-[#dbe4ff] shadow-[18px_18px_0_var(--highlight)] will-change-transform"
+          >
+            <motion.div animate={{ backgroundPosition: ['0px 0px', '30px 30px'] }} transition={{ duration: 6, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 bg-[linear-gradient(135deg,transparent_48%,rgba(21,87,255,0.14)_48%,rgba(21,87,255,0.14)_52%,transparent_52%)] bg-[length:30px_30px]" />
+            <motion.div animate={{ scale: [1, 1.025, 1] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} className="absolute inset-x-[12%] bottom-0 h-[72%] rounded-t-[45%] border border-black/30 bg-[#121722]" />
+            <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }} className="absolute left-1/2 top-[17%] h-[34%] w-[46%] -translate-x-1/2 rounded-[46%] border border-black/30 bg-[var(--signal)]" />
+            <div className="absolute bottom-4 left-4 right-4 flex justify-between border-t border-black/20 pt-3 text-[#303746]"><span className="label-mono">Portrait placeholder</span><span className="label-mono">Replace / JPG</span></div>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.82, duration: 0.65 }} className="relative z-10 grid grid-cols-3 border border-[var(--hero-line)] bg-black/20">
+            {[['AI', 'Vision pipelines'], ['SEC', 'Systems audit'], ['OPS', 'GPU deployment']].map(([code, label], index) => (
+              <motion.div key={code} whileHover={{ backgroundColor: 'rgba(255,255,255,0.12)' }} className="border-r border-[var(--hero-line)] p-4 last:border-r-0"><motion.span animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2.4, delay: index * 0.35, repeat: Infinity }} className="font-mono text-sm font-semibold text-[var(--highlight)]">{code}</motion.span><span className="mt-2 block text-xs leading-snug text-white/75">{label}</span></motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
