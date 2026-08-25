@@ -14,6 +14,7 @@ import { prefetchEvents } from '../../lib/events';
 const NAV_ITEMS = [
   { id: 'capabilities', label: 'Capabilities', href: '/#capabilities' },
   { id: 'work', label: 'Selected work', href: '/#work' },
+  { id: 'projects', label: 'Projects', href: '/projects' },
   { id: 'notes', label: 'Field notes', href: '/#notes' },
   { id: 'events', label: 'Events', href: '/events' },
   { id: 'contact', label: 'Contact', href: '/#contact' },
@@ -22,8 +23,9 @@ const NAV_ITEMS = [
 export function Navigation() {
   const { theme, toggleTheme } = useTheme();
   const isEventsPage = window.location.pathname === '/events';
+  const isProjectsPage = window.location.pathname === '/projects';
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState(isEventsPage ? 'events' : '');
+  const [active, setActive] = useState(isEventsPage ? 'events' : isProjectsPage ? 'projects' : '');
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY, scrollYProgress } = useScroll();
   const progressScale = useSpring(scrollYProgress, { stiffness: 160, damping: 28, mass: 0.25 });
@@ -31,8 +33,8 @@ export function Navigation() {
   useMotionValueEvent(scrollY, 'change', (latest) => setIsScrolled(latest > 24));
 
   useEffect(() => {
-    if (isEventsPage) {
-      setActive('events');
+    if (isEventsPage || isProjectsPage) {
+      setActive(isEventsPage ? 'events' : 'projects');
       return;
     }
 
@@ -45,7 +47,7 @@ export function Navigation() {
       if (section) observer.observe(section);
     });
     return () => observer.disconnect();
-  }, [isEventsPage]);
+  }, [isEventsPage, isProjectsPage]);
 
   return (
     <motion.header
@@ -53,7 +55,7 @@ export function Navigation() {
       animate={{ y: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className={`sticky top-0 z-50 border-b border-[var(--line)] transition-[background-color,box-shadow] duration-500 ${
-        isEventsPage
+        isEventsPage || isProjectsPage
           ? `bg-[var(--paper)] ${isScrolled ? 'shadow-[0_10px_35px_rgba(10,18,40,0.08)]' : ''}`
           : `backdrop-blur-xl ${
               isScrolled
@@ -64,7 +66,7 @@ export function Navigation() {
     >
       <div className={`mx-auto flex max-w-[1440px] items-center justify-between px-5 transition-[height] duration-500 md:px-10 ${isScrolled ? 'h-16' : 'h-[72px]'}`}>
         <motion.a
-          href={isEventsPage ? '/' : '#main-content'}
+          href={isEventsPage || isProjectsPage ? '/' : '#main-content'}
           className="group flex items-center gap-3"
           aria-label="Mevin Benty, back to top"
           whileHover="hover"
@@ -118,7 +120,7 @@ export function Navigation() {
             </AnimatePresence>
           </motion.button>
           <motion.a
-            href={isEventsPage ? '#contact' : '/#contact'}
+            href={isEventsPage || isProjectsPage ? '/#contact' : '#contact'}
             whileHover="hover"
             whileTap={{ scale: 0.97 }}
             className="shine-button group relative hidden h-10 items-center gap-2 overflow-hidden rounded-full bg-[var(--accent)] px-5 text-[13px] font-semibold tracking-[-0.01em] text-[var(--accent-ink)] sm:flex"

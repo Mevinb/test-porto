@@ -6,6 +6,7 @@ import './styles/index.css';
 
 const AdminEvents = lazy(() => import('./app/pages/AdminEvents.tsx'));
 const EventsPage = lazy(() => import('./app/pages/EventsPage.tsx'));
+const ProjectsPage = lazy(() => import('./app/pages/ProjectsPage.tsx'));
 
 function RouteFallback() {
   return (
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/admin" element={<AdminEvents />} />
         <Route path="/admin/events" element={<AdminEvents />} />
       </Routes>

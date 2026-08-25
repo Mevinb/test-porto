@@ -1,20 +1,11 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, Cpu, Github, Layers, ShieldCheck, X } from 'lucide-react';
-import { ArchitectureModal, ProjectArchitecture } from './ArchitectureModal';
+import { ArchitectureModal, type ProjectArchitecture } from './ArchitectureModal';
+import { PROJECTS, type Project, type ProjectCategory } from '../../lib/projects';
 
-type Category = 'All' | 'AI vision' | 'Security' | 'Web systems';
-type Project = { id: string; title: string; category: Exclude<Category, 'All'>; tagline: string; description: string; tags: string[]; url: string; architecture?: ProjectArchitecture };
-
-const PROJECTS: Project[] = [
-  { id: 'reactor', title: 'Reactorv4', category: 'AI vision', tagline: 'ComfyUI face restoration node suite', description: 'Identity-preserving facial restoration workflows for Stable Diffusion, InsightFace, and custom ComfyUI graph execution.', tags: ['Python', 'PyTorch', 'ComfyUI'], url: 'https://github.com/Mevinb/Reactorv4', architecture: { projectId: 'Reactorv4', projectTitle: 'Reactorv4 Face Restoration Pipeline', pipelineDescription: 'Identity preservation and facial restoration pipeline', nodes: [{ id: '1', name: 'Identity source', type: 'input', description: 'Loads the target face image.', tech: 'OpenCV / PIL' }, { id: '2', name: 'Feature extractor', type: 'process', description: 'Computes facial identity embeddings.', tech: 'InsightFace', latency: '18ms' }, { id: '3', name: 'Diffusion sampler', type: 'model', description: 'Applies identity conditioning during sampling.', tech: 'PyTorch', vram: '8.2 GB' }, { id: '4', name: 'Restored output', type: 'output', description: 'Exports the enhanced composite.', tech: 'ComfyUI' }], connections: [{ from: '1', to: '2' }, { from: '2', to: '3' }, { from: '3', to: '4' }] } },
-  { id: 'story', title: 'Story Teller', category: 'AI vision', tagline: 'Multi-agent writing engine', description: 'Long-form fiction system with planning agents, live SSE generation, semantic story memory, and pluggable model backends.', tags: ['Python', 'Flask', 'FAISS'], url: 'https://github.com/Mevinb/story-teller-' },
-  { id: 'mediahub', title: 'MediaHub', category: 'AI vision', tagline: 'GPU-accelerated desktop media library', description: 'AI-powered media management app with face recognition via RetinaFace & ArcFace, libmpv playback, SQLite FTS5 search, duplicate detection, and non-destructive image editing.', tags: ['Python', 'PyQt6', 'SQLAlchemy'], url: 'https://github.com/Mevinb/mediaplayer' },
-  { id: 'sniper', title: 'sn1per-win', category: 'Security', tagline: 'Windows reconnaissance scanner', description: 'PowerShell-oriented reconnaissance and audit utility for host discovery, service checks, and structured reports.', tags: ['PowerShell', 'Windows API', 'Networking'], url: 'https://github.com/Mevinb/sn1per-win' },
-  { id: 'cloudx', title: 'cloudx', category: 'Web systems', tagline: 'Cloud infrastructure and LMS platform', description: 'Full-stack platform for course management, virtual labs, role permissions, and scalable content delivery.', tags: ['TypeScript', 'React', 'Node.js'], url: 'https://github.com/Mevinb/cloudx' },
-  { id: 'recipe', title: 'Recipe Sharing', category: 'Web systems', tagline: 'MERN community recipe platform', description: 'Full-stack social platform for sharing and discovering recipes — user auth, ratings, comments, and React Query-powered real-time data fetching.', tags: ['React', 'Node.js', 'MongoDB'], url: 'https://github.com/Mevinb/recipe-sharing' },
-];
-const CATEGORIES: Category[] = ['All', 'AI vision', 'Security', 'Web systems'];
+type Category = 'All' | ProjectCategory;
+const CATEGORIES: Array<'All' | 'AI vision' | 'Security' | 'Web systems'> = ['All', 'AI vision', 'Security', 'Web systems'];
 
 function CategoryIcon({ category }: { category: Project['category'] }) { return category === 'AI vision' ? <Cpu size={15} /> : category === 'Security' ? <ShieldCheck size={15} /> : <Layers size={15} />; }
 
@@ -22,7 +13,7 @@ export function Projects() {
   const [category, setCategory] = useState<Category>('All');
   const [selected, setSelected] = useState<Project | null>(null);
   const [architecture, setArchitecture] = useState<ProjectArchitecture>();
-  const visible = PROJECTS.filter((project) => category === 'All' || project.category === category);
+  const visible = PROJECTS.filter((project) => project.featured && (category === 'All' || project.category === category));
   return <section id="work" className="scroll-mt-[72px] border-b border-[var(--line)] bg-[var(--project-wash)]">
     <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-24">
       <div className="flex flex-col justify-between gap-8 border-b border-[var(--line)] pb-10 lg:flex-row lg:items-end">
@@ -36,7 +27,7 @@ export function Projects() {
           <div className="flex items-end justify-between border-t border-[var(--line)] pt-5"><div className="flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="border border-[var(--line)] px-2 py-1 font-mono text-[10px] text-[var(--ink-faint)]">{tag}</span>)}</div><span className="label-mono flex items-center gap-1 text-[var(--ink-soft)]">Read dossier <ArrowUpRight size={13} className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" /></span></div>
         </motion.article>)}</AnimatePresence>
       </div>
-      <div className="mt-10 flex flex-col justify-between gap-5 border-t border-[var(--line)] pt-6 text-sm text-[var(--ink-soft)] sm:flex-row"><span>More experiments live in the archive.</span><a href="https://github.com/Mevinb?tab=repositories" target="_blank" rel="noreferrer" className="font-semibold text-[var(--accent)] hover:underline">Browse all repositories <ArrowUpRight className="ml-1 inline" size={14} /></a></div>
+       <div className="mt-10 flex flex-col justify-between gap-5 border-t border-[var(--line)] pt-6 text-sm text-[var(--ink-soft)] sm:flex-row"><span>More experiments live in the archive.</span><a href="/projects" className="font-semibold text-[var(--accent)] hover:underline">Open the project archive <ArrowUpRight className="ml-1 inline" size={14} /></a></div>
     </div>
     <AnimatePresence>{selected && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelected(null)} className="fixed inset-0 z-[60] grid place-items-center bg-[rgba(0,0,0,0.65)] p-4"><motion.div initial={{ y: 16 }} animate={{ y: 0 }} onClick={(event) => event.stopPropagation()} className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-[var(--line-strong)] bg-[var(--paper)] p-6 md:p-10"><button onClick={() => setSelected(null)} className="absolute right-5 top-5 p-2" aria-label="Close project dossier"><X size={18} /></button><p className="label-mono text-[var(--accent)]">{selected.category} / dossier</p><h2 className="mt-5 text-4xl font-semibold tracking-[-0.05em]">{selected.title}</h2><p className="mt-2 text-lg text-[var(--accent)]">{selected.tagline}</p><p className="mt-8 leading-relaxed text-[var(--ink-soft)]">{selected.description}</p><div className="mt-8 flex flex-wrap gap-2">{selected.tags.map((tag) => <span key={tag} className="border border-[var(--line)] px-3 py-2 font-mono text-xs">{tag}</span>)}</div><div className="mt-10 flex flex-wrap gap-3 border-t border-[var(--line)] pt-6"><a href={selected.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-[var(--accent-ink)]">View repository <Github size={15} /></a>{selected.architecture && <button onClick={() => { setArchitecture(selected.architecture); setSelected(null); }} className="inline-flex items-center gap-2 border border-[var(--line-strong)] px-4 py-3 text-sm font-semibold">Open blueprint <Layers size={15} /></button>}</div></motion.div></motion.div>}</AnimatePresence>
     <ArchitectureModal isOpen={Boolean(architecture)} onClose={() => setArchitecture(undefined)} architecture={architecture} />
